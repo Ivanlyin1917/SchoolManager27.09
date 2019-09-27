@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,8 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import Model.Subject;
+import data.DatabaseHandler;
+
 public class Manager_project extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+   private DatabaseHandler dbh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,19 @@ public class Manager_project extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+       dbh=new DatabaseHandler(this);
+        dbh.create_db();
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dbh.open();
+        Subject subject=dbh.getSubject(1);
+        Log.i("subject","Назва:"+subject.getName()+"тип:"+subject.getType()+"id:"+subject.getId());
+
     }
 
     @Override
