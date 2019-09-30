@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.content.Intent;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.io.IOException;
 
 import Model.Subject;
 import data.DatabaseHandler;
@@ -42,11 +47,34 @@ public class Manager_project extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+//временный метод на время разработки
+        TextView start = findViewById(R.id.start);
+        start.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
+                Intent dbmanager = new Intent(getApplicationContext(),AndroidDatabaseManager.class);
+                startActivity(dbmanager);
+            }
+        });
+//--------------------------------------------------------------------------------------------------
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-       dbh=new DatabaseHandler(this);
-        dbh.create_db();
+        dbh=new DatabaseHandler(this);
+
+       try{
+
+         //  dbh.updateDataBase();
+           dbh.createDataBase();
+       }catch (IOException ex){
+           //throw new Error("Unable to create database");
+           ex.printStackTrace();
+       }
+        try{dbh.openDataBase();
+            Subject subject=dbh.getSubject(1);
+            Log.i("subject","Назва:"+subject.getName()+"тип:"+subject.getType()+"id:"+subject.getId());
+        }catch (SQLException sex){
+            throw sex;
+        }
 
 
     }
@@ -54,9 +82,7 @@ public class Manager_project extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        dbh.open();
-        Subject subject=dbh.getSubject(1);
-        Log.i("subject","Назва:"+subject.getName()+"тип:"+subject.getType()+"id:"+subject.getId());
+
 
     }
 
