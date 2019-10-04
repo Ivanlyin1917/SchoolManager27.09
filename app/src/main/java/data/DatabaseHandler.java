@@ -1,7 +1,6 @@
 package data;
 
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.SQLException;
@@ -17,16 +16,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import Model.Subject;
 
-import static data.Utils.*;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-
+    public static final int DB_VERSION=20;
+    public static final String DB_NAME="scool.db";
     private static String DB_PATH;
     private Context myContext;
     private SQLiteDatabase myDB;
+    
     public DatabaseHandler( Context context){
         super(context, DB_NAME,null,DB_VERSION);
         //DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
