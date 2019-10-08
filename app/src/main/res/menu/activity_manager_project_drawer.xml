@@ -5,21 +5,25 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_rozklad"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Розклад" />
+            android:title="@string/item_rozklad" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_homework"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Домашнє завдання" />
+            android:title="@string/item_homework" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_note"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Нотатки" />
+            android:title="@string/item_note" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_setting"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Налаштування" />
+            android:title="@string/item_setting" />
+        <item
+            android:id="@+id/test_bd"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/item_test_db" />
     </group>
 
     <item android:title="Communicate">

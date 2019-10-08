@@ -5,6 +5,8 @@ import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,6 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.myapplication.fragments.FragmentRozklad;
+
 import java.io.IOException;
 
 import Model.Subject;
@@ -25,6 +29,7 @@ import data.DatabaseHandler;
 public class Manager_project extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
    private DatabaseHandler dbh;
+   private FragmentRozklad frameRozklad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +47,12 @@ public class Manager_project extends AppCompatActivity
             }
         });
 
+        frameRozklad = new FragmentRozklad();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-//временный метод на время разработки
-        TextView start = findViewById(R.id.start);
-        start.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                Intent dbmanager = new Intent(getApplicationContext(),AndroidDatabaseManager.class);
-                startActivity(dbmanager);
-            }
-        });
 //--------------------------------------------------------------------------------------------------
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -123,21 +120,27 @@ public class Manager_project extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_rozklad) {
+            transaction.replace(R.id.container,frameRozklad);
+        } else if (id == R.id.nav_homework) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_note) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_setting) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.test_bd) {//только для разработки
+
+            Intent dbmanager = new Intent(getApplicationContext(),AndroidDatabaseManager.class);
+            startActivity(dbmanager);
 
         } else if (id == R.id.nav_send) {
 
         }
-
+        transaction.commit();
+        item.setChecked(true);
+        setTitle(item.getTitle());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -6,4 +6,11 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="item_rozklad">Розклад</string>
+    <string name="item_homework">Домашнє завдання</string>
+    <string name="item_note">Нотатки</string>
+    <string name="item_setting">Налаштування</string>
+    <string name="item_test_db">Відкрити БД</string>
 </resources>
