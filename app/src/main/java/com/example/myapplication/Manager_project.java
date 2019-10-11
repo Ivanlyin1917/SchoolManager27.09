@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.myapplication.fragments.FragmentHomeWork;
 import com.example.myapplication.fragments.FragmentRozklad;
 
 import java.io.IOException;
@@ -30,6 +31,8 @@ public class Manager_project extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
    private DatabaseHandler dbh;
    private FragmentRozklad frameRozklad;
+   private FragmentHomeWork frameHomework;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class Manager_project extends AppCompatActivity
         });
 
         frameRozklad = new FragmentRozklad();
+        frameHomework = new FragmentHomeWork();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -125,6 +129,7 @@ public class Manager_project extends AppCompatActivity
         if (id == R.id.nav_rozklad) {
             transaction.replace(R.id.container,frameRozklad);
         } else if (id == R.id.nav_homework) {
+            transaction.replace(R.id.container,frameHomework);
 
         } else if (id == R.id.nav_note) {
 
