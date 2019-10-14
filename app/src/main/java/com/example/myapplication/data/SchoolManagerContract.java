@@ -1,17 +1,24 @@
-package data;
+package com.example.myapplication.data;
 
+import android.net.Uri;
 import android.provider.BaseColumns;
 
 public final class SchoolManagerContract {
 
     public SchoolManagerContract() {
     }
+    public static final String SCHEME = "content://";
+    public static final String AUTHORITY = "com.example.myapplication";
+    public static final Uri BASE_CONTENT_URI = Uri.parse(SCHEME + AUTHORITY);
+    public static final String PATH_SUBJECT = "Subjects";
+
 
     public static final class SubjectEntry implements BaseColumns {
         public static  final  String TABLE_NAME="Subjects";
         public static  final String KEY_ID="Subject_id";
         public static  final String KEY_NAME="Subject_name";
         public static  final  String KEY_TYPE_ID="Subject_type_id";
+        public static final Uri SUBJECT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_SUBJECT);
     }
     public static final class DaysEntry implements BaseColumns{
         public  static final String DAY_ID="Day_id";

@@ -31,11 +31,11 @@ import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import data.DatabaseHandler;
+import com.example.myapplication.data.DatabaseHandler;
 
 public class AndroidDatabaseManager extends Activity implements OnItemClickListener {
 
-//a static class to save cursor,table values etc which is used by functions to share data in the program.
+//a static class to save cursor,table values etc which is used by functions to share com.example.myapplication.data in the program.
 	static class indexInfo
     {
     	public static int index = 10;
@@ -348,7 +348,7 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
 	            	tvmessage.setText("Error Messages will be displayed here");
 	            	tvmessage.setBackgroundColor(Color.WHITE);
 
-	            	 //removes any data if present in the table layout
+	            	 //removes any com.example.myapplication.data if present in the table layout
                        tableLayout.removeAllViews();
 	            	ArrayList<String> spinnertablevalues = new ArrayList<String>();
 	            	spinnertablevalues.add("Click here to change this table");
@@ -392,7 +392,7 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
 	            	//saving cursor to the static indexinfo class which can be resued by the other functions
 	            	indexInfo.maincursor=c2;
 
-	            	// if the cursor returned form the database is not null we display the data in table layout
+	            	// if the cursor returned form the database is not null we display the com.example.myapplication.data in table layout
 	            	if(c2!=null)
 	            	{
 	            	int counts = c2.getCount();
@@ -696,7 +696,7 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
 	                tableLayout.addView(tableheader);
 	                c2.moveToFirst();
 
-	               //after displaying columnnames in the first row  we display data in the remaining columns
+	               //after displaying columnnames in the first row  we display com.example.myapplication.data in the remaining columns
 	               //the below paginatetbale function will display the first 10 tuples of the tables
 	               //the remaining tuples can be viewed by clicking on the next button
 	                paginatetable(c2.getCount());
@@ -1057,7 +1057,7 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
 		{
 		c3=indexInfo.maincursor;
 		}
-    	// if the cursor returened form tha database is not null we display the data in table layout
+    	// if the cursor returened form tha database is not null we display the com.example.myapplication.data in table layout
     	if(c3!=null)
     	{
     	int counts = c3.getCount();
@@ -1084,7 +1084,7 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
         tableLayout.addView(tableheader);
         c3.moveToFirst();
 
-       //after displaying column names in the first row  we display data in the remaining columns
+       //after displaying column names in the first row  we display com.example.myapplication.data in the remaining columns
        //the below paginate table function will display the first 10 tuples of the tables
        //the remaining tuples can be viewed by clicking on the next button
         paginatetable(c3.getCount());
@@ -1145,7 +1145,7 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
   	       try{
   		    column_data = c3.getString(j);
   		}catch(Exception e){
-  			// Column data is not a string , do not display it	
+  			// Column com.example.myapplication.data is not a string , do not display it
   		}
                columsView.setText(column_data); 
                columsView.setTextColor(Color.parseColor("#000000"));

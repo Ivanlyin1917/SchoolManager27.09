@@ -1,4 +1,4 @@
-package data;
+package com.example.myapplication.data;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -16,7 +16,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import Model.Subject;
+import com.example.myapplication.Model.Subject;
 
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public DatabaseHandler( Context context){
         super(context, DB_NAME,null,DB_VERSION);
-        //DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
+        //DB_PATH = "/com.example.myapplication.data/com.example.myapplication.data/" + context.getPackageName() + "/databases/";
         DB_PATH = context.getDatabasePath(DB_NAME).getPath();
         this.myContext=context;
     }
@@ -65,7 +65,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(checkDB != null){
             checkDB.close();
         }
-        return checkDB != null ? true : false;
+        return checkDB != null;
     }
 
     /**

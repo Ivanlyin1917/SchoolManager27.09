@@ -1,4 +1,4 @@
-package Model;
+package com.example.myapplication.Model;
 
 public class Subject {
     private int id;
