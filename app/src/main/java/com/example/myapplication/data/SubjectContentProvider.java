@@ -93,7 +93,6 @@ public class SubjectContentProvider extends ContentProvider {
                 break;
             default:
                 throw new IllegalArgumentException("Can't update incorrect URI " + uri);
-
         }
         return countRec;
 
