@@ -6,18 +6,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public class RozkladPageFragmentAdapter extends FragmentPagerAdapter {
-
+public class HomeWorkPageFragmentAdapter extends FragmentPagerAdapter {
     private Context context=null;
 
-    public RozkladPageFragmentAdapter(Context context,FragmentManager fm) {
+    public HomeWorkPageFragmentAdapter(Context context,FragmentManager fm) {
         super(fm);
         this.context = context;
     }
 
     @Override
     public Fragment getItem(int i) {
-        return RozkladPageFragment.newInstance(i);
+        return HomeWorkPageFragment.newInstance(i);
     }
 
     @Override
@@ -28,6 +27,6 @@ public class RozkladPageFragmentAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return RozkladPageFragment.getTitle(context,position);
+        return HomeWorkPageFragment.getTitle(context,position);
     }
 }

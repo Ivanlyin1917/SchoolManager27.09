@@ -10,11 +10,11 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 
-public class PageFragment extends Fragment {
+public class RozkladPageFragment extends Fragment {
     private int pageNumber;
 
-    public static PageFragment newInstance(int page) {
-        PageFragment fragment = new PageFragment();
+    public static RozkladPageFragment newInstance(int page) {
+        RozkladPageFragment fragment = new RozkladPageFragment();
         Bundle args=new Bundle();
         args.putInt("num", page);
         fragment.setArguments(args);
@@ -42,7 +42,7 @@ public class PageFragment extends Fragment {
        return  title;
     }
 
-    public PageFragment() {
+    public RozkladPageFragment() {
     }
 
     @Override
@@ -54,7 +54,7 @@ public class PageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View result=inflater.inflate(R.layout.page_fragment, container, false);//створюэмо фрагмент
+        View result=inflater.inflate(R.layout.rozklad_page_fragment, container, false);//створюэмо фрагмент
         TextView pageHeader=(TextView)result.findViewById(R.id.displayText); //отримуэмо TextView з розмітки фрагмента
         String header = String.format("Фрагмент %d", pageNumber+1);
         pageHeader.setText(header);

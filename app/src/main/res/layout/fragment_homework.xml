@@ -7,10 +7,15 @@
     android:id="@+id/fragment_rozklad">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/item_homework"
-        android:textSize="24sp" />
+        android:id="@+id/homework_pager">
+        <android.support.v4.view.PagerTitleStrip
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </android.support.v4.view.ViewPager>
 
 </FrameLayout>
