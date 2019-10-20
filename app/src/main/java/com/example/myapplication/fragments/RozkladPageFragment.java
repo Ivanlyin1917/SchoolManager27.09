@@ -6,12 +6,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RozkladPageFragment extends Fragment {
     private int pageNumber;
+    private List<RozkladViewItem> listLessons = new ArrayList<>();
+    ListView rozkladList;
 
     public static RozkladPageFragment newInstance(int page) {
         RozkladPageFragment fragment = new RozkladPageFragment();
@@ -22,9 +28,10 @@ public class RozkladPageFragment extends Fragment {
     }
 
     public static String getTitle(Context context, int position){
-       String title="";
+       String title=""   ;
+
        switch (position+1){
-           case 1: title = "Понеділок";
+           case 1: title ="Понеділок";
                    break;
            case 2: title = "Вівторок";
                break;
@@ -55,9 +62,9 @@ public class RozkladPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View result=inflater.inflate(R.layout.rozklad_page_fragment, container, false);//створюэмо фрагмент
-        TextView pageHeader=(TextView)result.findViewById(R.id.displayText); //отримуэмо TextView з розмітки фрагмента
-        String header = String.format("Фрагмент %d", pageNumber+1);
-        pageHeader.setText(header);
+        rozkladList= result.findViewById(R.id.lessonsListView); //отримуэмо ListView з розмітки фрагмента
+        RozkladViewAdapter adapter = new RozkladViewAdapter(getContext(),R.layout.rozklad_view_item,listLessons);
+        rozkladList.setAdapter(adapter);
         return result;
     }
 }

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.myapplication.R;
+
 public class HomeWorkPageFragment extends Fragment {
     private int pageNumber;
 

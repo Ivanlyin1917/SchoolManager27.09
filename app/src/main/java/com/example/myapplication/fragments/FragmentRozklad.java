@@ -13,10 +13,10 @@ public class FragmentRozklad extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View result = inflater.inflate(R.layout.fragment_rozklad, container, false);
-        ViewPager rozklad = result.findViewById(R.id.rozklad_pager);
+        View fragmentRozklad = inflater.inflate(R.layout.fragment_rozklad, container, false);
+        ViewPager rozklad = fragmentRozklad.findViewById(R.id.rozklad_pager);
         rozklad.setAdapter(new RozkladPageFragmentAdapter(getContext(),getFragmentManager()));
-        return result;
+        return fragmentRozklad;
     }
 
 
