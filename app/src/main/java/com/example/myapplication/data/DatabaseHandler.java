@@ -20,8 +20,8 @@ import com.example.myapplication.Model.Subject;
 
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    public static final int DB_VERSION=20;
-    public static final String DB_NAME="scool.db";
+    public static final int DB_VERSION=25;
+    public static final String DB_NAME="school.db";
     private static String DB_PATH;
     private Context myContext;
     private SQLiteDatabase myDB;
@@ -74,7 +74,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void createDataBase() throws IOException {
         boolean dbExist = checkDataBase();
 
-        if (dbExist) {
+       if (dbExist) {
             //ничего не делать - база уже есть
         } else {
             //вызывая этот метод создаем пустую базу, позже она будет перезаписана

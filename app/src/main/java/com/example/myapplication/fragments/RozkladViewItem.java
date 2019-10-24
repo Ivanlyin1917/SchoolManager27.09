@@ -1,6 +1,9 @@
 package com.example.myapplication.fragments;
 
+import android.net.Uri;
+
 public class RozkladViewItem {
+
     private String itemNumber;
     private String lessonTime;
     private String lessonName;

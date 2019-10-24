@@ -16,11 +16,13 @@ public class SubjectContentProvider extends ContentProvider {
 
     private static final int SUBJECT = 100;
     private static final int SUBJECT_ID = 101;
+    private static final int ROZRLAD = 200;
     private DatabaseHandler databaseHandler;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static{
-        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,SchoolManagerContract.PATH_SUBJECT, SUBJECT);
-        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,SchoolManagerContract.PATH_SUBJECT +"/#",SUBJECT_ID);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,SubjectEntry.PATH_SUBJECT, SUBJECT);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,SubjectEntry.PATH_SUBJECT +"/#",SUBJECT_ID);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,RozkladEntry.PATH_ROZKLAD, ROZRLAD);
 
     }
     @Override
@@ -45,6 +47,14 @@ public class SubjectContentProvider extends ContentProvider {
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 newCursor = db.query(SubjectEntry.TABLE_NAME,projection,selection,selectionArgs,
                         null,null,sortOrder);
+                break;
+            case ROZRLAD:
+                String sqlText = "Select L."+LessonsEntry.LESSON_ID+", L."+LessonsEntry.POSITION_ID
+                        +", L."+ LessonsEntry.LESSON_PLACE +", S."+SubjectEntry.KEY_NAME
+                        +" from " +LessonsEntry.TABLE_NAME+" as L inner join "
+                        +SubjectEntry.TABLE_NAME+" as S on L."+LessonsEntry.SUBJECT_ID+"=S."
+                        +SubjectEntry.KEY_ID+" where "+LessonsEntry.DAY_ID+"=?";
+                newCursor = db.rawQuery(sqlText,selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Can't query incorrect URI " + uri);
@@ -99,7 +109,17 @@ public class SubjectContentProvider extends ContentProvider {
     }
     @Override
     public String getType( Uri uri) {
-        return null;
+        int match = sUriMatcher.match(uri);
+        switch (match){
+            case SUBJECT:
+                return SubjectEntry.SUBJECT_MULTIPLE_ITEM;
+            case SUBJECT_ID:
+                return SubjectEntry.SUBJECT_SINGLE_ITEM;
+            case ROZRLAD:
+                return RozkladEntry.ROZKLAD_MULTIPLE_ITEM;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
     }
 
 }
