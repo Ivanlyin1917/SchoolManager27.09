@@ -2,6 +2,7 @@ package com.example.myapplication.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,7 +34,7 @@ public class RozkladPageFragment extends Fragment implements LoaderManager.Loade
     RozkladCursorAdapter rozkladCursorAdapter;
     private int pageNumber;
     private List<RozkladViewItem> listLessons = new ArrayList<>();
-    private AutoCompleteTextView subject;
+    private  ArrayAdapter<String> subjectListAdapter;
     ListView rozkladList;
 
     public static RozkladPageFragment newInstance(int page) {
@@ -87,10 +88,12 @@ public class RozkladPageFragment extends Fragment implements LoaderManager.Loade
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                getLoaderManager().initLoader(SUBJECT_LOADER,null,RozkladPageFragment.this);
-                AlertDialog dialog = DialogScreen.getDialog(getActivity(),1);
-                subject = dialog.findViewById(R.id.new_lesson_name);
-                dialog.show();
+                openDialogAddNewLessons();
+
+               // AlertDialog dialog = DialogScreen.getDialog(getActivity(),1);
+               // AutoCompleteTextView subject = dialog.findViewById(R.id.new_lesson_name);
+               // subject.setAdapter(subjectListAdapter);
+               // dialog.show();
 
 
             }
@@ -100,12 +103,7 @@ public class RozkladPageFragment extends Fragment implements LoaderManager.Loade
         return result;
     }
 
-    private void addSubjectToAutoComplete(List<String> subjectList){
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_dropdown_item_1line, subjectList);
-        subject.setAdapter(adapter);
-    }
 
     @NonNull
     @Override
@@ -141,7 +139,8 @@ public class RozkladPageFragment extends Fragment implements LoaderManager.Loade
                 )));
                 cursor.moveToNext();
             }
-            addSubjectToAutoComplete(subjectList);
+           subjectListAdapter= new ArrayAdapter<String>(getActivity(),
+                   android.R.layout.simple_dropdown_item_1line, subjectList);
         }
         //----------------------------------------
     }
@@ -150,6 +149,31 @@ public class RozkladPageFragment extends Fragment implements LoaderManager.Loade
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         rozkladCursorAdapter.swapCursor(null);
 
+    }
+    //діалогове вікно Додати новий урок
+    private void openDialogAddNewLessons(){
+        getLoaderManager().initLoader(SUBJECT_LOADER,null,this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            //вікно для додавання нового уроку
+        builder.setTitle(R.string.add_lsn_title);
+        LayoutInflater li = LayoutInflater.from(getActivity());
+        View addNewLesson = li.inflate(R.layout.activity_add_new_lesson,null);
+        AutoCompleteTextView subject = addNewLesson.findViewById(R.id.new_lesson_name);
+        subject.setAdapter(subjectListAdapter);
+        builder.setView(addNewLesson);
+        builder.setCancelable(false)
+               .setPositiveButton(R.string.btn_okey, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+               }).setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+               });
+        builder.create().show();
     }
 }
 
