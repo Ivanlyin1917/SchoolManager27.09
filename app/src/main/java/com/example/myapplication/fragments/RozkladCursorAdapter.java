@@ -31,7 +31,8 @@ public class RozkladCursorAdapter extends CursorAdapter {
         TextView lessonPlace = view.findViewById(R.id.rozklad_place_text);
 
         String number = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.LessonsEntry.POSITION_ID));
-        String time = "";
+        String time = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_BEGIN))+"-"
+                +cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_END));
         String name = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.SubjectEntry.KEY_NAME));
         String place = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.LessonsEntry.LESSON_PLACE));
         itemNumber.setText(number);

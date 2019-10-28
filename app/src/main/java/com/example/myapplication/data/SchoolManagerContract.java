@@ -24,15 +24,19 @@ public final class SchoolManagerContract {
         public static final String SUBJECT_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE+"/"+AUTHORITY+"/"+AUTHORITY+PATH_SUBJECT;
     }
     public static final class DaysEntry implements BaseColumns{
+        public static  final  String TABLE_NAME="days";
         public  static final String DAY_ID="_id";
-        public  static  final  String DAY_NAME="Day_name";
+        public  static  final  String DAY_NAME="day_name";
+        public  static  final  String DAY_TYPE="is_school_day";
+        public  static  final  String JINGLE_TYPE="jingle_type_id";
     }
     public static final class JingleEntry implements BaseColumns{
+        public static  final  String TABLE_NAME="jingle";
         public static  final String JINGLE_ID="_id";
-        public static  final String POSITION_ID="Position_id";
-        public static  final String TIME_BEGIN="Time_begin";
-        public static  final String TIME_END="Time_end";
-        public static  final String JINGLE_TYPE_ID="Jingle_type_id";
+        public static  final String POSITION_ID="position_id";
+        public static  final String TIME_BEGIN="time_begin";
+        public static  final String TIME_END="time_end";
+        public static  final String JINGLE_TYPE_ID="jingle_type_id";
     }
     public static final class HobbyEntry implements BaseColumns{
         public static  final String HOBBY_ID="_id";
@@ -63,6 +67,12 @@ public final class SchoolManagerContract {
         public static  final String POSITION_ID="position_id";
         public static  final String SUBJECT_ID="subject_id";
         public static  final String LESSON_PLACE="place";
+        public static final String PATH_ROZKLAD = "Rozklad";
+        public static final Uri ROZKLAD_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_ROZKLAD);
+        public static final String ROZKLAD_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE
+                +"/"+AUTHORITY+"/"+PATH_ROZKLAD;
+        public static final String ROZKLAD_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE
+                +"/"+AUTHORITY+"/"+PATH_ROZKLAD;
     }
     public static final class Teacher_subject_Entry implements BaseColumns{
         public static  final String TS_ID="_id";
@@ -75,12 +85,7 @@ public final class SchoolManagerContract {
         public static  final String NAME="Name";
         public static  final String LASTNAME="LastName";
     }
-    public static final class RozkladEntry implements BaseColumns{
-        public static final String PATH_ROZKLAD = "Rozklad";
-        public static final Uri ROZKLAD_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_ROZKLAD);
-        public static final String ROZKLAD_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE +"/"+AUTHORITY+"/"+PATH_ROZKLAD;
-        public static final String ROZKLAD_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE+"/"+AUTHORITY+"/"+PATH_ROZKLAD;
-    }
+
 
 
 }

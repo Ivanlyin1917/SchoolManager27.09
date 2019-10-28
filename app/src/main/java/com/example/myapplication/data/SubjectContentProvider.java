@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.util.Log;
 
+import com.example.myapplication.Model.Lessons;
 import com.example.myapplication.data.SchoolManagerContract.*;
 
 public class SubjectContentProvider extends ContentProvider {
@@ -22,7 +23,7 @@ public class SubjectContentProvider extends ContentProvider {
     static{
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,SubjectEntry.PATH_SUBJECT, SUBJECT);
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,SubjectEntry.PATH_SUBJECT +"/#",SUBJECT_ID);
-        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,RozkladEntry.PATH_ROZKLAD, ROZRLAD);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,LessonsEntry.PATH_ROZKLAD, ROZRLAD);
 
     }
     @Override
@@ -50,10 +51,15 @@ public class SubjectContentProvider extends ContentProvider {
                 break;
             case ROZRLAD:
                 String sqlText = "Select L."+LessonsEntry.LESSON_ID+", L."+LessonsEntry.POSITION_ID
-                        +", L."+ LessonsEntry.LESSON_PLACE +", S."+SubjectEntry.KEY_NAME
+                        +", L."+ LessonsEntry.LESSON_PLACE +", S."+SubjectEntry.KEY_NAME+", J."+
+                        JingleEntry.TIME_BEGIN+", J."+JingleEntry.TIME_END
                         +" from " +LessonsEntry.TABLE_NAME+" as L inner join "
                         +SubjectEntry.TABLE_NAME+" as S on L."+LessonsEntry.SUBJECT_ID+"=S."
-                        +SubjectEntry.KEY_ID+" where "+LessonsEntry.DAY_ID+"=?";
+                        +SubjectEntry.KEY_ID+ " inner join "+JingleEntry.TABLE_NAME+" as J on L."+
+                        LessonsEntry.POSITION_ID+"=J."+JingleEntry.POSITION_ID+" inner join "+
+                        DaysEntry.TABLE_NAME+" as D on L."+LessonsEntry.DAY_ID+"=D."+DaysEntry.DAY_ID
+                        +" where "+LessonsEntry.DAY_ID+"=? and D."+DaysEntry.JINGLE_TYPE+"= J."+
+                        JingleEntry.JINGLE_TYPE_ID;
                 newCursor = db.rawQuery(sqlText,selectionArgs);
                 break;
             default:
@@ -116,7 +122,7 @@ public class SubjectContentProvider extends ContentProvider {
             case SUBJECT_ID:
                 return SubjectEntry.SUBJECT_SINGLE_ITEM;
             case ROZRLAD:
-                return RozkladEntry.ROZKLAD_MULTIPLE_ITEM;
+                return LessonsEntry.ROZKLAD_MULTIPLE_ITEM;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
