@@ -1,10 +1,12 @@
-package com.example.myapplication.fragments;
+package com.example.myapplication.fragments.rozklad;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.myapplication.fragments.rozklad.RozkladPageFragment;
 
 public class RozkladPageFragmentAdapter extends FragmentPagerAdapter {
 

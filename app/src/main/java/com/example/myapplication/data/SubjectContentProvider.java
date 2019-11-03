@@ -7,23 +7,23 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.util.Log;
 
-import com.example.myapplication.Model.Lessons;
 import com.example.myapplication.data.SchoolManagerContract.*;
 
 public class SubjectContentProvider extends ContentProvider {
 
     private static final int SUBJECT = 100;
     private static final int SUBJECT_ID = 101;
-    private static final int ROZRLAD = 200;
+    private static final int ROZKLAD = 200;
+    private static final int ROZKLAD_ID=201;
     private DatabaseHandler databaseHandler;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static{
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,SubjectEntry.PATH_SUBJECT, SUBJECT);
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,SubjectEntry.PATH_SUBJECT +"/#",SUBJECT_ID);
-        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,LessonsEntry.PATH_ROZKLAD, ROZRLAD);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,LessonsEntry.PATH_ROZKLAD, ROZKLAD);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,LessonsEntry.PATH_ROZKLAD+"/#", ROZKLAD_ID);
 
     }
     @Override
@@ -49,22 +49,30 @@ public class SubjectContentProvider extends ContentProvider {
                 newCursor = db.query(SubjectEntry.TABLE_NAME,projection,selection,selectionArgs,
                         null,null,sortOrder);
                 break;
-            case ROZRLAD:
-                String sqlText = "Select L."+LessonsEntry.LESSON_ID+", L."+LessonsEntry.POSITION_ID
-                        +", L."+ LessonsEntry.LESSON_PLACE +", S."+SubjectEntry.KEY_NAME+", J."+
-                        JingleEntry.TIME_BEGIN+", J."+JingleEntry.TIME_END
-                        +" from " +LessonsEntry.TABLE_NAME+" as L inner join "
-                        +SubjectEntry.TABLE_NAME+" as S on L."+LessonsEntry.SUBJECT_ID+"=S."
-                        +SubjectEntry.KEY_ID+ " inner join "+JingleEntry.TABLE_NAME+" as J on L."+
-                        LessonsEntry.POSITION_ID+"=J."+JingleEntry.POSITION_ID+" inner join "+
-                        DaysEntry.TABLE_NAME+" as D on L."+LessonsEntry.DAY_ID+"=D."+DaysEntry.DAY_ID
-                        +" where "+LessonsEntry.DAY_ID+"=? and D."+DaysEntry.JINGLE_TYPE+"= J."+
-                        JingleEntry.JINGLE_TYPE_ID;
+            case ROZKLAD:
+                String sqlText = "Select L."+LessonsEntry.LESSON_ID+",L."+ LessonsEntry.LESSON_PLACE
+                        +", S."+SubjectEntry.KEY_NAME +", L."+LessonsEntry.SUBJECT_ID
+                        +" from " +LessonsEntry.TABLE_NAME
+                        +" as L inner join "+SubjectEntry.TABLE_NAME+" as S " +
+                        "on L."+LessonsEntry.SUBJECT_ID+"=S."+SubjectEntry.KEY_ID
+                        +" where "+LessonsEntry.DAY_ID+"=? ";
                 newCursor = db.rawQuery(sqlText,selectionArgs);
+                break;
+            case ROZKLAD_ID:
+                projection = new String[]{"Select L."+LessonsEntry.LESSON_ID+",L."+ LessonsEntry.LESSON_PLACE
+                        +", S."+SubjectEntry.KEY_NAME +", L."+LessonsEntry.SUBJECT_ID
+                        +" from " +LessonsEntry.TABLE_NAME
+                        +" as L inner join "+SubjectEntry.TABLE_NAME+" as S " +
+                        "on L."+LessonsEntry.SUBJECT_ID+"=S."+SubjectEntry.KEY_ID};
+                selection =LessonsEntry.LESSON_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                newCursor = db.query(LessonsEntry.TABLE_NAME,projection,selection,selectionArgs,
+                        null,null,sortOrder);
                 break;
             default:
                 throw new IllegalArgumentException("Can't query incorrect URI " + uri);
         }
+        newCursor.setNotificationUri(getContext().getContentResolver(),uri);
         return newCursor;
     }
 
@@ -76,12 +84,25 @@ public class SubjectContentProvider extends ContentProvider {
         int math = sUriMatcher.match(uri);
         switch (math){
             case SUBJECT:
-                long id = db.insert(SubjectEntry.TABLE_NAME,null,values);
-                if (id ==-1){
+                String subjectName = values.getAsString(SubjectEntry.KEY_NAME);
+                if (subjectName==null){
+                    throw new IllegalArgumentException("Потрібно вказати назву предмета");
+                }
+                long subject_id = db.insert(SubjectEntry.TABLE_NAME,null,values);
+                if (subject_id ==-1){
                     Log.e("insertMethod","Insert of data in the table failed for " + uri);
                     return null;
                 }
-                return ContentUris.withAppendedId(uri,id);
+                getContext().getContentResolver().notifyChange(uri,null);
+                return ContentUris.withAppendedId(uri,subject_id);
+            case ROZKLAD:
+                long lesson_id = db.insert(LessonsEntry.TABLE_NAME,null,values);
+                if (lesson_id ==-1){
+                    Log.e("insertMethod","Insert of data in the table failed for " + uri);
+                    return null;
+                }
+                getContext().getContentResolver().notifyChange(uri,null);
+                return ContentUris.withAppendedId(uri,lesson_id);
             default:
                 throw new IllegalArgumentException("Insert of data in the table failed for " + uri);
         }
@@ -90,7 +111,22 @@ public class SubjectContentProvider extends ContentProvider {
 
     @Override
     public int delete( Uri uri,  String selection,  String[] selectionArgs) {
-        return 0;
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        int match = sUriMatcher.match(uri);
+        int countDelRec;
+        switch (match){
+            case ROZKLAD_ID:
+                selection = LessonsEntry.LESSON_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countDelRec = db.delete(LessonsEntry.TABLE_NAME,selection,selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Can't delete this URI " + uri);
+        }
+        if(countDelRec !=0){
+            getContext().getContentResolver().notifyChange(uri,null);
+        }
+        return countDelRec;
     }
 
     @Override
@@ -110,6 +146,9 @@ public class SubjectContentProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Can't update incorrect URI " + uri);
         }
+        if(countRec !=0){
+            getContext().getContentResolver().notifyChange(uri,null);
+        }
         return countRec;
 
     }
@@ -121,7 +160,7 @@ public class SubjectContentProvider extends ContentProvider {
                 return SubjectEntry.SUBJECT_MULTIPLE_ITEM;
             case SUBJECT_ID:
                 return SubjectEntry.SUBJECT_SINGLE_ITEM;
-            case ROZRLAD:
+            case ROZKLAD:
                 return LessonsEntry.ROZKLAD_MULTIPLE_ITEM;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);

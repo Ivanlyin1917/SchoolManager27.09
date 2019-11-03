@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/item_add_homework"
+        android:title="@string/cm_add_homework"/>
+    <item android:id="@+id/item_edit_lesson"
+        android:title="@string/cm_edit_lesson"/>
+    <item android:id="@+id/item_delete_lesson"
+        android:title="@string/cm_delete_lesson"/>
+</menu>

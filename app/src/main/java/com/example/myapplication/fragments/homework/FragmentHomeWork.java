@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments;
+package com.example.myapplication.fragments.homework;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

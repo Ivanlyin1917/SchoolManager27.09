@@ -13,10 +13,16 @@
     <string name="item_note">Нотатки</string>
     <string name="item_setting">Налаштування</string>
     <string name="item_test_db">Відкрити БД</string>
-    <!-- TITLE DIALOG -->
+    <string name="cm_add_homework">Додати ДЗ</string>
+
+    <!-- DIALOG-->
     <string name="add_lsn_title">Додати урок</string>
+    <string name="edit_lsn_title">Редагувати урок</string>
+    <string name="cm_edit_lesson">Редагувати</string>
+    <string name="cm_delete_lesson">Вилучити</string>
 
     <!-- BUTTON -->
     <string name="btn_okey">ОК</string>
+    <string name="btn_add">Додати</string>
     <string name="btn_cancel">Скасувати</string>
 </resources>

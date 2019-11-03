@@ -5,6 +5,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_title_add_lsn_dialog"
+            android:textSize="@dimen/title_text_size"
+            android:gravity="center"
+            android:layout_margin="@dimen/general_margin"/>
+
         <AutoCompleteTextView
             android:id="@+id/new_lesson_name"
             android:layout_width="match_parent"
@@ -34,7 +42,8 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_text_count"
                 android:textSize="@dimen/dialog_text_size"
                 android:text="Кількість:"
                 android:layout_margin="@dimen/general_margin"/>
@@ -42,19 +51,51 @@
             <Spinner
                 android:id="@+id/spenner_number_lesson"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/general_margin"
-                android:layout_marginTop="@dimen/general_margin"/>
+                android:layout_marginTop="@dimen/general_margin"
+                android:entries="@array/spinner_array_labels"/>
             <CheckBox
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/cb_is_empty"
+                android:textColor="@android:color/darker_gray"
                 android:layout_gravity="right"
                 android:text="Пустий урок"
                 android:layout_margin="@dimen/general_margin"
                 android:textSize="@dimen/dialog_text_size"/>
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/general_margin"
+            android:layout_marginRight="@dimen/general_margin"
+            android:weightSum="2">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_add"
+                android:text="@string/btn_add"
+                android:textSize="@dimen/dialog_text_size"
+                android:layout_marginRight="@dimen/general_margin"
+                android:layout_marginLeft="@dimen/general_margin"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_cancel"
+                android:text="@string/btn_cancel"
+                android:textSize="@dimen/dialog_text_size"
+                android:layout_marginRight="@dimen/general_margin"
+                android:layout_marginLeft="@dimen/general_margin"
+                android:layout_weight="1"/>
+
+
+
+         </LinearLayout>
+
 
 
     </LinearLayout>

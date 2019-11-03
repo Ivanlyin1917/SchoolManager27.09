@@ -1,4 +1,4 @@
-package com.example.myapplication.fragments;
+package com.example.myapplication.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -26,17 +26,17 @@ public class RozkladCursorAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
 
         TextView itemNumber = view.findViewById(R.id.rozklad_item_number_text);
-        TextView lessonTime = view.findViewById(R.id.rozklad_time_text);
+       /* TextView lessonTime = view.findViewById(R.id.rozklad_time_text);*/
         TextView lessonName = view.findViewById(R.id.rozklad_lesson_name_text);
         TextView lessonPlace = view.findViewById(R.id.rozklad_place_text);
 
-        String number = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.LessonsEntry.POSITION_ID));
-        String time = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_BEGIN))+"-"
-                +cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_END));
+        String number = "";
+       /* String time = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_BEGIN))+"-"
+                +cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_END  ));*/
         String name = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.SubjectEntry.KEY_NAME));
         String place = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.LessonsEntry.LESSON_PLACE));
         itemNumber.setText(number);
-        lessonTime.setText(time);
+        /*lessonTime.setText(time);*/
         lessonName.setText(name);
         lessonPlace.setText(place);
 

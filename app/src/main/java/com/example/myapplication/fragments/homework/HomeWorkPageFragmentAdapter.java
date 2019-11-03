@@ -1,10 +1,12 @@
-package com.example.myapplication.fragments;
+package com.example.myapplication.fragments.homework;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.myapplication.fragments.homework.HomeWorkPageFragment;
 
 public class HomeWorkPageFragmentAdapter extends FragmentPagerAdapter {
     private Context context=null;
