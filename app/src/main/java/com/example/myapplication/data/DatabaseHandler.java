@@ -20,7 +20,7 @@ import com.example.myapplication.Model.Subject;
 
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    public static final int DB_VERSION=25;
+    public static final int DB_VERSION=30;
     public static final String DB_NAME="school.db";
     private static String DB_PATH;
     private Context myContext;

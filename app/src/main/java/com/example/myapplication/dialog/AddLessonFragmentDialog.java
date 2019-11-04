@@ -107,16 +107,18 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
     private void initialAutoCompleteTextView (){
         userInput.addTextChangedListener(this);//для фільтрації автовибору
         subjectCursorAdapter = new SubjectCursorAdapter(getContext(), null, false);
-        Bundle bundle = new Bundle();
+         Bundle bundle = new Bundle();
         bundle.putString("arg","%");
         getLoaderManager().initLoader(SUBJECT_LOADER,bundle,this);
         userInput.setAdapter(subjectCursorAdapter);
+        //id вибраного уроку
         userInput.setOnItemClickListener(new AdapterView.OnItemClickListener() { //для отримання вибору
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                lsnId=id;
             }
         });
+        
         if (lessonUri !=null){
             
         }
