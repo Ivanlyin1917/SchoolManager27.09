@@ -8,6 +8,9 @@ public class RozkladViewItem {
     private String lessonName;
     private String lessonPlace;
 
+    public RozkladViewItem() {
+    }
+
     public RozkladViewItem(long id, long subjectId, String lessonName, String lessonPlace) {
         this.id = id;
         this.subjectId = subjectId;
@@ -46,7 +49,7 @@ public class RozkladViewItem {
         this.id = id;
     }
 
-    public void setItemNumber(long subjectId) {
+    public void setSubjectId(long subjectId) {
         this.subjectId = subjectId;
     }
 
