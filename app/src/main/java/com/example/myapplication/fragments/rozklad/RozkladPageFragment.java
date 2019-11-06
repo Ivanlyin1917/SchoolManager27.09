@@ -72,7 +72,7 @@ public class RozkladPageFragment extends Fragment implements LoaderManager.Loade
         super.onCreate(savedInstanceState);
         pageNumber = getArguments() != null ? getArguments().getInt("num") : 1;
         model = ViewModelProviders.of(getActivity()).get(RozkladSharedViewModel.class);
-        model.setWeekDay(pageNumber);
+
     }
 
     @Override
@@ -88,6 +88,7 @@ public class RozkladPageFragment extends Fragment implements LoaderManager.Loade
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Uri lessonUri = ContentUris.withAppendedId(SchoolManagerContract.LessonsEntry.ROZKLAD_URI,id);
                 model.setLessonUri(lessonUri);
+                model.setWeekDay(pageNumber+1);
                 RozkladContextMenuFragmentDialog contextMenu = new RozkladContextMenuFragmentDialog();
                 contextMenu.show(getFragmentManager(),"contextMenu");
 
@@ -99,6 +100,7 @@ public class RozkladPageFragment extends Fragment implements LoaderManager.Loade
             @Override
             public void onClick(View v) {
                 model.setLessonUri(null);
+                model.setWeekDay(pageNumber);
                 AddLessonFragmentDialog dlg = new AddLessonFragmentDialog();
                 dlg.show(getFragmentManager(),"dlg");
                }

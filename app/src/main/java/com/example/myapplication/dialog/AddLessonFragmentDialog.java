@@ -126,7 +126,7 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
                lsnId=id;
             }
         });
-        
+
         if (lessonUri !=null){
 
             rozkladCursorAdapter = new RozkladCursorAdapter(getContext(),null,false);
