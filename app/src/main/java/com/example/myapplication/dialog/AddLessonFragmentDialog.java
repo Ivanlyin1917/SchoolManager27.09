@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -34,6 +35,7 @@ import com.example.myapplication.adapter.RozkladCursorAdapter;
 import com.example.myapplication.adapter.SubjectCursorAdapter;
 import com.example.myapplication.data.SchoolManagerContract.*;
 import com.example.myapplication.fragments.rozklad.RozkladSharedViewModel;
+import com.example.myapplication.fragments.rozklad.RozkladViewItem;
 
 import java.net.URI;
 
@@ -42,8 +44,11 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
         TextWatcher,LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final int SUBJECT_LOADER = 300;
+    private static final int ROZKLAD_LOADER = 200;
     private AutoCompleteTextView userInput;
     private SubjectCursorAdapter subjectCursorAdapter;
+    private RozkladCursorAdapter rozkladCursorAdapter;
+    private  RozkladViewItem lesson;
     private RozkladSharedViewModel model;
     private Spinner spinner;
     private CheckBox isEmpty;
@@ -70,6 +75,7 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
         spinner = addLessonView.findViewById(R.id.spenner_number_lesson);
         isEmpty = addLessonView.findViewById(R.id.cb_is_empty);
         userInput = addLessonView.findViewById(R.id.new_lesson_name);
+        Button addBtn = addLessonView.findViewById(R.id.btn_add);
         TextView titleDlg = addLessonView.findViewById(R.id.tv_title_add_lsn_dialog);
 
         //встановлюю onClick на кнопки
@@ -78,10 +84,12 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
        //ініціалізую список значень в AutoCompleteTextView
         initialAutoCompleteTextView();
         if (lessonUri==null){
+            addBtn.setText(R.string.btn_add);
             titleDlg.setText(R.string.add_lsn_title);
             spinner.setSelected(true);
         }else{
             titleDlg.setText(R.string.edit_lsn_title);
+            addBtn.setText(R.string.btn_okey);
             TextView tv = addLessonView.findViewById(R.id.tv_text_count);
             tv.setVisibility(View.INVISIBLE);
             spinner.setVisibility(View.INVISIBLE);
@@ -120,9 +128,13 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
         });
         
         if (lessonUri !=null){
-            
+
+            rozkladCursorAdapter = new RozkladCursorAdapter(getContext(),null,false);
+            getLoaderManager().initLoader(ROZKLAD_LOADER, null,this);
+            lesson = new RozkladViewItem();
         }
     }
+
 
     private void insertNewLesson(){
         ContentValues cv = new ContentValues();
@@ -141,12 +153,21 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
             cv.put(LessonsEntry.LESSON_PLACE,lRoom);
         }
         ContentResolver contentResolver = getActivity().getContentResolver();
-        for(int i=1; i<=countLsn; i++){
-            Uri uri = contentResolver.insert(LessonsEntry.ROZKLAD_URI,cv);
-            if(uri==null){
-                Toast.makeText(getContext(), "Помилка збереження даних", Toast.LENGTH_LONG).show();
+        if (lessonUri==null){
+
+            for(int i=1; i<=countLsn; i++){
+                Uri lsnInsertUri = contentResolver.insert(LessonsEntry.ROZKLAD_URI,cv);
+                if(lsnInsertUri==null){
+                    Toast.makeText(getContext(), "Помилка збереження даних", Toast.LENGTH_LONG).show();
+                }
+            }
+        }else{
+            int lsnUpdateCount = contentResolver.update(lessonUri,cv,null,null);
+            if(lsnUpdateCount==0){
+                Toast.makeText(getContext(), "Помилка! Не можу оновити дані :(", Toast.LENGTH_LONG).show();
             }
         }
+
         dismiss();
     }
     private long insertNewSubject(){
@@ -182,6 +203,10 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
                 CursorLoader cursorLoaderSubject = new CursorLoader(getContext(),
                         SubjectEntry.SUBJECT_URI,projection,selection,arg,null);
                 return cursorLoaderSubject;
+            case ROZKLAD_LOADER:
+                CursorLoader cursorLoaderRozklad = new CursorLoader(getContext(),
+                        lessonUri,null,null,null,null);
+                return cursorLoaderRozklad;
             default: return null;
         }
     }
@@ -192,6 +217,20 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
         switch (id){
             case SUBJECT_LOADER:
                 subjectCursorAdapter.swapCursor(cursor);
+                break;
+            case ROZKLAD_LOADER:
+                rozkladCursorAdapter.swapCursor(cursor);
+                if (cursor.moveToFirst()){
+                    lesson = new RozkladViewItem();
+                    do {
+                        lesson.setId(cursor.getInt(cursor.getColumnIndexOrThrow(LessonsEntry.LESSON_ID)));
+                        lesson.setSubjectId(cursor.getInt(cursor.getColumnIndexOrThrow(LessonsEntry.SUBJECT_ID)));
+                        lesson.setLessonName(cursor.getString(cursor.getColumnIndexOrThrow(SubjectEntry.KEY_NAME)));
+                        lesson.setLessonPlace(cursor.getString(cursor.getColumnIndexOrThrow(LessonsEntry.LESSON_PLACE)));
+                    }while (cursor.moveToNext());
+                }
+                userInput.setText(lesson.getLessonName());
+                lsnRoom.setText(lesson.getLessonPlace());
                 break;
             default:break;
         }
@@ -204,6 +243,9 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
         switch (id) {
             case SUBJECT_LOADER:
                 subjectCursorAdapter.swapCursor(null);
+                break;
+            case ROZKLAD_LOADER:
+                rozkladCursorAdapter.swapCursor(null);
                 break;
             default:break;
         }

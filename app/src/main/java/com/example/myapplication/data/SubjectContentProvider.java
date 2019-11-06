@@ -59,14 +59,14 @@ public class SubjectContentProvider extends ContentProvider {
                 newCursor = db.rawQuery(sqlText,selectionArgs);
                 break;
             case ROZKLAD_ID:
-                projection = new String[]{"Select L."+LessonsEntry.LESSON_ID+",L."+ LessonsEntry.LESSON_PLACE
-                        +", S."+SubjectEntry.KEY_NAME +", L."+LessonsEntry.SUBJECT_ID
-                        +" from " +LessonsEntry.TABLE_NAME
+                String argFrom = LessonsEntry.TABLE_NAME
                         +" as L inner join "+SubjectEntry.TABLE_NAME+" as S " +
-                        "on L."+LessonsEntry.SUBJECT_ID+"=S."+SubjectEntry.KEY_ID};
-                selection =LessonsEntry.LESSON_ID + "=?";
+                        "on L."+LessonsEntry.SUBJECT_ID+"=S."+SubjectEntry.KEY_ID;
+                projection = new String[]{"L."+LessonsEntry.LESSON_ID+",L."+ LessonsEntry.LESSON_PLACE
+                        +", S."+SubjectEntry.KEY_NAME +", L."+LessonsEntry.SUBJECT_ID};
+                selection = "L."+LessonsEntry.LESSON_ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-                newCursor = db.query(LessonsEntry.TABLE_NAME,projection,selection,selectionArgs,
+                newCursor = db.query(argFrom,projection,selection,selectionArgs,
                         null,null,sortOrder);
                 break;
             default:
@@ -142,6 +142,11 @@ public class SubjectContentProvider extends ContentProvider {
                 selection =SubjectEntry.KEY_ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 countRec =db.update(SubjectEntry.TABLE_NAME,values,selection, selectionArgs);
+                break;
+            case ROZKLAD_ID:
+                selection = LessonsEntry.LESSON_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countRec =db.update(LessonsEntry.TABLE_NAME,values,selection, selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Can't update incorrect URI " + uri);
