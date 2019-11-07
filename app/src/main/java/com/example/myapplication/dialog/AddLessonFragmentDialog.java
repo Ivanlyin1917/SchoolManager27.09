@@ -16,6 +16,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.myapplication.Model.Subject;
+
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.RozkladCursorAdapter;
 import com.example.myapplication.adapter.SubjectCursorAdapter;
@@ -45,6 +46,7 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
 
     private static final int SUBJECT_LOADER = 300;
     private static final int ROZKLAD_LOADER = 200;
+    private static final String TAG = "Rozklad";
     private AutoCompleteTextView userInput;
     private SubjectCursorAdapter subjectCursorAdapter;
     private RozkladCursorAdapter rozkladCursorAdapter;
@@ -53,7 +55,6 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
     private Spinner spinner;
     private CheckBox isEmpty;
     private EditText lsnRoom;
-    private int weekDay;
     long lsnId=-1;
     String newLsnName;
     Uri lessonUri;
@@ -62,8 +63,7 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(RozkladSharedViewModel.class);
-        weekDay = model.getWeekDay();
-        lessonUri = model.getLessonUri();
+
     }
 
     @Nullable
@@ -82,7 +82,9 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
         addLessonView.findViewById(R.id.btn_add).setOnClickListener(this);
         addLessonView.findViewById(R.id.btn_cancel).setOnClickListener(this);
        //ініціалізую список значень в AutoCompleteTextView
+        lessonUri = model.getLessonUri();
         initialAutoCompleteTextView();
+        Log.i(TAG, "get uri="+lessonUri);
         if (lessonUri==null){
             addBtn.setText(R.string.btn_add);
             titleDlg.setText(R.string.add_lsn_title);
@@ -138,7 +140,8 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
 
     private void insertNewLesson(){
         ContentValues cv = new ContentValues();
-        cv.put(LessonsEntry.DAY_ID, weekDay);
+        cv.put(LessonsEntry.DAY_ID,  model.getWeekDay());
+        Log.i(TAG,"working with day="+ model.getWeekDay());
         int countLsn = 1;
         if (isEmpty.isChecked()){
             cv.put(LessonsEntry.SUBJECT_ID,0);
@@ -175,8 +178,7 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
         scv.put(SubjectEntry.KEY_NAME,newLsnName);
         ContentResolver contentResolver = getActivity().getContentResolver();
         Uri uri = contentResolver.insert(SubjectEntry.SUBJECT_URI,scv);
-        long newLsnId = ContentUris.parseId(uri);
-        return newLsnId;
+        return ContentUris.parseId(uri);
     }
 
 
