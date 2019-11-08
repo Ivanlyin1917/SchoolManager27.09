@@ -19,4 +19,6 @@ public class FragmentHomeWork extends Fragment {
         rozklad.setAdapter(new HomeWorkPageFragmentAdapter(getContext(),getFragmentManager()));
         return fragmentHomework;
     }
+
+
 }
