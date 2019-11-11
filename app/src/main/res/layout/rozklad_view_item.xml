@@ -3,6 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_triangle_green_24dp"/>
     <TextView
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
@@ -14,6 +18,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_activity"
         android:id="@+id/rozklad_lesson_name_text"/>
     <TextView
         android:layout_width="wrap_content"

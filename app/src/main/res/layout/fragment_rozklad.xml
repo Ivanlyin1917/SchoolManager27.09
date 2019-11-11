@@ -11,9 +11,10 @@ android:id="@+id/fragment_rozklad">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rozklad_pager">
-        <android.support.v4.view.PagerTitleStrip
+        <android.support.v4.view.PagerTabStrip
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/title_text_size"/>
 
 
     </android.support.v4.view.ViewPager>
