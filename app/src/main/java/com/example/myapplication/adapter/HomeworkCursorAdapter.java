@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import com.example.myapplication.R;
 
 import com.example.myapplication.data.SchoolManagerContract;
 
@@ -17,14 +18,14 @@ public class HomeworkCursorAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(R.layout.homework_view_item,parent,false);
+        return LayoutInflater.from(context).inflate(R.layout.homeworks_view_item,parent,false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
         TextView itemNumber = view.findViewById(R.id.rozklad_item_number_text);
-        /* TextView lessonTime = view.findViewById(R.id.homework_time_text);*/
+        /* TextView lessonTime = view.findViewById(R.id.homeworks_time_text);*/
         TextView lessonName = view.findViewById(R.id.rozklad_lesson_name_text);
         TextView lessonPlace = view.findViewById(R.id.homework_place_text);
 
