@@ -8,7 +8,9 @@
     <dimen name="card_view_radius">5dp</dimen>
     <dimen name="general_margin">5dp</dimen>
     <dimen name="dialog_text_size">14sp</dimen>
-    <dimen name="title_text_size">18sp</dimen>
+    <dimen name="title_text_size">18sp</dimen>    
     <dimen name="h2_text_size">16sp</dimen>
     <dimen name="text_size_activity">20sp</dimen>
+    <dimen name="viewpager_padding_left">24dp</dimen>
+    <dimen name="viewpager_padding_right">12dp</dimen>
 </resources>

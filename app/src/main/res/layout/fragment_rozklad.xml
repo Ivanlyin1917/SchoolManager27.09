@@ -3,13 +3,18 @@
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".fragments.rozklad.FragmentRozklad"
 android:id="@+id/fragment_rozklad">
 
 <!-- TODO: Update blank fragment layout -->
+    <!--android:layout_height=" match_parent 0px"-->
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:paddingLeft="@dimen/viewpager_padding_left"
+        android:paddingRight="@dimen/viewpager_padding_right"
+        android:clipToPadding="false"
+        android:layout_weight = "1"
         android:id="@+id/rozklad_pager">
         <android.support.v4.view.PagerTabStrip
             android:layout_width="match_parent"

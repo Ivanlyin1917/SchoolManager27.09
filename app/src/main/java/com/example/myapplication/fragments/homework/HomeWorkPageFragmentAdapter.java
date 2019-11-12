@@ -6,10 +6,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.myapplication.fragments.homework.HomeWorkPageFragment;
+import com.example.myapplication.adapter.SmartFragmentStatePagerAdapter;
 
-public class HomeWorkPageFragmentAdapter extends FragmentPagerAdapter {
+
+public class HomeWorkPageFragmentAdapter extends SmartFragmentStatePagerAdapter {
+
+    private static final String TAG = "Homework";
+    private static  int COUNT_PAGE = 7*4;//5 нужно заменить константой из настроек
     private Context context=null;
+
 
     public HomeWorkPageFragmentAdapter(Context context,FragmentManager fm) {
         super(fm);
@@ -17,18 +22,23 @@ public class HomeWorkPageFragmentAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int i) {
-        return HomeWorkPageFragment.newInstance(i);
+    public Fragment getItem(int position) {
+        return HomeWorkPageFragment.newInstance(position);
     }
 
     @Override
     public int getCount() {
-        return 5;
+        return COUNT_PAGE;
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return HomeWorkPageFragment.getTitle(context,position);
+       return HomeWorkPageFragment.getTitle(context,position);
+    }
+
+    @Override
+    public float getPageWidth(int position) {
+        return 0.93f;
     }
 }

@@ -9,6 +9,7 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 import com.example.myapplication.R;
 
+import com.example.myapplication.R;
 import com.example.myapplication.data.SchoolManagerContract;
 
 public class HomeworkCursorAdapter extends CursorAdapter {

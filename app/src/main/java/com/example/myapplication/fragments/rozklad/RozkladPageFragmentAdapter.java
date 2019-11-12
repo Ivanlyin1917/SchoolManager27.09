@@ -33,4 +33,9 @@ public class RozkladPageFragmentAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return RozkladPageFragment.getTitle(context,position);
     }
+
+    @Override
+    public float getPageWidth(int position) {
+        return 0.97f;
+    }
 }
