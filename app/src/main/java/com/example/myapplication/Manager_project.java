@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.myapplication.fragments.Setting.UserSettingFragment;
 import com.example.myapplication.fragments.homework.FragmentHomeWork;
 import com.example.myapplication.fragments.rozklad.FragmentRozklad;
 
@@ -27,6 +28,7 @@ public class Manager_project extends AppCompatActivity
    private DatabaseHandler dbh;
    private FragmentRozklad frameRozklad;
    private FragmentHomeWork frameHomework;
+   private UserSettingFragment settingFragment;
 
 
     @Override
@@ -47,6 +49,7 @@ public class Manager_project extends AppCompatActivity
 
         frameRozklad = new FragmentRozklad();
         frameHomework = new FragmentHomeWork();
+        settingFragment = new UserSettingFragment();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -129,6 +132,8 @@ public class Manager_project extends AppCompatActivity
         } else if (id == R.id.nav_note) {
 
         } else if (id == R.id.nav_setting) {
+            transaction.replace(R.id.container,settingFragment);
+
 
         } else if (id == R.id.test_bd) {//только для разработки
 
