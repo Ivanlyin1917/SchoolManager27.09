@@ -51,10 +51,17 @@ public final class SchoolManagerContract {
 //        public static  final String SUBJECT_TYPE_NAME="Subject_type_name";
 //    }
     public static final class HomeworksEntry implements BaseColumns{
+        public static  final  String TABLE_NAME="homeworks";
         public static  final String HM_ID="_id";
-        public static  final String DATE_HW="Date_hw";
-        public static  final String SUBJECT_ID="Subject_id";
+        public static  final String DATE_HW="date_hw";
+        public static  final String SUBJECT_ID="subject_id";
         public static  final String HOMEWORK="Homework";
+        public static final String PATH_HOMEWORK = "homeworks";
+        public static final Uri HOMEWORK_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_HOMEWORK);
+        public static final String ROZKLAD_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE
+            +"/"+AUTHORITY+"/"+PATH_HOMEWORK;
+        public static final String ROZKLAD_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE
+            +"/"+AUTHORITY+"/"+PATH_HOMEWORK;
     }
     public static final class Jingle_type_Entry implements BaseColumns{
         public static  final String JINGLE_TYPE_ID="Jingle_type_id";

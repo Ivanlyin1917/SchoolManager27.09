@@ -17,6 +17,8 @@ public class SubjectContentProvider extends ContentProvider {
     private static final int SUBJECT_ID = 101;
     private static final int ROZKLAD = 200;
     private static final int ROZKLAD_ID=201;
+    private static final int HOMEWORK = 300;
+    private static final int HOMEWORK_ID = 301;
     private DatabaseHandler databaseHandler;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static{
@@ -24,6 +26,8 @@ public class SubjectContentProvider extends ContentProvider {
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,SubjectEntry.PATH_SUBJECT +"/#",SUBJECT_ID);
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,LessonsEntry.PATH_ROZKLAD, ROZKLAD);
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,LessonsEntry.PATH_ROZKLAD+"/#", ROZKLAD_ID);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,HomeworksEntry.PATH_HOMEWORK, HOMEWORK);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,HomeworksEntry.PATH_HOMEWORK+"/#", HOMEWORK_ID);
 
     }
     @Override
@@ -69,6 +73,16 @@ public class SubjectContentProvider extends ContentProvider {
                 newCursor = db.query(argFrom,projection,selection,selectionArgs,
                         null,null,sortOrder);
                 break;
+            case HOMEWORK:
+                String sqlHW = "Select H."+HomeworksEntry.HM_ID+",H."+ HomeworksEntry.DATE_HW
+                        +", S."+SubjectEntry.KEY_NAME +", H."+HomeworksEntry.HOMEWORK
+                        +" from " +HomeworksEntry.TABLE_NAME
+                        +" as H inner join "+SubjectEntry.TABLE_NAME+" as S " +
+                        "on H."+HomeworksEntry.SUBJECT_ID+"=S."+SubjectEntry.KEY_ID
+                        +" where "+HomeworksEntry.DATE_HW+"=? ";
+                newCursor = db.rawQuery(sqlHW,selectionArgs);
+                break;
+
             default:
                 throw new IllegalArgumentException("Can't query incorrect URI " + uri);
         }
