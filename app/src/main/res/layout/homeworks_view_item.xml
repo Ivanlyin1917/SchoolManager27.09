@@ -3,22 +3,35 @@
 <LinearLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
-android:layout_height="match_parent">
+android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/homework_item_number_text"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/general_margin"/>
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/rozklad_time_text"/>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/homework_lesson_name_text"
+            android:layout_weight="6"
+            android:layout_marginLeft="@dimen/general_margin"/>
+
+    </LinearLayout>
 <TextView
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/homework_item_number_text"/>
-<!--<TextView-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:id="@+id/rozklad_time_text"/>-->
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/rozklad_lesson_name_text"/>
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/homework_place_text"/>
+    android:id="@+id/homework_text"
+    android:layout_marginLeft="@dimen/general_margin"
+    android:layout_marginTop="@dimen/general_margin"/>
 
 </LinearLayout>

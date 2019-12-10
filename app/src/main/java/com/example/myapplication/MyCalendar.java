@@ -4,32 +4,39 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MyCalendar{
-  private Calendar myCalendar = Calendar.getInstance();
-  private int currentWeek = myCalendar.get(Calendar.WEEK_OF_YEAR);
-  private int currentDay = myCalendar.get(Calendar.DAY_OF_WEEK);
-  private int currentPosition = currentDay+7;
-  private Date currentDate = myCalendar.getTime();
+  private Calendar myCalendar;
+ // private int currentWeek = myCalendar.get(Calendar.WEEK_OF_YEAR);
+  private int currentDay;
+  private int currentPosition;
+  private Date currentDate;
 
     public MyCalendar() {
+        myCalendar = Calendar.getInstance();
+        myCalendar.setFirstDayOfWeek(Calendar.MONDAY);
+
     }
 
     public int getCurrentDay() {
+        currentDay = myCalendar.get(Calendar.DAY_OF_WEEK);
         return currentDay;
     }
 
-    public int getCurrentPosition(){
+    private int getCurrentPosition(){
+        currentPosition  = currentDay+7;
         return currentPosition;
     }
 
     public Date getCurrentDate() {
+        currentDate = myCalendar.getTime();
         return currentDate;
     }
 
     public Date getDate (int position){
-        int delta = position-currentPosition;
+        int delta = position-getCurrentPosition();
         myCalendar.add(Calendar.DATE,delta);
         Date newDate = myCalendar.getTime();
         return newDate;
     }
+
 
 }

@@ -3,13 +3,13 @@ package com.example.myapplication.Model;
 public class Homeworks {
     private int hm_id;
     private String date_hm;
-    private int subject_id;
+    private String subject_name;
     private String homework;
 
-    public Homeworks(int hm_id, String date_hm, int subject_id, String homework) {
+    public Homeworks(int hm_id, String date_hm, String subject_name, String homework) {
         this.hm_id = hm_id;
         this.date_hm = date_hm;
-        this.subject_id = subject_id;
+        this.subject_name = subject_name;
         this.homework = homework;
     }
 
@@ -17,9 +17,9 @@ public class Homeworks {
 
     }
 
-    public Homeworks(String date_hm, int subject_id, String homework) {
+    public Homeworks(String date_hm, String subject_name, String homework) {
         this.date_hm = date_hm;
-        this.subject_id = subject_id;
+        this.subject_name = subject_name;
         this.homework = homework;
 
     }
@@ -39,12 +39,12 @@ public class Homeworks {
         this.date_hm = date_hm;
     }
 
-    public int getSubject_id() {
-        return subject_id;
+    public String getSubject_name() {
+        return subject_name;
     }
 
-    public void setSubject_id(int subject_id) {
-        this.subject_id = subject_id;
+    public void setSubject_name(String subject_name) {
+        this.subject_name = subject_name;
     }
 
     public String getHomework() {

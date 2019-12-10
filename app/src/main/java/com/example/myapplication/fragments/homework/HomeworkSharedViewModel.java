@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import java.util.Date;
 
 public class HomeworkSharedViewModel extends ViewModel {
-    private Date titleDate;
+    private String titleDate;
     private int page;
 
     public int getPage() {
@@ -16,11 +16,11 @@ public class HomeworkSharedViewModel extends ViewModel {
         this.page = page;
     }
 
-    public Date getTitleDate() {
+    public String getTitleDate() {
         return titleDate;
     }
 
-    public void setTitleDate(Date titleDate) {
+    public void setTitleDate(String titleDate) {
         this.titleDate = titleDate;
     }
 }

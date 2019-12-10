@@ -42,17 +42,17 @@ public class HomeWorkPageFragment extends Fragment {
         switch (weekDay){
             case 1: title = "Понеділок "+dateString;
                 break;
-            case 2: title = "Вівторок"+dateString;
+            case 2: title = "Вівторок "+dateString;
                 break;
-            case 3: title = "Середа"+dateString;
+            case 3: title = "Середа "+dateString;
                 break;
-            case 4: title = "Четвер"+dateString;
+            case 4: title = "Четвер "+dateString;
                 break;
-            case 5: title = "П\'ятниця"+dateString;
+            case 5: title = "П\'ятниця "+dateString;
                 break;
-            case 6: title = "Субота"+dateString;
+            case 6: title = "Субота "+dateString;
                 break;
-            case 0: title = "Неділя"+dateString;
+            case 0: title = "Неділя "+dateString;
                 break;
         }
         return  title;
@@ -74,8 +74,35 @@ public class HomeWorkPageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View result=inflater.inflate(R.layout.homework_page_fragment, container, false);//створюэмо фрагмент
         TextView pageHeader=(TextView)result.findViewById(R.id.homework_fragmet_text); //отримуэмо TextView з розмітки фрагмента
-        String header = String.format("Фрагмент %d", pageNumber+1);
+        String header = model.getTitleDate();
         pageHeader.setText(header);
         return result;
+    }
+    private String getTitlePage(){
+        String title="";
+        int position = model.getPage();
+        MyCalendar myCalendar = new MyCalendar();
+        Log.i("Homework", "Current day = "+myCalendar.getCurrentDay());
+        Date titleDate = myCalendar.getDate(position);
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.YYYY");
+        String dateString = format.format(titleDate);
+        int weekDay = (position)%7;
+        switch (weekDay){
+            case 1: title = "Понеділок "+dateString;
+                break;
+            case 2: title = "Вівторок "+dateString;
+                break;
+            case 3: title = "Середа "+dateString;
+                break;
+            case 4: title = "Четвер "+dateString;
+                break;
+            case 5: title = "П\'ятниця "+dateString;
+                break;
+            case 6: title = "Субота "+dateString;
+                break;
+            case 0: title = "Неділя "+dateString;
+                break;
+        }
+        return  title;
     }
 }

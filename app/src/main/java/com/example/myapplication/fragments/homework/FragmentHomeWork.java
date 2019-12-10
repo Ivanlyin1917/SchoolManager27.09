@@ -8,10 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.myapplication.MyCalendar;
 import com.example.myapplication.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FragmentHomeWork extends Fragment {
@@ -20,11 +22,13 @@ public class FragmentHomeWork extends Fragment {
     private MyCalendar myCalendar = new MyCalendar();
     private int page;
     private HomeworkSharedViewModel model;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View fragmentHomework = inflater.inflate(R.layout.fragment_homework, container, false);
+        //TextView pageHeader=getActivity().findViewById(R.id.homework_fragmet_text);
 
         ViewPager homeWork = fragmentHomework.findViewById(R.id.homework_pager);
         homeWork.setClipToPadding(false);
@@ -39,8 +43,10 @@ public class FragmentHomeWork extends Fragment {
             public void onPageSelected(int position) {
                 page = position+1;
                 Date titleDate = myCalendar.getDate(position+1);
+                SimpleDateFormat format = new SimpleDateFormat("dd.MM.YYYY");
+                String dateString = getTitlePage(page);
                 Log.i(TAG,"Selected page="+page+", date "+titleDate);
-                model.setTitleDate(titleDate);
+                model.setTitleDate(dateString);
                 model.setPage(page);
             }
 
@@ -51,7 +57,9 @@ public class FragmentHomeWork extends Fragment {
         });
         homeWork.setAdapter(new HomeWorkPageFragmentAdapter(getContext(),getFragmentManager()));
         model = ViewModelProviders.of(getActivity()).get(HomeworkSharedViewModel.class);
-        model.setTitleDate(myCalendar.getCurrentDate());
+        model.setTitleDate(getTitlePage(1));
+        //model.setTitleDate(new SimpleDateFormat("dd.MM.YYYY").format(myCalendar.getCurrentDate()));
+        model.setPage(1);
         return fragmentHomework;
     }
     /*
@@ -133,6 +141,33 @@ public class FragmentHomeWork extends Fragment {
         bundle.putInt("weekDay",dayID);
         getLoaderManager().restartLoader(ROZKLAD_LOADER,bundle,this);
     }*/
+
+    private String getTitlePage(int page){
+        String title="";
+        MyCalendar myCalendar = new MyCalendar();
+        Log.i("Homework", "Current day = "+myCalendar.getCurrentDay());
+        Date titleDate = myCalendar.getDate(page);
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.YYYY");
+        String dateString = format.format(titleDate);
+        int weekDay = page%7;
+        switch (weekDay){
+            case 1: title = "Понеділок "+dateString;
+                break;
+            case 2: title = "Вівторок "+dateString;
+                break;
+            case 3: title = "Середа "+dateString;
+                break;
+            case 4: title = "Четвер "+dateString;
+                break;
+            case 5: title = "П\'ятниця "+dateString;
+                break;
+            case 6: title = "Субота "+dateString;
+                break;
+            case 0: title = "Неділя "+dateString;
+                break;
+        }
+        return  title;
+    }
 
 
 }

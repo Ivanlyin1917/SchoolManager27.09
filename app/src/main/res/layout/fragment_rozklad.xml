@@ -16,6 +16,7 @@ android:id="@+id/fragment_rozklad">
         android:clipToPadding="false"
         android:layout_weight = "1"
         android:id="@+id/rozklad_pager">
+
         <android.support.v4.view.PagerTabStrip
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,4 +24,12 @@ android:id="@+id/fragment_rozklad">
 
 
     </android.support.v4.view.ViewPager>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_rozklad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_input_add" />
 </FrameLayout>
