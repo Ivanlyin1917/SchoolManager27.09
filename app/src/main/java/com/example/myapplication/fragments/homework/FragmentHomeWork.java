@@ -1,8 +1,14 @@
 package com.example.myapplication.fragments.homework;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,14 +18,19 @@ import android.widget.TextView;
 
 import com.example.myapplication.MyCalendar;
 import com.example.myapplication.R;
+import com.example.myapplication.adapter.HomeworkCursorAdapter;
+import com.example.myapplication.data.SchoolManagerContract;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FragmentHomeWork extends Fragment {
+public class FragmentHomeWork extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private final String TAG = "Homework";
+    private static final int HOMEWORK_LOADER = 100;
+    private HomeworkCursorAdapter homeworkCursorAdapter;
     private MyCalendar myCalendar = new MyCalendar();
+    private Date crnDate;
     private int page;
     private HomeworkSharedViewModel model;
 
@@ -36,18 +47,17 @@ public class FragmentHomeWork extends Fragment {
         homeWork.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-
             }
-
             @Override
             public void onPageSelected(int position) {
                 page = position+1;
-                Date titleDate = myCalendar.getDate(position+1);
+                crnDate = myCalendar.getDate(page);
                 SimpleDateFormat format = new SimpleDateFormat("dd.MM.YYYY");
                 String dateString = getTitlePage(page);
-                Log.i(TAG,"Selected page="+page+", date "+titleDate);
+                Log.i(TAG,"Selected page="+page+", date "+format.format(crnDate));
                 model.setTitleDate(dateString);
                 model.setPage(page);
+                model.setCrnDate(crnDate);
             }
 
             @Override
@@ -57,36 +67,19 @@ public class FragmentHomeWork extends Fragment {
         });
         homeWork.setAdapter(new HomeWorkPageFragmentAdapter(getContext(),getFragmentManager()));
         model = ViewModelProviders.of(getActivity()).get(HomeworkSharedViewModel.class);
+        //Початкові налаштування
         model.setTitleDate(getTitlePage(1));
-        //model.setTitleDate(new SimpleDateFormat("dd.MM.YYYY").format(myCalendar.getCurrentDate()));
         model.setPage(1);
+        model.setCrnDate(myCalendar.getDate(1));
+        getLoaderManager().initLoader(HOMEWORK_LOADER,null,this);
+        model.setHomeworkCursorAdapter(homeworkCursorAdapter);
         return fragmentHomework;
     }
     /*
-    *     private static final String TAG = "Rozklad";
-    private static RozkladSharedViewModel model;
-    private static final int ROZKLAD_LOADER = 200;
-    RozkladCursorAdapter rozkladCursorAdapter;
-    private static int pageNum;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        rozkladCursorAdapter = new RozkladCursorAdapter(getContext(),null,false);
-        View fragmentRozklad = inflater.inflate(R.layout.fragment_rozklad, container, false);
-        ViewPager rozklad = fragmentRozklad.findViewById(R.id.rozklad_pager);
-//        rozklad.setClipToPadding(false);
-        rozklad.setPageMargin(12);
+    *
+//
         rozklad.setClipChildren(false);
-        rozklad.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
-            public void onPageSelected (int position){
-                pageNum=position+1;
-                Log.i (TAG, "selectet page "+pageNum);
-                model.setWeekDay(pageNum);
-                restartCursorLoader(pageNum);
-                model.setRozkladCursorAdapter(rozkladCursorAdapter);
-            }
-        });
+
 
         Bundle bundle=new Bundle();
         bundle.putInt("weekDay",1);
@@ -170,4 +163,24 @@ public class FragmentHomeWork extends Fragment {
     }
 
 
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
+        Date crsDate = model.getCrnDate();
+        CursorLoader cursorLoader = new CursorLoader(getContext(),
+                SchoolManagerContract.HomeworksEntry.HOMEWORK_URI,null,null,
+                new String[]{String.valueOf(crsDate)},null);
+        Log.i(TAG, "select HomeWork for date="+new SimpleDateFormat("dd.mm.YYYY").format(crsDate));
+        return cursorLoader;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+
+    }
 }

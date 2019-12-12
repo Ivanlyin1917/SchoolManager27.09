@@ -20,6 +20,8 @@
     <string name="edit_lsn_title">Редагувати урок</string>
     <string name="cm_edit_lesson">Редагувати</string>
     <string name="cm_delete_lesson">Вилучити</string>
+    <string name="add_hw_title">Додати ДЗ</string>
+    <string name="edit_hw_title">Редагувати ДЗ</string>
 
     <!-- BUTTON -->
     <string name="btn_okey">ОК</string>

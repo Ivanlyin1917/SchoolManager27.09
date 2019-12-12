@@ -12,7 +12,7 @@ public class MyCalendar{
 
     public MyCalendar() {
         myCalendar = Calendar.getInstance();
-        myCalendar.setFirstDayOfWeek(Calendar.MONDAY);
+        //myCalendar.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
 
     }
 
@@ -22,7 +22,7 @@ public class MyCalendar{
     }
 
     private int getCurrentPosition(){
-        currentPosition  = currentDay+7;
+        currentPosition  = currentDay+6;
         return currentPosition;
     }
 
