@@ -32,7 +32,7 @@ public class FragmentRozklad extends Fragment implements LoaderManager.LoaderCal
         View fragmentRozklad = inflater.inflate(R.layout.fragment_rozklad, container, false);
         ViewPager rozklad = fragmentRozklad.findViewById(R.id.rozklad_pager);
 //        rozklad.setClipToPadding(false);
-        rozklad.setPageMargin(12);
+       // rozklad.setPageMargin(12);
         rozklad.setClipChildren(false);
         rozklad.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             public void onPageSelected (int position){

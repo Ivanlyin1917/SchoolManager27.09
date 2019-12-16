@@ -41,8 +41,8 @@ public class FragmentHomeWork extends Fragment implements LoaderManager.LoaderCa
         //TextView pageHeader=getActivity().findViewById(R.id.homework_fragmet_text);
 
         ViewPager homeWork = fragmentHomework.findViewById(R.id.homework_pager);
-        homeWork.setClipToPadding(false);
-        homeWork.setPageMargin(12);
+        //homeWork.setClipToPadding(false);
+       // homeWork.setPageMargin(12);
         homeWork.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {

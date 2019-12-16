@@ -11,10 +11,6 @@ android:id="@+id/fragment_rozklad">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:paddingLeft="@dimen/viewpager_padding_left"
-        android:paddingRight="@dimen/viewpager_padding_right"
-        android:clipToPadding="false"
-        android:layout_weight = "1"
         android:id="@+id/rozklad_pager">
 
         <android.support.v4.view.PagerTabStrip
