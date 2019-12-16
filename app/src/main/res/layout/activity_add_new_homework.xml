@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/card_view_radius">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_title_add_hw_dialog"
+            android:textSize="@dimen/title_text_size"
+            android:gravity="center"
+            android:layout_margin="@dimen/general_margin"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/hw_lesson_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Урок"
+            android:completionHint="Введіть урок"
+            android:completionThreshold="1"
+            android:layout_marginLeft="@dimen/general_margin"
+            android:layout_marginRight="@dimen/general_margin"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="7">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_hw_text"
+                android:inputType="text"
+                android:hint="Домашнє завдання"
+                android:layout_marginRight="@dimen/general_margin"
+                android:layout_marginLeft="@dimen/general_margin"
+                android:layout_weight="5"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/hw_photo"
+                android:layout_weight="2"
+                android:src="@drawable/ic_photo_camera_green_24dp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/general_margin"
+            android:layout_marginRight="@dimen/general_margin"
+            android:weightSum="2">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_add_hw"
+                android:text="@string/btn_add"
+                android:textSize="@dimen/dialog_text_size"
+                android:layout_marginRight="@dimen/general_margin"
+                android:layout_marginLeft="@dimen/general_margin"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_cancel_hw"
+                android:text="@string/btn_cancel"
+                android:textSize="@dimen/dialog_text_size"
+                android:layout_marginRight="@dimen/general_margin"
+                android:layout_marginLeft="@dimen/general_margin"
+                android:layout_weight="1"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</android.support.v7.widget.CardView>

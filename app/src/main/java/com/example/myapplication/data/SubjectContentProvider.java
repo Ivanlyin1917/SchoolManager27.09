@@ -82,6 +82,18 @@ public class SubjectContentProvider extends ContentProvider {
                         +" where "+HomeworksEntry.DATE_HW+"=? ";
                 newCursor = db.rawQuery(sqlHW,selectionArgs);
                 break;
+            case HOMEWORK_ID:
+                String hwArgFrom = HomeworksEntry.TABLE_NAME
+                        +" as H inner join "+SubjectEntry.TABLE_NAME+" as S " +
+                        "on H."+HomeworksEntry.SUBJECT_ID+"=S."+SubjectEntry.KEY_ID;
+                projection = new String[]{"H."+HomeworksEntry.HM_ID+",H."+ HomeworksEntry.HOMEWORK
+                        +", S."+SubjectEntry.KEY_NAME +", H."+HomeworksEntry.SUBJECT_ID
+                        +", H."+HomeworksEntry.DATE_HW};
+                selection = "H."+HomeworksEntry.HM_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                newCursor = db.query(hwArgFrom,projection,selection,selectionArgs,
+                        null,null,sortOrder);
+                break;
 
             default:
                 throw new IllegalArgumentException("Can't query incorrect URI " + uri);
@@ -96,6 +108,7 @@ public class SubjectContentProvider extends ContentProvider {
 
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         int math = sUriMatcher.match(uri);
+        long new_id;
         switch (math){
             case SUBJECT:
                 String subjectName = values.getAsString(SubjectEntry.KEY_NAME);
@@ -117,6 +130,14 @@ public class SubjectContentProvider extends ContentProvider {
                 }
                 getContext().getContentResolver().notifyChange(uri,null);
                 return ContentUris.withAppendedId(uri,lesson_id);
+            case HOMEWORK:
+                long hw_id = db.insert(HomeworksEntry.TABLE_NAME,null,values);
+                if (hw_id ==-1){
+                    Log.e("insertMethod","Insert of data in the table failed for " + uri);
+                    return null;
+                }
+                getContext().getContentResolver().notifyChange(uri,null);
+                return ContentUris.withAppendedId(uri,hw_id);
             default:
                 throw new IllegalArgumentException("Insert of data in the table failed for " + uri);
         }
@@ -181,6 +202,12 @@ public class SubjectContentProvider extends ContentProvider {
                 return SubjectEntry.SUBJECT_SINGLE_ITEM;
             case ROZKLAD:
                 return LessonsEntry.ROZKLAD_MULTIPLE_ITEM;
+            case ROZKLAD_ID:
+                return LessonsEntry.ROZKLAD_SINGLE_ITEM;
+            case HOMEWORK:
+                return HomeworksEntry.ROZKLAD_MULTIPLE_ITEM;
+            case HOMEWORK_ID:
+                return HomeworksEntry.ROZKLAD_SINGLE_ITEM;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }

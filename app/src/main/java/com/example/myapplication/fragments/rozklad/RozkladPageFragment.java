@@ -92,7 +92,7 @@ public class RozkladPageFragment extends Fragment  {
         });
 
         //Слушатель для кнопки Add. Вызываем окно для добавления нового урока
-        FloatingActionButton fab=getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab=getActivity().findViewById(R.id.fab_rozklad);
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

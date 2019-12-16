@@ -25,20 +25,20 @@ public class HomeworkCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        TextView itemNumber = view.findViewById(R.id.rozklad_item_number_text);
+        TextView itemNumber = view.findViewById(R.id.homework_item_number_text);
         /* TextView lessonTime = view.findViewById(R.id.homeworks_time_text);*/
-        TextView lessonName = view.findViewById(R.id.rozklad_lesson_name_text);
-        TextView lessonPlace = view.findViewById(R.id.homework_place_text);
+        TextView lessonName = view.findViewById(R.id.homework_lesson_name_text);
+        TextView homework = view.findViewById(R.id.homework_text);
 
         String number = "";
        /* String time = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_BEGIN))+"-"
                 +cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_END  ));*/
         String name = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.SubjectEntry.KEY_NAME));
-        String place = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.LessonsEntry.LESSON_PLACE));
+        String place = cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.HomeworksEntry.HOMEWORK));
         itemNumber.setText(number);
         /*lessonTime.setText(time);*/
         lessonName.setText(name);
-        lessonPlace.setText(place);
+        homework.setText(place);
 
     }
 }

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_activity"
         android:id="@+id/rozklad_lesson_name_text"
-        android:layout_marginStart="@dimen/general_margin"
+        android:layout_marginLeft="@dimen/general_margin"
         android:layout_weight="7"
         android:gravity="start"/>
     <TextView
