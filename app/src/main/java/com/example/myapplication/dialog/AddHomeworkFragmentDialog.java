@@ -130,7 +130,7 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
             cv.put(HomeworksEntry.HOMEWORK, userHWText);
             ContentResolver contentResolver = getActivity().getContentResolver();
             if (homeworkUri == null) {
-                Uri hwInsertUri = contentResolver.insert(LessonsEntry.ROZKLAD_URI, cv);
+                Uri hwInsertUri = contentResolver.insert(HomeworksEntry.HOMEWORK_URI, cv);
                 if (hwInsertUri == null) {
                     Toast.makeText(getContext(), "Помилка збереження даних", Toast.LENGTH_LONG).show();
                 }

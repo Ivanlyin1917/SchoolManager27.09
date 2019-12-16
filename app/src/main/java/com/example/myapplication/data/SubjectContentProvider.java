@@ -108,6 +108,7 @@ public class SubjectContentProvider extends ContentProvider {
 
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         int math = sUriMatcher.match(uri);
+        long new_id;
         switch (math){
             case SUBJECT:
                 String subjectName = values.getAsString(SubjectEntry.KEY_NAME);
@@ -201,6 +202,12 @@ public class SubjectContentProvider extends ContentProvider {
                 return SubjectEntry.SUBJECT_SINGLE_ITEM;
             case ROZKLAD:
                 return LessonsEntry.ROZKLAD_MULTIPLE_ITEM;
+            case ROZKLAD_ID:
+                return LessonsEntry.ROZKLAD_SINGLE_ITEM;
+            case HOMEWORK:
+                return HomeworksEntry.ROZKLAD_MULTIPLE_ITEM;
+            case HOMEWORK_ID:
+                return HomeworksEntry.ROZKLAD_SINGLE_ITEM;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }

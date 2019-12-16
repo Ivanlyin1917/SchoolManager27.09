@@ -6,10 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.myapplication.adapter.SmartFragmentStatePagerAdapter;
 
 
-public class HomeWorkPageFragmentAdapter extends SmartFragmentStatePagerAdapter {
+
+public class HomeWorkPageFragmentAdapter extends FragmentPagerAdapter {
 
     private static final String TAG = "Homework";
     private static  int COUNT_PAGE = 7*4;//5 нужно заменить константой из настроек

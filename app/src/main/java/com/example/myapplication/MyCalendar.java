@@ -22,7 +22,7 @@ public class MyCalendar{
     }
 
     private int getCurrentPosition(){
-        currentPosition  = currentDay+6;
+        currentPosition  = getCurrentDay()+6;
         return currentPosition;
     }
 
@@ -33,7 +33,8 @@ public class MyCalendar{
 
     public Date getDate (int position){
         int delta = position-getCurrentPosition();
-        myCalendar.add(Calendar.DATE,delta);
+        int day_month = Calendar.DAY_OF_MONTH;
+        myCalendar.add(day_month,delta);
         Date newDate = myCalendar.getTime();
         return newDate;
     }
