@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ public class FragmentHomeWork extends Fragment implements LoaderManager.LoaderCa
     private final String TAG = "Homework";
     private static final int HOMEWORK_LOADER = 100;
     private HomeworkCursorAdapter homeworkCursorAdapter;
-    private MyCalendar myCalendar = new MyCalendar();
+   // private MyCalendar myCalendar = new MyCalendar();
     private int page;
     private HomeworkSharedViewModel model;
 
@@ -38,8 +39,6 @@ public class FragmentHomeWork extends Fragment implements LoaderManager.LoaderCa
                              Bundle savedInstanceState) {
 
         View fragmentHomework = inflater.inflate(R.layout.fragment_homework, container, false);
-        //TextView pageHeader=getActivity().findViewById(R.id.homework_fragmet_text);
-
         ViewPager homeWork = fragmentHomework.findViewById(R.id.homework_pager);
         //homeWork.setClipToPadding(false);
        // homeWork.setPageMargin(12);
@@ -51,11 +50,11 @@ public class FragmentHomeWork extends Fragment implements LoaderManager.LoaderCa
             public void onPageSelected(int position) {
                 page = position+1;
                 SimpleDateFormat format = new SimpleDateFormat("dd.MM.YYYY");
-                String dateString = getTitlePage(page);
-                Log.i(TAG,"Selected page="+page+", date "+format.format(myCalendar.getDate(page)));
-                model.setTitleDate(dateString);
+                Log.i(TAG,"Selected page="+page+", date "+format.format(new MyCalendar().getDate(page)));
                 model.setPage(page);
-                //model.setCrnDate(crnDate);
+                restarCursorLoader(new MyCalendar().getDate(page).getTime());
+                model.setHomeworkCursorAdapter(homeworkCursorAdapter);
+                model.setCrnDate(new MyCalendar().getDate(page));
             }
 
             @Override
@@ -63,70 +62,21 @@ public class FragmentHomeWork extends Fragment implements LoaderManager.LoaderCa
 
             }
         });
-        homeWork.setAdapter(new HomeWorkPageFragmentAdapter(getContext(),getFragmentManager()));
+        MyCalendar myCalendar = new MyCalendar();
+        HomeWorkPageFragmentAdapter pageAdapter = new HomeWorkPageFragmentAdapter(getContext(),getFragmentManager());
+        homeWork.setAdapter(pageAdapter);
+        pageAdapter.setPrimaryItem(null,myCalendar.getCurrentPosition(),null);
         model = ViewModelProviders.of(getActivity()).get(HomeworkSharedViewModel.class);
         //Початкові налаштування
-        model.setTitleDate(getTitlePage(1));
         model.setPage(1);
+        model.setCrnDate(new MyCalendar().getDate(1));
         Bundle bundle = new Bundle();
         bundle.putLong("crnDate",myCalendar.getDate(1).getTime());
-        //model.setCrnDate(myCalendar.getDate(1));
         homeworkCursorAdapter = new HomeworkCursorAdapter(getContext(),null,false);
         getLoaderManager().initLoader(HOMEWORK_LOADER,bundle,this);
         model.setHomeworkCursorAdapter(homeworkCursorAdapter);
         return fragmentHomework;
     }
-    /*
-    *
-//
-        rozklad.setClipChildren(false);
-
-
-        Bundle bundle=new Bundle();
-        bundle.putInt("weekDay",1);
-        getLoaderManager().initLoader(ROZKLAD_LOADER,bundle,this);
-        model = ViewModelProviders.of(getActivity()).get(RozkladSharedViewModel.class);
-        model.setWeekDay(1);
-        model.setRozkladCursorAdapter(rozkladCursorAdapter);
-        return fragmentRozklad;
-    }
-
-
-
-    private void restartCursorLoader(int dayID){
-        Bundle bundle=new Bundle();
-        bundle.putInt("weekDay",dayID);
-        getLoaderManager().restartLoader(ROZKLAD_LOADER,bundle,this);
-    }*/
-
-    private String getTitlePage(int page){
-        String title="";
-        MyCalendar myCalendar = new MyCalendar();
-        Log.i("Homework", "Current day = "+myCalendar.getCurrentDay()+"date = "
-                +new SimpleDateFormat("dd.MM.YYYY").format(myCalendar.getCurrentDate()) );
-        Date titleDate = myCalendar.getDate(page);
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.YYYY");
-        String dateString = format.format(titleDate);
-        int weekDay = page%7;
-        switch (weekDay){
-            case 1: title = "Понеділок "+dateString;
-                break;
-            case 2: title = "Вівторок "+dateString;
-                break;
-            case 3: title = "Середа "+dateString;
-                break;
-            case 4: title = "Четвер "+dateString;
-                break;
-            case 5: title = "П\'ятниця "+dateString;
-                break;
-            case 6: title = "Субота "+dateString;
-                break;
-            case 0: title = "Неділя "+dateString;
-                break;
-        }
-        return  title;
-    }
-
 
     @NonNull
     @Override
@@ -135,13 +85,20 @@ public class FragmentHomeWork extends Fragment implements LoaderManager.LoaderCa
         CursorLoader cursorLoader = new CursorLoader(getContext(),
                 SchoolManagerContract.HomeworksEntry.HOMEWORK_URI,null,null,
                 new String[]{String.valueOf(crtDate)},null);
-        Log.i(TAG, "select HomeWork for date="+new SimpleDateFormat("dd.MM.YYYY").format(crtDate));
+        Log.i(TAG, "select HomeWork for date="+new SimpleDateFormat("dd.MM.YYYY")
+                .format(crtDate)+"("+crtDate+")");
         return cursorLoader;
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
         homeworkCursorAdapter.swapCursor(cursor);
+        if (cursor.moveToFirst()){
+           int count_rec=0;
+            do {
+                count_rec++;
+            }while (cursor.moveToNext());
+        }
 
     }
 
@@ -154,6 +111,8 @@ public class FragmentHomeWork extends Fragment implements LoaderManager.LoaderCa
     private void restarCursorLoader( long crnDate){
        Bundle bundle = new Bundle();
        bundle.putLong("crnDate",crnDate);
+        Log.i(TAG, "restart cursor HomeWork for date="+new SimpleDateFormat("dd.MM.YYYY")
+                .format(crnDate)+"("+crnDate+")");
        getLoaderManager().restartLoader(HOMEWORK_LOADER,bundle,this);
     }
 }

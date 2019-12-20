@@ -22,6 +22,8 @@
     <string name="cm_delete_lesson">Вилучити</string>
     <string name="add_hw_title">Додати ДЗ</string>
     <string name="edit_hw_title">Редагувати ДЗ</string>
+    <string name="cm_edit_homework">Редагувати</string>
+    <string name="cm_delete_homework">Вилучити</string>
 
     <!-- BUTTON -->
     <string name="btn_okey">ОК</string>

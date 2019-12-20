@@ -155,6 +155,11 @@ public class SubjectContentProvider extends ContentProvider {
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 countDelRec = db.delete(LessonsEntry.TABLE_NAME,selection,selectionArgs);
                 break;
+            case HOMEWORK_ID:
+                selection = HomeworksEntry.HM_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countDelRec = db.delete(HomeworksEntry.TABLE_NAME,selection,selectionArgs);
+                break;
             default:
                 throw new IllegalArgumentException("Can't delete this URI " + uri);
         }

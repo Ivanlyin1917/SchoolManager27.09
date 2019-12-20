@@ -37,32 +37,7 @@ public class HomeWorkPageFragment extends Fragment {
         return fragment;
     }
 
-    public static String getTitle(Context context, int position){
-        String title="";
-        MyCalendar myCalendar = new MyCalendar();
-        Log.i("Homework", "Current day = "+myCalendar.getCurrentDay());
-        Date titleDate = myCalendar.getDate(position+1);
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.YYYY");
-        String dateString = format.format(titleDate);
-        int weekDay = (position+1)%7;
-        switch (weekDay){
-            case 1: title = "Понеділок "+dateString;
-                break;
-            case 2: title = "Вівторок "+dateString;
-                break;
-            case 3: title = "Середа "+dateString;
-                break;
-            case 4: title = "Четвер "+dateString;
-                break;
-            case 5: title = "П\'ятниця "+dateString;
-                break;
-            case 6: title = "Субота "+dateString;
-                break;
-            case 0: title = "Неділя "+dateString;
-                break;
-        }
-        return  title;
-    }
+//
 
     public HomeWorkPageFragment() {
     }

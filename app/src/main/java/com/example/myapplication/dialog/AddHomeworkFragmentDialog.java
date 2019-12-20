@@ -119,7 +119,8 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
     }
     private void insertNewHomeWork(){
         ContentValues cv = new ContentValues();
-        cv.put(HomeworksEntry.DATE_HW,  model.getCrnDate().getTime());
+        long crnDate = model.getCrnDate().getTime();
+        cv.put(HomeworksEntry.DATE_HW,crnDate );
         if(lsnId==-1){
         //предмета немає в БД. Повідомлення про помилку
             Toast.makeText(getContext(), "Такого предмету немає в БД. Оберіть предмет зі списку"
@@ -142,7 +143,7 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
             }
         }
         Log.i(TAG,"working with day="
-                + new SimpleDateFormat("dd.MM.YYYY").format(model.getCrnDate()));
+                + new SimpleDateFormat("dd.MM.YYYY").format(crnDate)+"("+crnDate+")");
         dismiss();
     }
 

@@ -58,22 +58,22 @@ public class Manager_project extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //-----------------------------------------------------------------------------------
-        dbh=new DatabaseHandler(this);
-
-       try{
-
-         //  dbh.updateDataBase();
-           dbh.createDataBase();
-       }catch (IOException ex){
-           //throw new Error("Unable to create database");
-           ex.printStackTrace();
-       }
-        try{dbh.openDataBase();
-            Subject subject=dbh.getSubject(1);
-            Log.i("subject","Назва:"+subject.getName()+"тип:"+"id:"+subject.getId());
-        }catch (SQLException sex){
-            throw sex;
-        }
+//        dbh=new DatabaseHandler(this);
+//
+//       try{
+//
+//         //  dbh.updateDataBase();
+//           dbh.createDataBase();
+//       }catch (IOException ex){
+//           //throw new Error("Unable to create database");
+//           ex.printStackTrace();
+//       }
+//        try{dbh.openDataBase();
+//            Subject subject=dbh.getSubject(1);
+//            Log.i("subject","Назва:"+subject.getName()+"тип:"+"id:"+subject.getId());
+//        }catch (SQLException sex){
+//            throw sex;
+//        }
 
 
     }

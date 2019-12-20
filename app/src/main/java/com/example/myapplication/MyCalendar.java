@@ -21,7 +21,7 @@ public class MyCalendar{
         return currentDay;
     }
 
-    private int getCurrentPosition(){
+    public int getCurrentPosition(){
         currentPosition  = getCurrentDay()+6;
         return currentPosition;
     }
