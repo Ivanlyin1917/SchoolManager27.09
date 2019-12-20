@@ -74,9 +74,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void createDataBase() throws IOException {
         boolean dbExist = checkDataBase();
 
-      if (dbExist) {
+      //if (dbExist) {
             //ничего не делать - база уже есть
-        } else {
+       // } else {
             //вызывая этот метод создаем пустую базу, позже она будет перезаписана
             SQLiteDatabase db = this.getReadableDatabase();
             if (db.isOpen()) {
@@ -87,7 +87,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     throw new Error("Error copying database");
                 }
             }
-        }
+       // }
     }
 
     /**

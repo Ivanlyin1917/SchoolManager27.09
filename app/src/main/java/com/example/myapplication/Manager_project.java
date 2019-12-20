@@ -74,7 +74,7 @@ public class Manager_project extends AppCompatActivity
 //        }catch (SQLException sex){
 //            throw sex;
 //        }
-
+//
 
     }
 
