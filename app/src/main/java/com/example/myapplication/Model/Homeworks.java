@@ -2,29 +2,45 @@ package com.example.myapplication.Model;
 
 public class Homeworks {
     private long hm_id;
-    private long date_hm;
+    private String date_hm;
+    //private long date_hm;
     private String subject_name;
     private int subject_id;
 
     private String homework;
 
-    public Homeworks(int hm_id, long date_hm, String subject_name, String homework) {
-        this.hm_id = hm_id;
-        this.date_hm = date_hm;
-        this.subject_name = subject_name;
-        this.homework = homework;
-    }
+//    public Homeworks(int hm_id, long date_hm, String subject_name, String homework) {
+//        this.hm_id = hm_id;
+//        this.date_hm = date_hm;
+//        this.subject_name = subject_name;
+//        this.homework = homework;
+//    }
 
     public Homeworks() {
 
     }
 
-    public Homeworks(long date_hm, String subject_name, String homework) {
+    public Homeworks(long hm_id, String date_hm, String subject_name, int subject_id, String homework) {
+        this.hm_id = hm_id;
         this.date_hm = date_hm;
         this.subject_name = subject_name;
+        this.subject_id = subject_id;
         this.homework = homework;
-
     }
+
+    public Homeworks(String date_hm, String subject_name, int subject_id, String homework) {
+        this.date_hm = date_hm;
+        this.subject_name = subject_name;
+        this.subject_id = subject_id;
+        this.homework = homework;
+    }
+
+    //    public Homeworks(long date_hm, String subject_name, String homework) {
+//        this.date_hm = date_hm;
+//        this.subject_name = subject_name;
+//        this.homework = homework;
+//
+//    }
 
     public long getHm_id() {
         return hm_id;
@@ -34,13 +50,18 @@ public class Homeworks {
         this.hm_id = hm_id;
     }
 
-    public long getDate_hm(){
+    public String getDate_hm() {
         return date_hm;
     }
 
-    public void setDate_hm(long date_hm) {
+    public void setDate_hm(String date_hm) {
         this.date_hm = date_hm;
     }
+    //    public long getDate_hm(){ return date_hm; }
+//
+//    public void setDate_hm(long date_hm) {
+//        this.date_hm = date_hm;
+//    }
 
     public String getSubject_name() {
         return subject_name;

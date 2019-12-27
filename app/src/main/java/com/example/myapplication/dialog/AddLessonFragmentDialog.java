@@ -233,6 +233,7 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
                 }
                 userInput.setText(lesson.getLessonName());
                 lsnRoom.setText(lesson.getLessonPlace());
+                lsnId = lesson.getId();
                 break;
             default:break;
         }

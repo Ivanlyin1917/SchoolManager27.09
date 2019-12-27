@@ -188,6 +188,11 @@ public class SubjectContentProvider extends ContentProvider {
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 countRec =db.update(LessonsEntry.TABLE_NAME,values,selection, selectionArgs);
                 break;
+            case HOMEWORK_ID:
+                selection = HomeworksEntry.HM_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countRec =db.update(HomeworksEntry.TABLE_NAME,values,selection, selectionArgs);
+                break;
             default:
                 throw new IllegalArgumentException("Can't update incorrect URI " + uri);
         }

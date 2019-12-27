@@ -1,9 +1,12 @@
 package com.example.myapplication.dialog;
 
+import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +42,8 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
         TextWatcher, LoaderManager.LoaderCallbacks<Cursor> {
     private static final int SUBJECT_LOADER = 300;
     private static final int HOMEWORK_LOADER = 200;
+    private static final int CAMERA_REQUEST = 1888;
+    private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private static final String TAG = "Dialog_homework";
     private AutoCompleteTextView userInput;
     private EditText hwText;
@@ -48,6 +53,7 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
     private HomeworkSharedViewModel model;
     private long lsnId=-1;
     private Uri homeworkUri;
+    private SimpleDateFormat format;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,22 +70,24 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
         userInput = addHomeworkView.findViewById(R.id.hw_lesson_name);
         Button addBtn = addHomeworkView.findViewById(R.id.btn_add_hw);
         TextView titleDlg = addHomeworkView.findViewById(R.id.tv_title_add_hw_dialog);
+        format=new SimpleDateFormat("dd.MM.YYYY");
 
         //встановлюю onClick на кнопки
         addHomeworkView.findViewById(R.id.btn_add_hw).setOnClickListener(this);
         addHomeworkView.findViewById(R.id.btn_cancel_hw).setOnClickListener(this);
+        addHomeworkView.findViewById(R.id.hw_photo).setOnClickListener(this);
         //ініціалізую список значень в AutoCompleteTextView
         homeworkUri = model.getHomework_uri();
         initialAutoCompleteTextView();
         Log.i(TAG, "get uri="+homeworkUri);
         titleDlg.setText(R.string.add_hw_title);
-        /*if (homeworkUri==null){
+        if (homeworkUri==null){
           addBtn.setText(R.string.btn_add);
-          titleDlg.setText(R.string.add_lsn_title);
+          titleDlg.setText(R.string.add_hw_title);
         }else{
-          titleDlg.setText(R.string.edit_lsn_title);
+          titleDlg.setText(R.string.edit_hw_title);
           addBtn.setText(R.string.btn_okey);
-        }*/
+        }
         return addHomeworkView;
     }
     @Override
@@ -90,6 +98,10 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
             case R.id.btn_add_hw:
                 insertNewHomeWork();
                 break;
+            // дії для кнопки Фото
+            case R.id.hw_photo:
+                addPhoto();
+            break;
             // дії для кнопки Відмінити
             case R.id.btn_cancel_hw: dismiss();
             break;
@@ -119,7 +131,7 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
     }
     private void insertNewHomeWork(){
         ContentValues cv = new ContentValues();
-        long crnDate = model.getCrnDate().getTime();
+        String crnDate = format.format(model.getCrnDate());
         cv.put(HomeworksEntry.DATE_HW,crnDate );
         if(lsnId==-1){
         //предмета немає в БД. Повідомлення про помилку
@@ -142,11 +154,41 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
                 }
             }
         }
-        Log.i(TAG,"working with day="
-                + new SimpleDateFormat("dd.MM.YYYY").format(crnDate)+"("+crnDate+")");
+        Log.i(TAG,"working with day="+ crnDate);
         dismiss();
     }
+    private void addPhoto(){
+        Log.i(TAG,"Start camera");
+        if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+        }
+        else
+        {
+            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, CAMERA_REQUEST);
 
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_CAMERA_PERMISSION_CODE)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                Toast.makeText(getActivity(), "camera permission granted", Toast.LENGTH_LONG).show();
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+            }
+            else
+            {
+                Toast.makeText(getActivity(), "camera permission denied", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
@@ -196,6 +238,7 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
             }
             userInput.setText(hw.getSubject_name());
             hwText.setText(hw.getHomework());
+            lsnId = hw.getSubject_id();
             break;
             default:break;
         }
