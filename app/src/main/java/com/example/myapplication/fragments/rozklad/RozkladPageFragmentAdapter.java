@@ -2,17 +2,15 @@ package com.example.myapplication.fragments.rozklad;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.preference.PreferenceManager;
-import android.widget.TextView;
 
-import com.example.myapplication.fragments.rozklad.RozkladPageFragment;
 
-public class RozkladPageFragmentAdapter extends FragmentPagerAdapter {
+public class RozkladPageFragmentAdapter extends FragmentStatePagerAdapter {
 
     private Context context=null;
     private int countdayschool;
@@ -49,4 +47,12 @@ public class RozkladPageFragmentAdapter extends FragmentPagerAdapter {
 
 
     }
+
+    public int getItemPosition(@NonNull Object object) {
+        if (object instanceof RozkladPageFragment){
+            return POSITION_UNCHANGED;
+        }else{
+            return POSITION_NONE;
+        }
+}
 }
