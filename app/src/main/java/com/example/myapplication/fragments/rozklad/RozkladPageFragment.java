@@ -39,7 +39,7 @@ public class RozkladPageFragment extends Fragment  {
         return fragment;
     }
 
-    public static String getTitle(Context context, int position){
+   /* public static String getTitle(Context context, int position){
        String title=""   ;
 
        switch (position+1){
@@ -59,7 +59,7 @@ public class RozkladPageFragment extends Fragment  {
                break;
        }
        return  title;
-    }
+    }*/
 
     public RozkladPageFragment() {
     }
@@ -68,7 +68,7 @@ public class RozkladPageFragment extends Fragment  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(RozkladSharedViewModel.class);
-        Log.i(TAG,"method onCreate for page="+model.getWeekDay());
+        //Log.i(TAG,"method onCreate for page="+model.getWeekDay());
 
     }
 

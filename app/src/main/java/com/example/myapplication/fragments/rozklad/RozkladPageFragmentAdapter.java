@@ -14,6 +14,7 @@ public class RozkladPageFragmentAdapter extends FragmentStatePagerAdapter {
 
     private Context context=null;
     private int countdayschool;
+    private String tabTitles[]=new String[]{"Понеділок","Вівторок","Середа","Четвер","П\'ятниця"};
 
     public RozkladPageFragmentAdapter(Context context,FragmentManager fm) {
         super(fm);
@@ -35,13 +36,14 @@ public class RozkladPageFragmentAdapter extends FragmentStatePagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return RozkladPageFragment.getTitle(context,position);
+        //return RozkladPageFragment.getTitle(context,position);
+        return tabTitles[position];
     }
 
-    @Override
+   /* @Override
     public float getPageWidth(int position) {
         return 0.97f;
-    }
+    }*/
     private void setCountSchoolDay(SharedPreferences sp){
         countdayschool = Integer.valueOf( sp.getString("count_school_day","5"));
 

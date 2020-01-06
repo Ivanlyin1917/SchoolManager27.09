@@ -96,6 +96,7 @@ public class FragmentRozklad extends Fragment implements LoaderManager.LoaderCal
         Bundle bundle=new Bundle();
         bundle.putInt("weekDay",dayID);
         getLoaderManager().restartLoader(ROZKLAD_LOADER,bundle,this);
+        Log.i(TAG,"restart loader for day" + dayID);
     }
 
 

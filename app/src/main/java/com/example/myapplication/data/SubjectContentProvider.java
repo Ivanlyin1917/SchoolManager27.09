@@ -19,6 +19,8 @@ public class SubjectContentProvider extends ContentProvider {
     private static final int ROZKLAD_ID=201;
     private static final int HOMEWORK = 300;
     private static final int HOMEWORK_ID = 301;
+    private static final int NOTE = 400;
+    private static final int NOTE_ID = 401;
     private DatabaseHandler databaseHandler;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static{
@@ -28,6 +30,8 @@ public class SubjectContentProvider extends ContentProvider {
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,LessonsEntry.PATH_ROZKLAD+"/#", ROZKLAD_ID);
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,HomeworksEntry.PATH_HOMEWORK, HOMEWORK);
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,HomeworksEntry.PATH_HOMEWORK+"/#", HOMEWORK_ID);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,NoteEntry.PATH_NOTE, NOTE);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,NoteEntry.PATH_NOTE+"/#", NOTE_ID);
 
     }
     @Override
@@ -76,6 +80,7 @@ public class SubjectContentProvider extends ContentProvider {
             case HOMEWORK:
                 String sqlHW = "Select H."+HomeworksEntry.HM_ID+",H."+ HomeworksEntry.DATE_HW
                         +", S."+SubjectEntry.KEY_NAME +", H."+HomeworksEntry.HOMEWORK
+                        +", H."+HomeworksEntry.HW_PHOTO+", H."+HomeworksEntry.HW_IS_READY
                         +" from " +HomeworksEntry.TABLE_NAME
                         +" as H inner join "+SubjectEntry.TABLE_NAME+" as S " +
                         "on H."+HomeworksEntry.SUBJECT_ID+"=S."+SubjectEntry.KEY_ID
@@ -88,10 +93,21 @@ public class SubjectContentProvider extends ContentProvider {
                         "on H."+HomeworksEntry.SUBJECT_ID+"=S."+SubjectEntry.KEY_ID;
                 projection = new String[]{"H."+HomeworksEntry.HM_ID+",H."+ HomeworksEntry.HOMEWORK
                         +", S."+SubjectEntry.KEY_NAME +", H."+HomeworksEntry.SUBJECT_ID
-                        +", H."+HomeworksEntry.DATE_HW};
+                        +", H."+HomeworksEntry.DATE_HW+", H."+HomeworksEntry.HW_PHOTO
+                        +", H."+HomeworksEntry.HW_IS_READY};
                 selection = "H."+HomeworksEntry.HM_ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 newCursor = db.query(hwArgFrom,projection,selection,selectionArgs,
+                        null,null,sortOrder);
+                break;
+            case NOTE:
+                newCursor = db.query(NoteEntry.TABLE_NAME, projection,
+                        selection, selectionArgs,null,null,sortOrder);
+                break;
+            case NOTE_ID:
+                selection =NoteEntry.KEY_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                newCursor = db.query(NoteEntry.TABLE_NAME,projection,selection,selectionArgs,
                         null,null,sortOrder);
                 break;
 
@@ -138,6 +154,14 @@ public class SubjectContentProvider extends ContentProvider {
                 }
                 getContext().getContentResolver().notifyChange(uri,null);
                 return ContentUris.withAppendedId(uri,hw_id);
+            case NOTE:
+                long note_id = db.insert(NoteEntry.TABLE_NAME,null,values);
+                if (note_id ==-1){
+                    Log.e("insertMethod","Insert of data in the table failed for " + uri);
+                    return null;
+                }
+                getContext().getContentResolver().notifyChange(uri,null);
+                return ContentUris.withAppendedId(uri,note_id);
             default:
                 throw new IllegalArgumentException("Insert of data in the table failed for " + uri);
         }
@@ -159,6 +183,11 @@ public class SubjectContentProvider extends ContentProvider {
                 selection = HomeworksEntry.HM_ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 countDelRec = db.delete(HomeworksEntry.TABLE_NAME,selection,selectionArgs);
+                break;
+            case NOTE_ID:
+                selection = NoteEntry.KEY_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countDelRec = db.delete(NoteEntry.TABLE_NAME,selection,selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Can't delete this URI " + uri);
@@ -193,6 +222,11 @@ public class SubjectContentProvider extends ContentProvider {
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 countRec =db.update(HomeworksEntry.TABLE_NAME,values,selection, selectionArgs);
                 break;
+            case NOTE_ID:
+                selection = NoteEntry.KEY_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countRec =db.update(NoteEntry.TABLE_NAME,values,selection, selectionArgs);
+                break;
             default:
                 throw new IllegalArgumentException("Can't update incorrect URI " + uri);
         }
@@ -215,9 +249,13 @@ public class SubjectContentProvider extends ContentProvider {
             case ROZKLAD_ID:
                 return LessonsEntry.ROZKLAD_SINGLE_ITEM;
             case HOMEWORK:
-                return HomeworksEntry.ROZKLAD_MULTIPLE_ITEM;
+                return HomeworksEntry.HOMEWORK_MULTIPLE_ITEM;
             case HOMEWORK_ID:
-                return HomeworksEntry.ROZKLAD_SINGLE_ITEM;
+                return HomeworksEntry.HOMEWORK_SINGLE_ITEM;
+            case NOTE:
+                return NoteEntry.NOTE_MULTIPLE_ITEM;
+            case NOTE_ID:
+                return NoteEntry.NOTE_SINGLE_ITEM;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }

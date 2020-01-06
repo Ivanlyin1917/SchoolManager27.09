@@ -5,7 +5,13 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Налаштування</string>
+    <string name="activity_note_home">Нотатки</string>
+    <string name="msg_no_notes">No notes found!</string>
+    <string name="lbl_new_note_title">Нова нотатка</string>
+    <string name="lbl_edit_note_title">Редагувати нотатку</string>
+    <string name="hint_enter_note">Введіть свою нотатку!</string>
+
 
     <!-- MENU -->
     <string name="item_rozklad">Розклад</string>
@@ -24,6 +30,8 @@
     <string name="edit_hw_title">Редагувати ДЗ</string>
     <string name="cm_edit_homework">Редагувати</string>
     <string name="cm_delete_homework">Вилучити</string>
+    <string name="cm_done_homework">Виконано</string>
+    <string name="cm_delete_photo_hw">Вилучити фото</string>
 
     <!-- BUTTON -->
     <string name="btn_okey">ОК</string>

@@ -14,6 +14,7 @@ public class HomeworkSharedViewModel extends ViewModel {
     private HomeworkCursorAdapter homeworkCursorAdapter;
     private Uri homework_uri;
 
+
     public Date getCrnDate() {
         return crnDate;
     }

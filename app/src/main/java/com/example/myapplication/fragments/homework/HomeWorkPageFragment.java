@@ -70,9 +70,9 @@ public class HomeWorkPageFragment extends Fragment {
                 contextMenu.show(getFragmentManager(),"contextMenu");
             }
         });
-        TextView pageHeader=result.findViewById(R.id.homework_fragmet_text); //отримуэмо TextView з розмітки фрагмента
-        String header = model.getTitleDate();
-        pageHeader.setText(header);
+        //TextView pageHeader=result.findViewById(R.id.homework_fragmet_text); //отримуэмо TextView з розмітки фрагмента
+       // String header = model.getTitleDate();
+       // pageHeader.setText(header);
         FloatingActionButton fab=getActivity().findViewById(R.id.fab_homework);
         fab.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -13,9 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.myapplication.fragments.Setting.UserSettingFragment;
 import com.example.myapplication.fragments.homework.FragmentHomeWork;
+import com.example.myapplication.fragments.note.FragmentNote;
 import com.example.myapplication.fragments.rozklad.FragmentRozklad;
 
 import java.io.IOException;
@@ -28,6 +30,7 @@ public class Manager_project extends AppCompatActivity
    private DatabaseHandler dbh;
    private FragmentRozklad frameRozklad;
    private FragmentHomeWork frameHomework;
+   private FragmentNote frameNote;
    private UserSettingFragment settingFragment;
 
 
@@ -50,6 +53,7 @@ public class Manager_project extends AppCompatActivity
         frameRozklad = new FragmentRozklad();
         frameHomework = new FragmentHomeWork();
         settingFragment = new UserSettingFragment();
+        frameNote = new FragmentNote();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -58,23 +62,23 @@ public class Manager_project extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //-----------------------------------------------------------------------------------
-//        dbh=new DatabaseHandler(this);
-//
-//       try{
-//
-//         //  dbh.updateDataBase();
-//           dbh.createDataBase();
-//       }catch (IOException ex){
-//           //throw new Error("Unable to create database");
-//           ex.printStackTrace();
-//       }
+        dbh=new DatabaseHandler(this);
+
+       try{
+
+         //  dbh.updateDataBase();
+           dbh.createDataBase();
+       }catch (IOException ex){
+           Toast.makeText(this, "Unable to create database", Toast.LENGTH_SHORT).show();
+           //throw new Error("Unable to create database");
+           ex.printStackTrace();
+       }
 //        try{dbh.openDataBase();
-//            Subject subject=dbh.getSubject(1);
-//            Log.i("subject","Назва:"+subject.getName()+"тип:"+"id:"+subject.getId());
+//
 //        }catch (SQLException sex){
 //            throw sex;
 //        }
-//
+
 
     }
 
@@ -126,10 +130,12 @@ public class Manager_project extends AppCompatActivity
 
         if (id == R.id.nav_rozklad) {
             transaction.replace(R.id.container,frameRozklad);
+
         } else if (id == R.id.nav_homework) {
             transaction.replace(R.id.container,frameHomework);
 
         } else if (id == R.id.nav_note) {
+            transaction.replace(R.id.container,frameNote);
 
         } else if (id == R.id.nav_setting) {
             transaction.replace(R.id.container,settingFragment);

@@ -1,6 +1,7 @@
 package com.example.myapplication.dialog;
 
 import android.Manifest;
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -8,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +20,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +39,7 @@ import com.example.myapplication.adapter.SubjectCursorAdapter;
 import com.example.myapplication.data.SchoolManagerContract.*;
 import com.example.myapplication.fragments.homework.HomeworkSharedViewModel;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 
 public class AddHomeworkFragmentDialog extends  DialogFragment implements View.OnClickListener,
@@ -54,6 +58,8 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
     private long lsnId=-1;
     private Uri homeworkUri;
     private SimpleDateFormat format;
+    Bitmap theImage;
+    String photo;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -141,6 +147,8 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
             String userHWText = hwText.getText().toString();//ДЗ
             cv.put(LessonsEntry.SUBJECT_ID, lsnId);
             cv.put(HomeworksEntry.HOMEWORK, userHWText);
+            cv.put(HomeworksEntry.HW_PHOTO,photo);
+            cv.put(HomeworksEntry.HW_IS_READY,0);
             ContentResolver contentResolver = getActivity().getContentResolver();
             if (homeworkUri == null) {
                 Uri hwInsertUri = contentResolver.insert(HomeworksEntry.HOMEWORK_URI, cv);
@@ -148,6 +156,9 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
                     Toast.makeText(getContext(), "Помилка збереження даних", Toast.LENGTH_LONG).show();
                 }
             } else {
+               // cv.put(HomeworksEntry.DATE_HW,hw.getDate_hm());
+                //cv.put(HomeworksEntry.HW_PHOTO,hw.getPhoto_hw());
+                cv.put(HomeworksEntry.HW_IS_READY,hw.isHwIsReady());
                 int hwUpdateCount = contentResolver.update(homeworkUri, cv, null, null);
                 if (hwUpdateCount == 0) {
                     Toast.makeText(getContext(), "Помилка! Не можу оновити дані :(", Toast.LENGTH_LONG).show();
@@ -188,6 +199,30 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
                 Toast.makeText(getActivity(), "camera permission denied", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK)
+        {
+            theImage = (Bitmap) data.getExtras().get("data");
+            photo=getEncodedString(theImage);
+           // setDataToDataBase();
+        }
+    }
+    private String getEncodedString(Bitmap bitmap){
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100, os);
+
+       /* or use below if you want 32 bit images
+
+        bitmap.compress(Bitmap.CompressFormat.PNG, (0–100 compression), os);*/
+        byte[] imageArr = os.toByteArray();
+
+        return Base64.encodeToString(imageArr, Base64.URL_SAFE);
+
     }
 
     @Override
@@ -234,6 +269,9 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
                     hw.setSubject_id(cursor.getInt(cursor.getColumnIndexOrThrow(LessonsEntry.SUBJECT_ID)));
                     hw.setSubject_name(cursor.getString(cursor.getColumnIndexOrThrow(SubjectEntry.KEY_NAME)));
                     hw.setHomework(cursor.getString(cursor.getColumnIndexOrThrow(HomeworksEntry.HOMEWORK)));
+                    hw.setDate_hm(cursor.getString(cursor.getColumnIndexOrThrow(HomeworksEntry.DATE_HW)));
+                    hw.setPhoto_hw(cursor.getString(cursor.getColumnIndexOrThrow(HomeworksEntry.HW_PHOTO)));
+                    hw.setHwIsReady(cursor.getInt(cursor.getColumnIndexOrThrow(HomeworksEntry.HW_IS_READY)));
                 }while (cursor.moveToNext());
             }
             userInput.setText(hw.getSubject_name());

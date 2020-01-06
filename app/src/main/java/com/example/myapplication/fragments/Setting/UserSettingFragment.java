@@ -21,11 +21,8 @@ public class UserSettingFragment extends Fragment {
         return userSettingFragment;
 
     }
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        
+    public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {}
     }
 }
-        }

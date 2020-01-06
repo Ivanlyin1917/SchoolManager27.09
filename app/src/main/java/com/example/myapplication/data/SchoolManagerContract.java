@@ -23,6 +23,17 @@ public final class SchoolManagerContract {
         public static final String SUBJECT_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE +"/"+AUTHORITY+"/"+PATH_SUBJECT;
         public static final String SUBJECT_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE+"/"+AUTHORITY+"/"+AUTHORITY+PATH_SUBJECT;
     }
+    public static final class NoteEntry implements BaseColumns{
+        public static final String TABLE_NAME = "notes";
+        public static final String KEY_ID = "id";
+        public static final String KEY_NOTE = "note";
+        public static final String KEY_TIMESTAMP = "timestamp";
+        public static final String PATH_NOTE = "notes";
+        public static final Uri NOTE_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_NOTE);
+        public static final String NOTE_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE +"/"+AUTHORITY+"/"+PATH_NOTE;
+        public static final String NOTE_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE+"/"+AUTHORITY+"/"+AUTHORITY+PATH_NOTE;
+    }
+
     public static final class DaysEntry implements BaseColumns{
         public static  final  String TABLE_NAME="days";
         public  static final String DAY_ID="_id";
@@ -56,11 +67,13 @@ public final class SchoolManagerContract {
         public static  final String DATE_HW="date_hw";
         public static  final String SUBJECT_ID="subject_id";
         public static  final String HOMEWORK="Homework";
+        public static final String HW_PHOTO = "hw_photo";
+        public static final String HW_IS_READY = "is_ready";
         public static final String PATH_HOMEWORK = "homeworks";
         public static final Uri HOMEWORK_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_HOMEWORK);
-        public static final String ROZKLAD_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE
+        public static final String HOMEWORK_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE
             +"/"+AUTHORITY+"/"+PATH_HOMEWORK;
-        public static final String ROZKLAD_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE
+        public static final String HOMEWORK_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE
             +"/"+AUTHORITY+"/"+PATH_HOMEWORK;
     }
     public static final class Jingle_type_Entry implements BaseColumns{
