@@ -7,7 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Налаштування</string>
     <string name="activity_note_home">Нотатки</string>
-    <string name="msg_no_notes">No notes found!</string>
+    <string name="msg_no_notes">Записів не знайдено!</string>
     <string name="lbl_new_note_title">Нова нотатка</string>
     <string name="lbl_edit_note_title">Редагувати нотатку</string>
     <string name="hint_enter_note">Введіть свою нотатку!</string>
@@ -32,6 +32,11 @@
     <string name="cm_delete_homework">Вилучити</string>
     <string name="cm_done_homework">Виконано</string>
     <string name="cm_delete_photo_hw">Вилучити фото</string>
+    <string name="lbl_new_teacher_title">Додати вчителя</string>
+    <string name="lbl_edit_teacher_title">Редагувати запис</string>
+    <string name="hint_surname_teacher">Введіть прізвище</string>
+    <string name="hint_name_teacher">Введіть ім\'я!</string>
+    <string name="hint_lastname_teacher">Введіть побатькові</string>
 
     <!-- BUTTON -->
     <string name="btn_okey">ОК</string>

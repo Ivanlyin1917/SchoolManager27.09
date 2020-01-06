@@ -94,16 +94,30 @@ public final class SchoolManagerContract {
         public static final String ROZKLAD_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE
                 +"/"+AUTHORITY+"/"+PATH_ROZKLAD;
     }
-    public static final class Teacher_subject_Entry implements BaseColumns{
+    public static final class TeacherSubjectEntry implements BaseColumns{
+        public static  final  String TABLE_NAME="teacher_subject";
         public static  final String TS_ID="_id";
         public static  final String TEACHER_ID="Teacher_id";
         public static  final String SUBJECT_ID="Subject_id";
+        public static final String PATH_TS = "teachers";
+        public static final Uri TS_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_TS);
+        public static final String TS_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE
+                +"/"+AUTHORITY+"/"+PATH_TS;
+        public static final String TS_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE
+                +"/"+AUTHORITY+"/"+PATH_TS;
     }
     public static final class TeachersEntry implements BaseColumns{
+        public static  final  String TABLE_NAME="teachers";
         public static  final String TEACHER_ID="_id";
         public static  final String SURNAME="Surname";
         public static  final String NAME="Name";
         public static  final String LASTNAME="LastName";
+        public static final String PATH_TEACHER = "teachers";
+        public static final Uri TEACHER_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_TEACHER);
+        public static final String TEACHER_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE
+                +"/"+AUTHORITY+"/"+PATH_TEACHER;
+        public static final String TEACHER_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE
+                +"/"+AUTHORITY+"/"+PATH_TEACHER;
     }
 
 

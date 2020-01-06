@@ -12,9 +12,11 @@ import android.support.v7.preference.PreferenceManager;
 
 public class RozkladPageFragmentAdapter extends FragmentStatePagerAdapter {
 
+
     private Context context=null;
     private int countdayschool;
     private String tabTitles[]=new String[]{"Понеділок","Вівторок","Середа","Четвер","П\'ятниця"};
+
 
     public RozkladPageFragmentAdapter(Context context,FragmentManager fm) {
         super(fm);

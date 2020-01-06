@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.myapplication.Model.Subject;
+import com.example.myapplication.Model.Teacher;
+import com.example.myapplication.Model.TeachersSubject;
 import com.example.myapplication.data.SchoolManagerContract.*;
 
 public class SubjectContentProvider extends ContentProvider {
@@ -21,6 +24,10 @@ public class SubjectContentProvider extends ContentProvider {
     private static final int HOMEWORK_ID = 301;
     private static final int NOTE = 400;
     private static final int NOTE_ID = 401;
+    private static final int TEACHER = 500;
+    private static final int TEACHER_ID = 501;
+    private static final int TS = 600;
+    private static final int TS_ID = 601;
     private DatabaseHandler databaseHandler;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static{
@@ -32,6 +39,11 @@ public class SubjectContentProvider extends ContentProvider {
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,HomeworksEntry.PATH_HOMEWORK+"/#", HOMEWORK_ID);
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,NoteEntry.PATH_NOTE, NOTE);
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,NoteEntry.PATH_NOTE+"/#", NOTE_ID);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY, TeachersEntry.PATH_TEACHER, TEACHER);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,TeachersEntry.PATH_TEACHER+"/#", TEACHER_ID);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY, TeacherSubjectEntry.PATH_TS, TS);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,TeacherSubjectEntry.PATH_TS+"/#", TS_ID);
+
 
     }
     @Override
@@ -66,6 +78,7 @@ public class SubjectContentProvider extends ContentProvider {
                         +" where "+LessonsEntry.DAY_ID+"=? ";
                 newCursor = db.rawQuery(sqlText,selectionArgs);
                 break;
+
             case ROZKLAD_ID:
                 String argFrom = LessonsEntry.TABLE_NAME
                         +" as L inner join "+SubjectEntry.TABLE_NAME+" as S " +
@@ -109,6 +122,17 @@ public class SubjectContentProvider extends ContentProvider {
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 newCursor = db.query(NoteEntry.TABLE_NAME,projection,selection,selectionArgs,
                         null,null,sortOrder);
+                break;
+            case TEACHER:
+                String sqlTeacher = "Select T."+TeachersEntry.TEACHER_ID+",T."+ TeachersEntry.SURNAME
+                        +", T."+TeachersEntry.NAME+", T."+TeachersEntry.LASTNAME
+                        +", S."+SubjectEntry.KEY_NAME +", S."+ SubjectEntry.KEY_ID
+                        +" from " +TeacherSubjectEntry.TABLE_NAME
+                        +" as TS inner join "+TeachersEntry.TABLE_NAME+" as T " +
+                        "on TS."+ TeacherSubjectEntry.TEACHER_ID+"=T."+TeachersEntry.TEACHER_ID
+                        +" inner join " + SubjectEntry.TABLE_NAME + " as S "+
+                        "on TS."+ TeacherSubjectEntry.SUBJECT_ID+"=S."+SubjectEntry.KEY_ID;
+                newCursor = db.rawQuery(sqlTeacher,selectionArgs);
                 break;
 
             default:
@@ -162,6 +186,22 @@ public class SubjectContentProvider extends ContentProvider {
                 }
                 getContext().getContentResolver().notifyChange(uri,null);
                 return ContentUris.withAppendedId(uri,note_id);
+            case TEACHER:
+                long teacher_id = db.insert(TeachersEntry.TABLE_NAME,null,values);
+                if (teacher_id ==-1){
+                    Log.e("insertMethod","Insert of data in the table failed for " + uri);
+                    return null;
+                }
+                getContext().getContentResolver().notifyChange(uri,null);
+                return ContentUris.withAppendedId(uri,teacher_id);
+            case TS:
+                long ts_id = db.insert(TeacherSubjectEntry.TABLE_NAME,null,values);
+                if (ts_id ==-1){
+                    Log.e("insertMethod","Insert of data in the table failed for " + uri);
+                    return null;
+                }
+                getContext().getContentResolver().notifyChange(uri,null);
+                return ContentUris.withAppendedId(uri,ts_id);
             default:
                 throw new IllegalArgumentException("Insert of data in the table failed for " + uri);
         }
@@ -188,6 +228,16 @@ public class SubjectContentProvider extends ContentProvider {
                 selection = NoteEntry.KEY_ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 countDelRec = db.delete(NoteEntry.TABLE_NAME,selection,selectionArgs);
+                break;
+            case TS_ID:
+                selection = TeacherSubjectEntry.TS_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countDelRec = db.delete(TeacherSubjectEntry.TABLE_NAME,selection,selectionArgs);
+                break;
+            case TEACHER_ID:
+                selection = TeachersEntry.TEACHER_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countDelRec = db.delete(TeachersEntry.TABLE_NAME,selection,selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Can't delete this URI " + uri);
@@ -227,6 +277,16 @@ public class SubjectContentProvider extends ContentProvider {
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 countRec =db.update(NoteEntry.TABLE_NAME,values,selection, selectionArgs);
                 break;
+            case TS_ID:
+                selection = TeacherSubjectEntry.TS_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countRec =db.update(TeacherSubjectEntry.TABLE_NAME,values,selection, selectionArgs);
+                break;
+            case TEACHER_ID:
+                selection = TeachersEntry.TEACHER_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countRec =db.update(TeachersEntry.TABLE_NAME,values,selection, selectionArgs);
+                break;
             default:
                 throw new IllegalArgumentException("Can't update incorrect URI " + uri);
         }
@@ -256,6 +316,14 @@ public class SubjectContentProvider extends ContentProvider {
                 return NoteEntry.NOTE_MULTIPLE_ITEM;
             case NOTE_ID:
                 return NoteEntry.NOTE_SINGLE_ITEM;
+            case TS:
+                return TeacherSubjectEntry.TS_MULTIPLE_ITEM;
+            case TS_ID:
+                return TeacherSubjectEntry.TS_SINGLE_ITEM;
+            case TEACHER:
+                return TeachersEntry.TEACHER_MULTIPLE_ITEM;
+            case TEACHER_ID:
+                return TeachersEntry.TEACHER_SINGLE_ITEM;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }

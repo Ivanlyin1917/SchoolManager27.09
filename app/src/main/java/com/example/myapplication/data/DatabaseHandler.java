@@ -20,51 +20,51 @@ import com.example.myapplication.Model.Subject;
 
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    public static final int DB_VERSION=30;
-    public static final String DB_NAME="school.db";
+    public static final int DB_VERSION = 30;
+    public static final String DB_NAME = "school.db";
     private static String DB_PATH;
     private Context myContext;
     private SQLiteDatabase myDB;
 
-    public DatabaseHandler( Context context){
-        super(context, DB_NAME,null,DB_VERSION);
+    public DatabaseHandler(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
         //DB_PATH = "/com.example.myapplication.data/com.example.myapplication.data/" + context.getPackageName() + "/databases/";
         DB_PATH = context.getDatabasePath(DB_NAME).getPath();
-        this.myContext=context;
+        this.myContext = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
 
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        File dbFile = new File(DB_PATH );//+ DB_NAME);
+        File dbFile = new File(DB_PATH);//+ DB_NAME);
         if (dbFile.exists())
             dbFile.delete();
-        try{
+        try {
             copyDataBase();
-        }catch (IOException ex){
+        } catch (IOException ex) {
             throw new Error("no copy");
         }
     }
 
     /**
      * Проверяет, существует ли уже эта база, чтобы не копировать каждый раз при запуске приложения
+     *
      * @return true если существует, false если не существует
      */
-    private boolean checkDataBase(){
+    private boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
-        try{
+        try {
             String myPath = DB_PATH;// + DB_NAME;
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-        }catch(SQLiteException e){
+        } catch (SQLiteException e) {
             //база еще не существует
         }
-        if(checkDB != null){
+        if (checkDB != null) {
             checkDB.close();
         }
         return checkDB != null;
@@ -72,25 +72,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     /**
      * Создает пустую базу данных и перезаписывает ее нашей собственной базой
-     * */
+     */
     public void createDataBase() throws IOException {
         boolean dbExist = checkDataBase();
 
-      if (dbExist) {
-            //ничего не делать - база уже есть
-        } else {
-            //вызывая этот метод создаем пустую базу, позже она будет перезаписана
-            SQLiteDatabase db = this.getReadableDatabase();
-            if (db.isOpen()) {
-                db.close();
-                try {
-                    copyDataBase();
-                } catch (IOException e) {
-                    throw new Error("Error copying database");
-                }
+        if (dbExist) {
+        //ничего не делать - база уже есть
+         } else {
+        //вызывая этот метод создаем пустую базу, позже она будет перезаписана
+        SQLiteDatabase db = this.getReadableDatabase();
+        if (db.isOpen()) {
+            db.close();
+            try {
+                copyDataBase();
+            } catch (IOException e) {
+                throw new Error("Error copying database");
             }
         }
     }
+
+}
 
     /**
      * Копирует базу из папки assets заместо созданной локальной БД
