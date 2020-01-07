@@ -40,7 +40,7 @@ import com.example.myapplication.fragments.note.RecyclerTouchListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCallbacks {
+public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private final String TAG = "Teacher";
     private static final int TEACHER_LOADER = 500;
     private TeacherAdapter mAdapter;
@@ -66,7 +66,7 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showNoteDialog(false, null, -1);
+              //  showNoteDialog(false, null, -1);
             }
         });
 
@@ -74,7 +74,7 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
          * При довгому натисканні по запису відкриваємо
          * діалог з пунктами додати та редагувати
          * */
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(),
+ /*       recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(),
                 recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, final int position) {
@@ -87,14 +87,14 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
             }
         }));
 
-        initializationRecycler();
-        return noteFragment;
+        initializationRecycler();*/
+        return teacherFragment;
     }
     /**
      * Додаємо новий запис до Бд
      * та оновлюємо лист
      */
-    private void createNote(String note) {
+ /*   private void createNote(String note) {
         ContentValues cv = new ContentValues();
         ContentResolver contentResolver = getActivity().getContentResolver();
         cv.put(SchoolManagerContract.NoteEntry.KEY_NOTE,note);
@@ -117,13 +117,13 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
 
             toggleEmptyNotes();
         }*/
-    }
+  //  }
 
     /**
      *Оновлюємо нотатку в БД
      * та оновлюємо список нотаток
      */
-    private void updateNote(String note, int position) {
+   /* private void updateNote(String note, int position) {
         int id = (notesList.get(position)).getNoteId();
         Uri noteUri = ContentUris.withAppendedId(SchoolManagerContract.NoteEntry.NOTE_URI,id );
         ContentValues cv = new ContentValues();
@@ -137,20 +137,19 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
         }
         toggleEmptyNotes();
 
-        /*// updating note in db
-        db.updateNote(n);
+
 
         // refreshing the list
         notesList.set(position, n);
         mAdapter.notifyItemChanged(position);
 
         toggleEmptyNotes();*/
-    }
+   // }
 
     /**
      * Вилучаю нотатку з БД
      */
-    private void deleteNote(int position) {
+ /*   private void deleteNote(int position) {
         int id = (notesList.get(position)).getNoteId();
         Uri noteUri = ContentUris.withAppendedId(SchoolManagerContract.NoteEntry.NOTE_URI,id);
         ContentResolver cr = getActivity().getContentResolver();
@@ -167,12 +166,12 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
         mAdapter.notifyItemRemoved(position);
 
         toggleEmptyNotes();*/
-    }
+   // }
 
     /**
      * Відкриваємо діалог з пп. Редагувати - Вилучити
      */
-    private void showActionsDialog(final int position) {
+   /* private void showActionsDialog(final int position) {
         CharSequence colors[] = new CharSequence[]{"Редагувати", "Вилучити"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -196,7 +195,7 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
      * якщо shouldUpdate=true, автоматично відображається стара нотатка
      * і змінюється напис на кнопці UPDATE
      */
-    private void showTeacherDialog(final boolean shouldUpdate, final Teacher teacher, final int position) {
+ /*   private void showTeacherDialog(final boolean shouldUpdate, final Teacher teacher, final int position) {
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getActivity().getApplicationContext());
         View view = layoutInflaterAndroid.inflate(R.layout.teacher_dialog, null);
 
@@ -257,7 +256,7 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
     /**
      * Toggling list and empty notes view
      */
-    private void toggleEmptyNotes() {
+  /*  private void toggleEmptyNotes() {
         // you can check notesList.size() > 0
 
         if (countRec > 0) {
@@ -275,7 +274,7 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
         recyclerView.addItemDecoration(new MyDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
         toggleEmptyNotes();
-    }
+    }*/
 
     @NonNull
     @Override
@@ -288,7 +287,7 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
-        if (cursor.moveToFirst()){
+       /* if (cursor.moveToFirst()){
             notesList.clear();
             do {
                 Note note = new Note();
@@ -300,7 +299,7 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
         }
         countRec = cursor.getCount();
         mAdapter.notifyDataSetChanged();
-        toggleEmptyNotes();
+        toggleEmptyNotes();*/
 
     }
 

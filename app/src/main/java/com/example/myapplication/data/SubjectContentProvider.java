@@ -28,6 +28,10 @@ public class SubjectContentProvider extends ContentProvider {
     private static final int TEACHER_ID = 501;
     private static final int TS = 600;
     private static final int TS_ID = 601;
+    private static final int JINGLE_TYPE= 700;
+    private static final int JINGLE_TYPE_ID = 701;
+    private static final int JINGLE= 800;
+    private static final int JINGLE_ID = 801;
     private DatabaseHandler databaseHandler;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static{
@@ -43,6 +47,11 @@ public class SubjectContentProvider extends ContentProvider {
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,TeachersEntry.PATH_TEACHER+"/#", TEACHER_ID);
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY, TeacherSubjectEntry.PATH_TS, TS);
         sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,TeacherSubjectEntry.PATH_TS+"/#", TS_ID);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY, JingleTypeEntry.PATH_JINGLE_TYPE, JINGLE_TYPE);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,JingleTypeEntry.PATH_JINGLE_TYPE+"/#", JINGLE_TYPE_ID);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY, JingleEntry.PATH_JINGLE, JINGLE);
+        sUriMatcher.addURI(SchoolManagerContract.AUTHORITY,JingleEntry.PATH_JINGLE+"/#", JINGLE_ID);
+
 
 
     }
@@ -134,6 +143,28 @@ public class SubjectContentProvider extends ContentProvider {
                         "on TS."+ TeacherSubjectEntry.SUBJECT_ID+"=S."+SubjectEntry.KEY_ID;
                 newCursor = db.rawQuery(sqlTeacher,selectionArgs);
                 break;
+            case JINGLE_TYPE:
+                newCursor = db.query(JingleTypeEntry.TABLE_NAME, projection,
+                        selection, selectionArgs,null,null,sortOrder);
+                break;
+            case JINGLE_TYPE_ID:
+                selection =JingleTypeEntry.JINGLE_TYPE_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                newCursor = db.query(JingleTypeEntry.TABLE_NAME,projection,selection,selectionArgs,
+                        null,null,sortOrder);
+                break;
+            case JINGLE:
+                selection =JingleEntry.JINGLE_TYPE_ID + "=?";
+                newCursor = db.query(JingleEntry.TABLE_NAME,projection,selection,selectionArgs,
+                        null,null,sortOrder);
+                break;
+
+            case JINGLE_ID:
+                selection =JingleEntry.JINGLE_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                newCursor = db.query(JingleEntry.TABLE_NAME,projection,selection,selectionArgs,
+                        null,null,sortOrder);
+                break;
 
             default:
                 throw new IllegalArgumentException("Can't query incorrect URI " + uri);
@@ -202,6 +233,22 @@ public class SubjectContentProvider extends ContentProvider {
                 }
                 getContext().getContentResolver().notifyChange(uri,null);
                 return ContentUris.withAppendedId(uri,ts_id);
+            case JINGLE_TYPE:
+                long jt_id = db.insert(JingleTypeEntry.TABLE_NAME,null,values);
+                if (jt_id ==-1){
+                    Log.e("insertMethod","Insert of data in the table failed for " + uri);
+                    return null;
+                }
+                getContext().getContentResolver().notifyChange(uri,null);
+                return ContentUris.withAppendedId(uri,jt_id);
+            case JINGLE:
+                long jingle_id = db.insert(JingleEntry.TABLE_NAME,null,values);
+                if (jingle_id ==-1){
+                    Log.e("insertMethod","Insert of data in the table failed for " + uri);
+                    return null;
+                }
+                getContext().getContentResolver().notifyChange(uri,null);
+                return ContentUris.withAppendedId(uri,jingle_id);
             default:
                 throw new IllegalArgumentException("Insert of data in the table failed for " + uri);
         }
@@ -238,6 +285,16 @@ public class SubjectContentProvider extends ContentProvider {
                 selection = TeachersEntry.TEACHER_ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 countDelRec = db.delete(TeachersEntry.TABLE_NAME,selection,selectionArgs);
+                break;
+            case JINGLE_TYPE_ID:
+                selection = JingleTypeEntry.JINGLE_TYPE_ID+ "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countDelRec = db.delete(JingleTypeEntry.TABLE_NAME,selection,selectionArgs);
+                break;
+            case JINGLE_ID:
+                selection = JingleEntry.JINGLE_ID+ "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countDelRec = db.delete(JingleEntry.TABLE_NAME,selection,selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Can't delete this URI " + uri);
@@ -287,6 +344,16 @@ public class SubjectContentProvider extends ContentProvider {
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 countRec =db.update(TeachersEntry.TABLE_NAME,values,selection, selectionArgs);
                 break;
+            case JINGLE_TYPE_ID:
+                selection = JingleTypeEntry.JINGLE_TYPE_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countRec =db.update(JingleTypeEntry.TABLE_NAME,values,selection, selectionArgs);
+                break;
+            case JINGLE_ID:
+                selection = JingleEntry.JINGLE_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countRec =db.update(JingleEntry.TABLE_NAME,values,selection, selectionArgs);
+                break;
             default:
                 throw new IllegalArgumentException("Can't update incorrect URI " + uri);
         }
@@ -324,6 +391,14 @@ public class SubjectContentProvider extends ContentProvider {
                 return TeachersEntry.TEACHER_MULTIPLE_ITEM;
             case TEACHER_ID:
                 return TeachersEntry.TEACHER_SINGLE_ITEM;
+            case JINGLE_TYPE:
+                return JingleTypeEntry.JINGLE_TYPE_MULTIPLE_ITEM;
+            case JINGLE_TYPE_ID:
+                return JingleTypeEntry.JINGLE_TYPE_SINGLE_ITEM;
+            case JINGLE:
+                return JingleEntry.JINGLE_MULTIPLE_ITEM;
+            case JINGLE_ID:
+                return JingleEntry.JINGLE_SINGLE_ITEM;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }

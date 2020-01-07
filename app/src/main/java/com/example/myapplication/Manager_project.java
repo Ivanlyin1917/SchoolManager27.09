@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.fragments.Setting.UserSettingFragment;
 import com.example.myapplication.fragments.homework.FragmentHomeWork;
+import com.example.myapplication.fragments.jingle.JingleTypeFragment;
 import com.example.myapplication.fragments.note.FragmentNote;
 import com.example.myapplication.fragments.rozklad.FragmentRozklad;
 
@@ -32,6 +33,7 @@ public class Manager_project extends AppCompatActivity
    private FragmentHomeWork frameHomework;
    private FragmentNote frameNote;
    private UserSettingFragment settingFragment;
+   private JingleTypeFragment jingleTypeFragment;
 
 
     @Override
@@ -54,6 +56,7 @@ public class Manager_project extends AppCompatActivity
         frameHomework = new FragmentHomeWork();
         settingFragment = new UserSettingFragment();
         frameNote = new FragmentNote();
+        jingleTypeFragment = new JingleTypeFragment();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -146,7 +149,8 @@ public class Manager_project extends AppCompatActivity
             Intent dbmanager = new Intent(getApplicationContext(),AndroidDatabaseManager.class);
             startActivity(dbmanager);
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_jingle) {
+            transaction.replace(R.id.container,jingleTypeFragment);
 
         }
         transaction.commit();

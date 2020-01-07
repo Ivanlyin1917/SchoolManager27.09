@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="@dimen/activity_margin"
+    android:paddingLeft="@dimen/activity_margin"
+    android:paddingTop="@dimen/dimen_10"
+    android:paddingBottom="@dimen/dimen_10"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Button
+        android:id="@+id/jingle_type_btn"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:textColorHint="@color/hint_enter_note"
+        android:hint="@string/hint_jingle_type_btn"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@color/cardview_shadow_end_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Magic Btn"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <FrameLayout
+        android:id="@+id/jingle_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/jingle_type_btn"
+        android:visibility="gone">
+
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

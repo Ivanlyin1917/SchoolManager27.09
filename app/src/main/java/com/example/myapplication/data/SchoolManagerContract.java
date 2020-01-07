@@ -48,6 +48,12 @@ public final class SchoolManagerContract {
         public static  final String TIME_BEGIN="time_begin";
         public static  final String TIME_END="time_end";
         public static  final String JINGLE_TYPE_ID="jingle_type_id";
+        public static final String PATH_JINGLE= "jingle";
+        public static final Uri JINGLE_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_JINGLE);
+        public static final String JINGLE_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE
+                +"/"+AUTHORITY+"/"+PATH_JINGLE;
+        public static final String JINGLE_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE
+                +"/"+AUTHORITY+"/"+PATH_JINGLE;
     }
     public static final class HobbyEntry implements BaseColumns{
         public static  final String HOBBY_ID="_id";
@@ -76,9 +82,16 @@ public final class SchoolManagerContract {
         public static final String HOMEWORK_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE
             +"/"+AUTHORITY+"/"+PATH_HOMEWORK;
     }
-    public static final class Jingle_type_Entry implements BaseColumns{
-        public static  final String JINGLE_TYPE_ID="Jingle_type_id";
-        public static  final String TYPE_NAME="Type_name";
+    public static final class JingleTypeEntry implements BaseColumns{
+        public static  final  String TABLE_NAME="jingle_type";
+        public static  final String JINGLE_TYPE_ID="_id";
+        public static  final String TYPE_NAME="type_name";
+        public static final String PATH_JINGLE_TYPE= "jingle_type";
+        public static final Uri JINGLE_TYPE_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_JINGLE_TYPE);
+        public static final String JINGLE_TYPE_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE
+                +"/"+AUTHORITY+"/"+PATH_JINGLE_TYPE;
+        public static final String JINGLE_TYPE_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE
+                +"/"+AUTHORITY+"/"+PATH_JINGLE_TYPE;
     }
     public static final class LessonsEntry implements BaseColumns{
         public static  final  String TABLE_NAME="lessons";

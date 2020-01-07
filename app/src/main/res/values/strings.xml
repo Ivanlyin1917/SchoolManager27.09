@@ -18,8 +18,9 @@
     <string name="item_homework">Домашнє завдання</string>
     <string name="item_note">Нотатки</string>
     <string name="item_setting">Налаштування</string>
+    <string name="item_jingle">Дзвінки</string>
     <string name="item_test_db">Відкрити БД</string>
-    <string name="cm_add_homework">Додати ДЗ</string>
+
 
     <!-- DIALOG-->
     <string name="add_lsn_title">Додати урок</string>
@@ -32,11 +33,16 @@
     <string name="cm_delete_homework">Вилучити</string>
     <string name="cm_done_homework">Виконано</string>
     <string name="cm_delete_photo_hw">Вилучити фото</string>
+
     <string name="lbl_new_teacher_title">Додати вчителя</string>
     <string name="lbl_edit_teacher_title">Редагувати запис</string>
     <string name="hint_surname_teacher">Введіть прізвище</string>
     <string name="hint_name_teacher">Введіть ім\'я!</string>
     <string name="hint_lastname_teacher">Введіть побатькові</string>
+    <string name="hint_jingle_type_btn">Натисніть, щоб побачити розклад дзвінків</string>
+
+    <string name="cm_add_homework">Додати ДЗ</string>
+
 
     <!-- BUTTON -->
     <string name="btn_okey">ОК</string>
