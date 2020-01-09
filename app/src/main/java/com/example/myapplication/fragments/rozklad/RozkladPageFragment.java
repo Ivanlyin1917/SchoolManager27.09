@@ -29,6 +29,7 @@ public class RozkladPageFragment extends Fragment  {
     private static final String TAG = "Rozklad";
     private ListView rozkladList;
     private RozkladSharedViewModel model;
+    private  RozkladCursorAdapter rozkladCursorAdapter;
 
 
     public static RozkladPageFragment newInstance(int page) {
@@ -73,12 +74,21 @@ public class RozkladPageFragment extends Fragment  {
     }
 
     @Override
+    public void onStart() {
+        rozkladCursorAdapter = model.getRozkladCursorAdapter();//отримуємо дані з ViewModel
+        super.onStart();
+
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View result=inflater.inflate(R.layout.rozklad_page_fragment, container, false);//створюэмо фрагмент
         rozkladList= result.findViewById(R.id.lessonsListView); //отримуэмо ListView з розмітки фрагмента
-        RozkladCursorAdapter rozkladCursorAdapter = model.getRozkladCursorAdapter();//отримуємо дані з ViewModel
+        rozkladCursorAdapter = model.getRozkladCursorAdapter();//отримуємо дані з ViewModel
         rozkladList.setAdapter(rozkladCursorAdapter);
+
 
         // Listener для кліку по запису з уроком
         rozkladList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

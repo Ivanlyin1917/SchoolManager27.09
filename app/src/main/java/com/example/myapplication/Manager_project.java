@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
+import android.content.ContentUris;
 import android.content.Intent;
 import android.database.SQLException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -17,7 +19,9 @@ import android.widget.Toast;
 
 import com.example.myapplication.fragments.Setting.UserSettingFragment;
 import com.example.myapplication.fragments.homework.FragmentHomeWork;
+import com.example.myapplication.fragments.jingle.FragmentJingle;
 import com.example.myapplication.fragments.jingle.JingleTypeFragment;
+import com.example.myapplication.fragments.jingle.NavJingleFragment;
 import com.example.myapplication.fragments.note.FragmentNote;
 import com.example.myapplication.fragments.rozklad.FragmentRozklad;
 
@@ -27,13 +31,13 @@ import com.example.myapplication.Model.Subject;
 import com.example.myapplication.data.DatabaseHandler;
 
 public class Manager_project extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, JingleTypeFragment.OnArticleSelectedListener {
    private DatabaseHandler dbh;
    private FragmentRozklad frameRozklad;
    private FragmentHomeWork frameHomework;
    private FragmentNote frameNote;
    private UserSettingFragment settingFragment;
-   private JingleTypeFragment jingleTypeFragment;
+   private NavJingleFragment navJingleFragment;
 
 
     @Override
@@ -56,7 +60,7 @@ public class Manager_project extends AppCompatActivity
         frameHomework = new FragmentHomeWork();
         settingFragment = new UserSettingFragment();
         frameNote = new FragmentNote();
-        jingleTypeFragment = new JingleTypeFragment();
+        navJingleFragment = new NavJingleFragment();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -150,7 +154,7 @@ public class Manager_project extends AppCompatActivity
             startActivity(dbmanager);
 
         } else if (id == R.id.nav_jingle) {
-            transaction.replace(R.id.container,jingleTypeFragment);
+            transaction.replace(R.id.container,navJingleFragment);
 
         }
         transaction.commit();
@@ -159,5 +163,14 @@ public class Manager_project extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onArticleSelected(Uri articleUri) {
+        long typeId = ContentUris.parseId(articleUri);
+        FragmentJingle fragment = FragmentJingle.newInstance(typeId);
+        // fragment = new FragmentJingle();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_jingle,fragment).commit();
     }
 }

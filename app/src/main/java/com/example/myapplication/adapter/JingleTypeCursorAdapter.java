@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.SchoolManagerContract.*;
@@ -31,39 +33,13 @@ public class JingleTypeCursorAdapter extends CursorAdapter  {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        Button jingleTypeBtn = view.findViewById(R.id.jingle_type_btn);
-        jingleTypeBtn.setCompoundDrawablesWithIntrinsicBounds(0,0,
-                R.drawable.ic_expand_more_red_24dp,0);
-        LinearLayout jingleLayout = view.findViewById(R.id.jingle_layout);
-        String btnText = cursor.getString(cursor.getColumnIndexOrThrow(JingleTypeEntry.TYPE_NAME));
-        int typeId =  cursor.getInt(cursor.getColumnIndexOrThrow(JingleTypeEntry.JINGLE_TYPE_ID));
-        jingleTypeBtn.setText(btnText);
+        TextView jingleType = view.findViewById(R.id.jingle_type_name);
+        String typeText = cursor.getString(cursor.getColumnIndexOrThrow(JingleTypeEntry.TYPE_NAME));
+        //int typeId =  cursor.getInt(cursor.getColumnIndexOrThrow(JingleTypeEntry.JINGLE_TYPE_ID));
+        jingleType.setText(typeText);
+        //TextView dot = view.findViewById(R.id.jingle_dot);
+       // dot.setText(Html.fromHtml("&#8226;"));
 
-                jingleTypeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (jingleLayout.getVisibility() == View.VISIBLE) {
-
-                    jingleLayout.setVisibility(View.GONE);
-                    jingleTypeBtn.setCompoundDrawablesWithIntrinsicBounds(0,0,
-                            R.drawable.ic_expand_more_red_24dp,0);
-                } else {
-                    FragmentJingle fragment = FragmentJingle.newInstance(typeId);
-
-                  //  jingleLayout.addView(fragment);
-                    jingleLayout.setVisibility(View.VISIBLE);
-                    jingleTypeBtn.setCompoundDrawablesWithIntrinsicBounds(0,0,
-                            R.drawable.ic_expand_less_red_24dp,0);
-                }
-                ScaleAnimation animation = new ScaleAnimation(1f, 1f, 1f, 0f,
-                        Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
-                animation.setDuration(180);
-                animation.setFillAfter(true);
-                jingleLayout.setAnimation(animation);
-
-            }
-        });
 
     }
 

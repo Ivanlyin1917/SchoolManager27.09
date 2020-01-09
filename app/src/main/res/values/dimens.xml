@@ -13,6 +13,7 @@
     <dimen name="h2_text_size">16sp</dimen>
     <dimen name="text_size_activity">20sp</dimen>
     <dimen name="viewpager_padding_left">24dp</dimen>
+    <dimen name="jingle_row_margin">5dp</dimen>
 
     <!--    заметки-->
     <dimen name="viewpager_padding_right">12dp</dimen>

@@ -9,8 +9,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.preference.PreferenceManager;
 
+import com.example.myapplication.adapter.SmartFragmentStatePagerAdapter;
 
-public class RozkladPageFragmentAdapter extends FragmentStatePagerAdapter {
+
+public class RozkladPageFragmentAdapter extends SmartFragmentStatePagerAdapter {
 
 
     private Context context=null;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingRight="@dimen/activity_margin"
@@ -7,25 +7,26 @@
     android:paddingTop="@dimen/dimen_10"
     android:paddingBottom="@dimen/dimen_10"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <Button
-        android:id="@+id/jingle_type_btn"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:textColorHint="@color/hint_enter_note"
-        android:hint="@string/hint_jingle_type_btn"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@color/cardview_shadow_end_color"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/jingle_dot"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Magic Btn"
-        app:layout_constraintTop_toTopOf="parent"/>
-    <FrameLayout
-        android:id="@+id/jingle_layout"
-        android:layout_width="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_dot_red_24dp"/>
+
+    <TextView
+        android:id="@+id/jingle_type_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/jingle_type_btn"
-        android:visibility="gone">
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_alignParentTop="true"
+        android:layout_alignBaseline="@+id/jingle_dot"
+        android:layout_toRightOf="@+id/jingle_dot"
+        android:textColor="@color/note_list_text"
+        android:textSize="@dimen/note_list_text" />
 
-    </FrameLayout>
 
-</android.support.constraint.ConstraintLayout>
+
+
+</RelativeLayout>

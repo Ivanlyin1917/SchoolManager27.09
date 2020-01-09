@@ -2,12 +2,15 @@ package com.example.myapplication.fragments.rozklad;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +34,8 @@ public class FragmentRozklad extends Fragment implements LoaderManager.LoaderCal
         rozkladCursorAdapter = new RozkladCursorAdapter(getContext(),null,false);
         View fragmentRozklad = inflater.inflate(R.layout.fragment_rozklad, container, false);
         ViewPager rozklad = fragmentRozklad.findViewById(R.id.rozklad_pager);
+        PagerTabStrip tab = fragmentRozklad.findViewById(R.id.rozklad_tab);
+        tab.setTabIndicatorColor(getResources().getColor(R.color.colorAccent));
 //        rozklad.setClipToPadding(false);
        // rozklad.setPageMargin(12);
         rozklad.setClipChildren(false);

@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ListView
+    android:layout_height="match_parent"
+    android:padding="@dimen/dimen_10"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/jingle_type_list"
-        android:layout_margin="@dimen/general_margin"/>
+        app:cardCornerRadius="@dimen/card_view_radius">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_jingle_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_input_add" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ListView
+                android:id="@android:id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/msg_no_notes"
+                android:textSize="@dimen/msg_no_notes"
+                android:textColor="@color/msg_no_notes"
+                android:id="@android:id/empty"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+<!--    <TextView-->
+<!--        android:layout_marginTop="@dimen/dimen_10"-->
+<!--        android:textColorHint="@color/hint_enter_note"-->
+<!--        android:hint="@string/hint_jingle_type_btn"-->
+<!--        android:textColor="@color/colorPrimaryDark"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/nav_jingle_title"-->
+<!--        android:textSize="@dimen/text_size_activity"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:id="@+id/list_title"/>-->
+
+
+
+
+
+
 </FrameLayout>
