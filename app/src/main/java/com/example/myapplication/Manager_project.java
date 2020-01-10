@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.myapplication.Model.Teacher;
 import com.example.myapplication.fragments.Setting.UserSettingFragment;
 import com.example.myapplication.fragments.homework.FragmentHomeWork;
 import com.example.myapplication.fragments.jingle.FragmentJingle;
@@ -29,6 +30,7 @@ import java.io.IOException;
 
 import com.example.myapplication.Model.Subject;
 import com.example.myapplication.data.DatabaseHandler;
+import com.example.myapplication.fragments.teachers.FragmentTeacher;
 
 public class Manager_project extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, JingleTypeFragment.OnArticleSelectedListener {
@@ -38,6 +40,7 @@ public class Manager_project extends AppCompatActivity
    private FragmentNote frameNote;
    private UserSettingFragment settingFragment;
    private NavJingleFragment navJingleFragment;
+   private FragmentTeacher fragmentTeacher;
 
 
     @Override
@@ -61,6 +64,7 @@ public class Manager_project extends AppCompatActivity
         settingFragment = new UserSettingFragment();
         frameNote = new FragmentNote();
         navJingleFragment = new NavJingleFragment();
+        fragmentTeacher = new FragmentTeacher();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -145,7 +149,9 @@ public class Manager_project extends AppCompatActivity
             transaction.replace(R.id.container,frameNote);
 
         } else if (id == R.id.nav_setting) {
-            transaction.replace(R.id.container,settingFragment);
+            transaction.replace(R.id.container, settingFragment);
+        } else if (id == R.id.nav_teacher) {
+                transaction.replace(R.id.container,fragmentTeacher);
 
 
         } else if (id == R.id.test_bd) {//только для разработки

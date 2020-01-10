@@ -17,7 +17,7 @@ public class RozkladPageFragmentAdapter extends SmartFragmentStatePagerAdapter {
 
     private Context context=null;
     private int countdayschool;
-    private String tabTitles[]=new String[]{"Понеділок","Вівторок","Середа","Четвер","П\'ятниця"};
+    private String tabTitles[]=new String[]{"Неділя","Понеділок","Вівторок","Середа","Четвер","П\'ятниця","Субота"};
 
 
     public RozkladPageFragmentAdapter(Context context,FragmentManager fm) {
@@ -41,7 +41,9 @@ public class RozkladPageFragmentAdapter extends SmartFragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         //return RozkladPageFragment.getTitle(context,position);
-        return tabTitles[position];
+       int i = (position+1) % 7;
+        String title = tabTitles[i];
+        return title;
     }
 
    /* @Override

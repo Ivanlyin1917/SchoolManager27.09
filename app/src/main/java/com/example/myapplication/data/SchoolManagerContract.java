@@ -112,7 +112,7 @@ public final class SchoolManagerContract {
         public static  final String TS_ID="_id";
         public static  final String TEACHER_ID="Teacher_id";
         public static  final String SUBJECT_ID="Subject_id";
-        public static final String PATH_TS = "teachers";
+        public static final String PATH_TS = "teacher_subject";
         public static final Uri TS_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_TS);
         public static final String TS_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE
                 +"/"+AUTHORITY+"/"+PATH_TS;

@@ -44,7 +44,7 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
     private final String TAG = "Teacher";
     private static final int TEACHER_LOADER = 500;
     private TeacherAdapter mAdapter;
-    private List<Teacher> TeacherList = new ArrayList<>();
+    private List<Teacher> teacherList = new ArrayList<>();
     private CoordinatorLayout coordinatorLayout;
     private RecyclerView recyclerView;
     private TextView noNotesView;
@@ -60,13 +60,13 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
 
         coordinatorLayout = teacherFragment.findViewById(R.id.coordinator_layout);
         recyclerView = teacherFragment.findViewById(R.id.recycler_view);
-        noNotesView = teacherFragment.findViewById(R.id.empty_notes_view);
+        noNotesView = teacherFragment.findViewById(R.id.empty_teacher_view);
 
         FloatingActionButton fab = teacherFragment.findViewById(R.id.fab_teacher);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  showNoteDialog(false, null, -1);
+                showTeacherDialog(false, null, -1);
             }
         });
 
@@ -74,7 +74,7 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
          * При довгому натисканні по запису відкриваємо
          * діалог з пунктами додати та редагувати
          * */
- /*       recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(),
+         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(),
                 recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, final int position) {
@@ -87,23 +87,25 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
             }
         }));
 
-        initializationRecycler();*/
+        initializationRecycler();
         return teacherFragment;
     }
     /**
      * Додаємо новий запис до Бд
      * та оновлюємо лист
      */
- /*   private void createNote(String note) {
+    private void createTeacher(String surname, String name, String lastname) {
         ContentValues cv = new ContentValues();
         ContentResolver contentResolver = getActivity().getContentResolver();
-        cv.put(SchoolManagerContract.NoteEntry.KEY_NOTE,note);
-        Uri noteInsertUri = contentResolver.insert(SchoolManagerContract.NoteEntry.NOTE_URI, cv);
-        if (noteInsertUri == null) {
+        cv.put(SchoolManagerContract.TeachersEntry.SURNAME,surname);
+        cv.put(SchoolManagerContract.TeachersEntry.NAME,name);
+        cv.put(SchoolManagerContract.TeachersEntry.LASTNAME,lastname);
+        Uri teacherInsertUri = contentResolver.insert(SchoolManagerContract.TeachersEntry.TEACHER_URI, cv);
+        if (teacherInsertUri == null) {
             Toast.makeText(getContext(), "Помилка! Не можу зберегти нотатку :(", Toast.LENGTH_LONG).show();
         }
         toggleEmptyNotes();
-        /*Todo: можливо потрібно перегрузити курсор чи ще якимось чином оновити список */
+
 
        /* // get the newly inserted note from db
         Note n = db.getNote(id);
@@ -117,61 +119,51 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
 
             toggleEmptyNotes();
         }*/
-  //  }
+    }
 
     /**
      *Оновлюємо нотатку в БД
      * та оновлюємо список нотаток
      */
-   /* private void updateNote(String note, int position) {
-        int id = (notesList.get(position)).getNoteId();
-        Uri noteUri = ContentUris.withAppendedId(SchoolManagerContract.NoteEntry.NOTE_URI,id );
+    private void updateTeacher(String name, String surname, String lastname, int position) {
+        int id = (teacherList.get(position)).getTeacher_id();
+        Uri teacherUri = ContentUris.withAppendedId(SchoolManagerContract.TeachersEntry.TEACHER_URI,id );
         ContentValues cv = new ContentValues();
         ContentResolver contentResolver = getActivity().getContentResolver();
-        cv.put(SchoolManagerContract.NoteEntry.KEY_NOTE,note);
+        cv.put(SchoolManagerContract.TeachersEntry.SURNAME,surname);
+        cv.put(SchoolManagerContract.TeachersEntry.NAME,name);
+        cv.put(SchoolManagerContract.TeachersEntry.LASTNAME,lastname);
         Log.i(TAG, "begin update note from position = "+position +" and id ="+id);
-        int noteUpdateCount = contentResolver.update(noteUri, cv, null, null);
-        Log.i(TAG, "Update "+noteUpdateCount+" note") ;
-        if (noteUpdateCount == 0) {
+        int teacherUpdateCount = contentResolver.update(teacherUri, cv, null, null);
+        Log.i(TAG, "Update "+teacherUpdateCount+" note") ;
+        if (teacherUpdateCount == 0) {
             Toast.makeText(getContext(), "Помилка! Не можу оновити нотатку :(", Toast.LENGTH_LONG).show();
         }
         toggleEmptyNotes();
 
-
-
-        // refreshing the list
-        notesList.set(position, n);
-        mAdapter.notifyItemChanged(position);
-
-        toggleEmptyNotes();*/
-   // }
+    }
 
     /**
      * Вилучаю нотатку з БД
      */
- /*   private void deleteNote(int position) {
-        int id = (notesList.get(position)).getNoteId();
-        Uri noteUri = ContentUris.withAppendedId(SchoolManagerContract.NoteEntry.NOTE_URI,id);
+   private void deleteTeacher(int position) {
+        int id = (teacherList.get(position)).getTeacher_id();
+        Uri teacherUri = ContentUris.withAppendedId(SchoolManagerContract.TeachersEntry.TEACHER_URI,id);
         ContentResolver cr = getActivity().getContentResolver();
         Log.i(TAG, "begin delete note from position = "+position+" and id ="+id);
-        int countDelRec = cr.delete(noteUri,null,null);
-        Log.i(TAG, "delete "+countDelRec+" note") ;
+        int countDelRec = cr.delete(teacherUri,null,null);
+        Log.i(TAG, "delete "+countDelRec+" Teacher") ;
         if(countDelRec==0){
             Toast.makeText(getContext(), "Помилка! Не можу вилучити нотатку!", Toast.LENGTH_LONG).show();
         }
         toggleEmptyNotes();
 
-       /* // removing the note from the list
-        notesList.remove(position);
-        mAdapter.notifyItemRemoved(position);
-
-        toggleEmptyNotes();*/
-   // }
+    }
 
     /**
      * Відкриваємо діалог з пп. Редагувати - Вилучити
      */
-   /* private void showActionsDialog(final int position) {
+    private void showActionsDialog(final int position) {
         CharSequence colors[] = new CharSequence[]{"Редагувати", "Вилучити"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -180,9 +172,9 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
-                    showNoteDialog(true, notesList.get(position), position);
+                    showTeacherDialog(true, teacherList.get(position), position);
                 } else {
-                    deleteNote(position);
+                    deleteTeacher(position);
                 }
             }
         });
@@ -195,7 +187,7 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
      * якщо shouldUpdate=true, автоматично відображається стара нотатка
      * і змінюється напис на кнопці UPDATE
      */
- /*   private void showTeacherDialog(final boolean shouldUpdate, final Teacher teacher, final int position) {
+    private void showTeacherDialog(final boolean shouldUpdate, final Teacher teacher, final int position) {
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getActivity().getApplicationContext());
         View view = layoutInflaterAndroid.inflate(R.layout.teacher_dialog, null);
 
@@ -244,10 +236,10 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
                 // check if user updating note
                 if (shouldUpdate && teacher != null) {
                     // update note by it's id
-                    updateNote(inputNote.getText().toString(), position);
+                    updateTeacher(inputSurname.getText().toString(),inputName.getText().toString(),inputLastname.getText().toString(), position);
                 } else {
                     // create new note
-                    createNote(inputNote.getText().toString());
+                    createTeacher(inputSurname.getText().toString(),inputName.getText().toString(),inputLastname.getText().toString());
                 }
             }
         });
@@ -256,7 +248,7 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
     /**
      * Toggling list and empty notes view
      */
-  /*  private void toggleEmptyNotes() {
+    private void toggleEmptyNotes() {
         // you can check notesList.size() > 0
 
         if (countRec > 0) {
@@ -267,39 +259,42 @@ public class FragmentTeacher extends Fragment implements LoaderManager.LoaderCal
     }
 
     private void initializationRecycler(){
-        mAdapter = new NotesAdapter(getContext(), notesList);
+        mAdapter = new TeacherAdapter(getContext(), teacherList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new MyDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
         toggleEmptyNotes();
-    }*/
+    }
 
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
         CursorLoader cursorLoader = new CursorLoader(getContext(),
-                SchoolManagerContract.NoteEntry.NOTE_URI,null,null, null,null);
-        Log.i(TAG, "select all note");
+                SchoolManagerContract.TeachersEntry.TEACHER_URI,null,null, null,null);
+        Log.i(TAG, "select all teacher");
         return cursorLoader;
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
-       /* if (cursor.moveToFirst()){
-            notesList.clear();
+        if (cursor.moveToFirst()){
+            teacherList.clear();
             do {
-                Note note = new Note();
-                note.setNoteId(cursor.getInt(cursor.getColumnIndexOrThrow(SchoolManagerContract.NoteEntry.KEY_ID)));
-                note.setNoteText(cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.NoteEntry.KEY_NOTE)));
-                note.setTimestamp(cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.NoteEntry.KEY_TIMESTAMP)));
-                notesList.add(note);
+                Teacher teacher= new Teacher();
+                teacher.setTeacher_id(cursor.getInt(cursor.getColumnIndexOrThrow(SchoolManagerContract.TeachersEntry.TEACHER_ID)));
+                teacher.setSurname(cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.TeachersEntry.SURNAME)));
+                teacher.setName(cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.TeachersEntry.NAME)));
+                teacher.setLastName(cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.TeachersEntry.LASTNAME)));
+                teacher.setSubject(cursor.getString(cursor.getColumnIndexOrThrow(SchoolManagerContract.SubjectEntry.KEY_NAME)));
+                teacher.setSubject_id(cursor.getInt(cursor.getColumnIndexOrThrow(SchoolManagerContract.SubjectEntry.KEY_ID)));
+                teacherList.add(teacher);
             }while (cursor.moveToNext());
         }
         countRec = cursor.getCount();
         mAdapter.notifyDataSetChanged();
-        toggleEmptyNotes();*/
+        toggleEmptyNotes();
 
     }
 

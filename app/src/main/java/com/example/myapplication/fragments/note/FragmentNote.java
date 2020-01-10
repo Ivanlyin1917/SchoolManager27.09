@@ -162,6 +162,7 @@ public class FragmentNote extends Fragment implements LoaderManager.LoaderCallba
             Toast.makeText(getContext(), "Помилка! Не можу вилучити нотатку!", Toast.LENGTH_LONG).show();
         }
         toggleEmptyNotes();
+        mAdapter.notifyItemRemoved(position);
 
        /* // removing the note from the list
         notesList.remove(position);

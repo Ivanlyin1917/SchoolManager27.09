@@ -4,10 +4,7 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_jingle"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/item_jingle" />
+
         <item
             android:id="@+id/nav_rozklad"
             android:icon="@drawable/ic_menu_camera"
@@ -16,6 +13,14 @@
             android:id="@+id/nav_homework"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/item_homework" />
+        <item
+            android:id="@+id/nav_jingle"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/item_jingle" />
+        <item
+            android:id="@+id/nav_teacher"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/item_teacher" />
         <item
             android:id="@+id/nav_note"
             android:icon="@drawable/ic_menu_slideshow"
