@@ -1,16 +1,35 @@
 package com.example.myapplication.Model;
 
 public class Teacher {
-    private int teacher_id;
+    private long teacher_id;
     private String surname;
     private String name;
     private String lastName;
     private  String subject;
-    private  int subject_id;
+    private  long subject_id;
+    private long ts_id;
 
 
     public Teacher(){
 
+    }
+
+    public Teacher(long teacher_id, String surname, String name, String lastName, String subject, long subject_id, long ts_id) {
+        this.teacher_id = teacher_id;
+        this.surname = surname;
+        this.name = name;
+        this.lastName = lastName;
+        this.subject = subject;
+        this.subject_id = subject_id;
+        this.ts_id = ts_id;
+    }
+
+    public long getTs_id() {
+        return ts_id;
+    }
+
+    public void setTs_id(long ts_id) {
+        this.ts_id = ts_id;
     }
 
     public String getSubject() {
@@ -21,28 +40,19 @@ public class Teacher {
         this.subject = subject;
     }
 
-    public int getSubject_id() {
+    public long getSubject_id() {
         return subject_id;
     }
 
-    public void setSubject_id(int subject_id) {
+    public void setSubject_id(long subject_id) {
         this.subject_id = subject_id;
     }
 
-    public Teacher(int teacher_id, String surname, String name, String lastName, String subject, int subject_id) {
-        this.teacher_id = teacher_id;
-        this.surname = surname;
-        this.name = name;
-        this.lastName = lastName;
-        this.subject = subject;
-        this.subject_id = subject_id;
-    }
-
-    public int getTeacher_id() {
+    public long getTeacher_id() {
         return teacher_id;
     }
 
-    public void setTeacher_id(int teacher_id) {
+    public void setTeacher_id(long teacher_id) {
         this.teacher_id = teacher_id;
     }
 

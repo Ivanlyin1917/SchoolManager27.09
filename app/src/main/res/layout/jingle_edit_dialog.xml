@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="@dimen/activity_margin"
+    android:paddingLeft="@dimen/activity_margin"
+    android:paddingTop="@dimen/jingle_row_margin"
+    android:paddingBottom="@dimen/jingle_row_margin"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/jingle_dlg_title"
+
+        android:gravity="center"
+        android:textColor="@color/note_list_text"
+        android:textSize="@dimen/lbl_new_note_title"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:padding="@dimen/dimen_10" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/jingle_dlg_position"
+        android:textSize="@dimen/jingle_row_text"
+        android:textColor="@color/note_list_text"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:hint="@string/hint_jingle_pos"
+        android:padding="@dimen/dimen_10"
+        android:background="@drawable/border_text_view"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/jingle_dlg_bgn"
+        android:textColor="@color/note_list_text"
+        android:textSize="@dimen/jingle_row_text"
+        android:hint="@string/hint_jingle_bgn"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:padding="@dimen/dimen_10"
+        android:background="@drawable/border_text_view"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/jingle_dlg_end"
+        android:textSize="@dimen/jingle_row_text"
+        android:textColor="@color/note_list_text"
+        android:hint="@string/hint_jingle_end"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:padding="@dimen/dimen_10"
+        android:background="@drawable/border_text_view"/>
+</LinearLayout>

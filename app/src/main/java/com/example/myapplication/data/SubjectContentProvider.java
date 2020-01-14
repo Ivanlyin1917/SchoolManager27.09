@@ -133,14 +133,15 @@ public class SubjectContentProvider extends ContentProvider {
                         null,null,sortOrder);
                 break;
             case TEACHER:
-                String sqlTeacher = "Select T."+TeachersEntry.TEACHER_ID+",T."+ TeachersEntry.SURNAME
+                String sqlTeacher = "Select T."+TeachersEntry.TEACHER_ID+" as teather_id,T."+ TeachersEntry.SURNAME
                         +", T."+TeachersEntry.NAME+", T."+TeachersEntry.LASTNAME
-                        +", S."+SubjectEntry.KEY_NAME +", S."+ SubjectEntry.KEY_ID
-                        +" from " +TeacherSubjectEntry.TABLE_NAME
-                        +" as TS inner join "+TeachersEntry.TABLE_NAME+" as T " +
+                        +", S."+SubjectEntry.KEY_NAME +", S."+ SubjectEntry.KEY_ID+" as subject_id, TS."
+                        +TeacherSubjectEntry.TS_ID+" as ts_id from " +TeachersEntry.TABLE_NAME
+                        +" as T left outer join "+TeacherSubjectEntry.TABLE_NAME+" as TS " +
                         "on TS."+ TeacherSubjectEntry.TEACHER_ID+"=T."+TeachersEntry.TEACHER_ID
-                        +" inner join " + SubjectEntry.TABLE_NAME + " as S "+
+                        +" left outer join " + SubjectEntry.TABLE_NAME + " as S "+
                         "on TS."+ TeacherSubjectEntry.SUBJECT_ID+"=S."+SubjectEntry.KEY_ID;
+                Log.i("Teacher",sqlTeacher);
                 newCursor = db.rawQuery(sqlTeacher,selectionArgs);
                 break;
             case JINGLE_TYPE:

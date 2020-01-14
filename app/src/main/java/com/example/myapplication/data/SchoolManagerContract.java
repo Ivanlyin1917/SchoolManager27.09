@@ -14,10 +14,8 @@ public final class SchoolManagerContract {
 
     public static final class SubjectEntry implements BaseColumns {
         public static  final  String TABLE_NAME="Subjects";
-        //public static  final String KEY_ID="Subject_id";
         public static  final String KEY_ID="_id";
         public static  final String KEY_NAME="Subject_name";
-        //public static  final  String KEY_TYPE_ID="Subject_type_id";
         public static final String PATH_SUBJECT = "Subjects";
         public static final Uri SUBJECT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_SUBJECT);
         public static final String SUBJECT_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE +"/"+AUTHORITY+"/"+PATH_SUBJECT;
@@ -122,9 +120,9 @@ public final class SchoolManagerContract {
     public static final class TeachersEntry implements BaseColumns{
         public static  final  String TABLE_NAME="teachers";
         public static  final String TEACHER_ID="_id";
-        public static  final String SURNAME="Surname";
-        public static  final String NAME="Name";
-        public static  final String LASTNAME="LastName";
+        public static  final String SURNAME="surname";
+        public static  final String NAME="name";
+        public static  final String LASTNAME="lastName";
         public static final String PATH_TEACHER = "teachers";
         public static final Uri TEACHER_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_TEACHER);
         public static final String TEACHER_MULTIPLE_ITEM = ContentResolver.CURSOR_DIR_BASE_TYPE

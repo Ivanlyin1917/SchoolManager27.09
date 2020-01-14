@@ -29,6 +29,7 @@
     <string name="cm_delete_lesson">Вилучити</string>
     <string name="add_hw_title">Додати ДЗ</string>
     <string name="edit_hw_title">Редагувати ДЗ</string>
+    <string name="edit_jingle_time_title">Редагувати ДЗ</string>
     <string name="cm_edit_homework">Редагувати</string>
     <string name="cm_delete_homework">Вилучити</string>
     <string name="cm_done_homework">Виконано</string>
@@ -38,9 +39,13 @@
     <string name="lbl_new_teacher_title">Додати вчителя</string>
     <string name="lbl_edit_teacher_title">Редагувати запис</string>
     <string name="hint_surname_teacher">Введіть прізвище</string>
-    <string name="hint_name_teacher">Введіть ім\'я!</string>
+    <string name="hint_name_teacher">Введіть ім\'я</string>
     <string name="hint_lastname_teacher">Введіть побатькові</string>
+    <string name="hint_subject">Предмет, який викладає вчитель</string>
     <string name="hint_jingle_type_btn">Натисніть, щоб побачити розклад дзвінків</string>
+    <string name="hint_jingle_pos">№ уроку</string>
+    <string name="hint_jingle_bgn">Час початку</string>
+    <string name="hint_jingle_end">Час закінчення</string>
 
     <string name="cm_add_homework">Додати ДЗ</string>
 
