@@ -20,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -38,7 +39,8 @@ import org.w3c.dom.Text;
 
 import java.util.Date;
 
-public class FragmentJingle extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class FragmentJingle extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
+        AdapterView.OnItemLongClickListener {
 
     private static final String TAG = "Jingle";
     private static final int JINGLE_LOADER = 800;
@@ -72,21 +74,25 @@ public class FragmentJingle extends Fragment implements LoaderManager.LoaderCall
         View result=inflater.inflate(R.layout.fragment_jingle, container, false);//створюэмо фрагмент
         ListView jingleList = result.findViewById(R.id.jingle_list);
         jingleList.setAdapter(jingleCursorAdapter);
-        jingleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Cursor mCursor = (Cursor) parent.getAdapter().getItem(position);
-                Jingle jingle = new Jingle();
-                //jingle.setJingle_id(id);
-                jingle.setJingle_id(mCursor.getInt(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.JINGLE_ID)));
-                jingle.setPosition_id(mCursor.getInt(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.POSITION_ID)));
-                jingle.setJingle_type_id(mCursor.getInt(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.JINGLE_TYPE_ID)));
-                jingle.setTime_begin(mCursor.getString(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_BEGIN)));
-                jingle.setTime_end(mCursor.getString(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_END)));
+        jingleList.setOnItemLongClickListener(this);
+                ///new AdapterView.OnItemLongClickListener() {
 
-                showActionsDialog(jingle);
-            }
-        });
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                boolean flag = true;
+//                Cursor mCursor = (Cursor) parent.getAdapter().getItem(position);
+//                Jingle jingle = new Jingle();
+//                //jingle.setJingle_id(id);
+//                jingle.setJingle_id(mCursor.getInt(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.JINGLE_ID)));
+//                jingle.setPosition_id(mCursor.getInt(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.POSITION_ID)));
+//                jingle.setJingle_type_id(mCursor.getInt(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.JINGLE_TYPE_ID)));
+//                jingle.setTime_begin(mCursor.getString(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_BEGIN)));
+//                jingle.setTime_end(mCursor.getString(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_END)));
+//
+//                showActionsDialog(jingle);
+//                return flag;
+//            }
+        //});
         return result;
     }
     private void showActionsDialog(final Jingle jingle) {
@@ -98,7 +104,7 @@ public class FragmentJingle extends Fragment implements LoaderManager.LoaderCall
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
-                    showNoteDialog(jingle);
+                    showJingleDialog(jingle);
                 } else {
                     int jingle_id = jingle.getJingle_id();
                     deleteJingle(jingle_id);
@@ -114,13 +120,13 @@ public class FragmentJingle extends Fragment implements LoaderManager.LoaderCall
         ContentResolver cr = getActivity().getContentResolver();
         Log.i(TAG, "begin delete jingle with id ="+jingle_id);
         int countDelRec = cr.delete(jingleUri,null,null);
-        Log.i(TAG, "delete "+countDelRec+" note") ;
+        Log.i(TAG, "delete "+countDelRec+" jingle") ;
         if(countDelRec==0){
             Toast.makeText(getContext(), "Помилка! Не можу вилучити час уроку!", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void showNoteDialog(final Jingle jingle) {
+    private void showJingleDialog(final Jingle jingle) {
         long  jingle_id = jingle.getJingle_id();
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getActivity().getApplicationContext());
         View view = layoutInflaterAndroid.inflate(R.layout.jingle_edit_dialog, null);
@@ -130,7 +136,7 @@ public class FragmentJingle extends Fragment implements LoaderManager.LoaderCall
 
         TextView dialogTitle = view.findViewById(R.id.jingle_dlg_title);
         dialogTitle.setText(getString(R.string.edit_jingle_time_title));
-        
+
         final EditText inputPos = view.findViewById(R.id.jingle_dlg_position);
         final TextView jingle_bgn = view.findViewById(R.id.jingle_dlg_bgn);
         jingle_bgn.setOnClickListener(new View.OnClickListener() {
@@ -219,21 +225,7 @@ public class FragmentJingle extends Fragment implements LoaderManager.LoaderCall
         });
     }
 
-//    private void showTimeDialog(View view) {
-//
-//         new TimePickerDialog(getContext(), myCallBack, myHour, myMinute, true).show();
-//        String result = String.format("%02d:%02d", myHour,myMinute);
-//        ((TextView) view).setText(result);
-//
-//    }
-//    TimePickerDialog.OnTimeSetListener myCallBack = new TimePickerDialog.OnTimeSetListener() {
-//
-//        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//            myHour = hourOfDay;
-//            myMinute = minute;
-//
-//        }
-//    };
+
 
     private void updateJingle(String jinglePos, String jingleBgn, String jingleEnd, long jingle_id) {
         Uri jingleUri = ContentUris.withAppendedId(SchoolManagerContract.JingleEntry.JINGLE_URI,jingle_id);
@@ -272,4 +264,19 @@ public class FragmentJingle extends Fragment implements LoaderManager.LoaderCall
         jingleCursorAdapter.swapCursor(null);
 
     }
+
+    @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor mCursor = (Cursor) parent.getAdapter().getItem(position);
+                Jingle jingle = new Jingle();
+                //jingle.setJingle_id(id);
+                jingle.setJingle_id(mCursor.getInt(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.JINGLE_ID)));
+                jingle.setPosition_id(mCursor.getInt(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.POSITION_ID)));
+                jingle.setJingle_type_id(mCursor.getInt(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.JINGLE_TYPE_ID)));
+                jingle.setTime_begin(mCursor.getString(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_BEGIN)));
+                jingle.setTime_end(mCursor.getString(mCursor.getColumnIndexOrThrow(SchoolManagerContract.JingleEntry.TIME_END)));
+
+                showActionsDialog(jingle);
+                return true;
+            }
 }

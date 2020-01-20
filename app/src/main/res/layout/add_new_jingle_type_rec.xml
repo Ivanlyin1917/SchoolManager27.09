@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_margin"
+    android:paddingLeft="@dimen/dimen_10"
+    android:paddingRight="@dimen/dimen_10"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/new_jingle_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/add_new_jingle_title"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/lbl_new_note_title" />
+
+    <EditText
+        android:id="@+id/new_jingle_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:fontFamily="sans-serif-light"
+        android:inputType="text"
+        android:hint="@string/hint_fab_new_jingle_name"
+        android:textColorHint="@color/hint_enter_note"
+        android:textColor="@color/note_list_text"
+        android:textSize="@dimen/text_size_activity" />
+
+<!--    <EditText-->
+<!--        android:id="@+id/new_jingle_count"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:inputType="number"-->
+<!--        android:layout_marginTop="@dimen/dimen_10"-->
+<!--        android:fontFamily="sans-serif-light"-->
+<!--        android:hint="@string/hint_fab_new_jingle_count_lesson"-->
+<!--        android:textColorHint="@color/hint_enter_note"-->
+<!--        android:textColor="@color/note_list_text"-->
+<!--        android:textSize="@dimen/text_size_activity" />-->
+<!--    <EditText-->
+<!--        android:id="@+id/new_jingle_lenght"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:inputType="number"-->
+<!--        android:layout_marginTop="@dimen/dimen_10"-->
+<!--        android:fontFamily="sans-serif-light"-->
+<!--        android:hint="@string/hint_fab_new_jingle_lenght_lesson"-->
+<!--        android:textColorHint="@color/hint_enter_note"-->
+<!--        android:textColor="@color/note_list_text"-->
+<!--        android:textSize="@dimen/text_size_activity" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/new_jingle_time_first"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/dimen_10"-->
+<!--        android:fontFamily="sans-serif-light"-->
+<!--        android:hint="@string/hint_fab_new_jingle_time_first"-->
+<!--        android:textColorHint="@color/hint_enter_note"-->
+<!--        android:textColor="@color/note_list_text"-->
+<!--        android:textSize="@dimen/text_size_activity" />-->
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--       android:gravity="center"-->
+<!--        android:layout_marginTop="@dimen/dimen_10"-->
+<!--        android:fontFamily="sans-serif-light"-->
+<!--        android:text="Вкажіть тривалість перерв"-->
+<!--        android:textColor="@color/colorSecondaryLight"-->
+<!--        android:textSize="@dimen/lbl_new_note_title" />-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+<!--        <EditText-->
+<!--            android:id="@+id/new_free_first"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="number"-->
+<!--            android:layout_marginTop="@dimen/dimen_10"-->
+<!--            android:fontFamily="sans-serif-light"-->
+<!--            android:hint="@string/hint_fab_new_jingle_free_first_lesson"-->
+<!--            android:textColorHint="@color/hint_enter_note"-->
+<!--            android:textColor="@color/note_list_text"-->
+<!--            android:textSize="@dimen/text_size_activity"-->
+<!--            android:layout_weight="1"/>-->
+<!--        <EditText-->
+<!--            android:id="@+id/new_free_second"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="number"-->
+<!--            android:layout_marginTop="@dimen/dimen_10"-->
+<!--            android:layout_marginLeft="@dimen/dimen_10"-->
+<!--            android:fontFamily="sans-serif-light"-->
+<!--            android:hint="@string/hint_fab_new_jingle_free_second_lesson"-->
+<!--            android:textColorHint="@color/hint_enter_note"-->
+<!--            android:textColor="@color/note_list_text"-->
+<!--            android:textSize="@dimen/text_size_activity"-->
+<!--            android:layout_weight="1"/>-->
+
+<!--    </LinearLayout>-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+<!--        <EditText-->
+<!--            android:id="@+id/new_free_three"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="number"-->
+<!--            android:layout_marginTop="@dimen/dimen_10"-->
+<!--            android:fontFamily="sans-serif-light"-->
+<!--            android:hint="@string/hint_fab_new_jingle_free_three_lesson"-->
+<!--            android:textColorHint="@color/hint_enter_note"-->
+<!--            android:textColor="@color/note_list_text"-->
+<!--            android:textSize="@dimen/text_size_activity"-->
+<!--            android:layout_weight="1"/>-->
+<!--        <EditText-->
+<!--            android:id="@+id/new_free_four"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="number"-->
+<!--           android:layout_marginTop="@dimen/dimen_10"-->
+<!--            android:layout_marginLeft="@dimen/dimen_10"-->
+<!--            android:fontFamily="sans-serif-light"-->
+<!--            android:hint="@string/hint_fab_new_jingle_free_four_lesson"-->
+<!--            android:textColorHint="@color/hint_enter_note"-->
+<!--            android:textColor="@color/note_list_text"-->
+<!--            android:textSize="@dimen/text_size_activity"-->
+<!--            android:layout_weight="1"/>-->
+
+<!--    </LinearLayout>-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+<!--        <EditText-->
+<!--            android:id="@+id/new_free_five"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="number"-->
+<!--            android:layout_marginTop="@dimen/dimen_10"-->
+<!--            android:fontFamily="sans-serif-light"-->
+<!--            android:hint="@string/hint_fab_new_jingle_free_five_lesson"-->
+<!--            android:textColorHint="@color/hint_enter_note"-->
+<!--            android:textColor="@color/note_list_text"-->
+<!--            android:textSize="@dimen/text_size_activity"-->
+<!--            android:layout_weight="1"/>-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/new_free_six"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="number"-->
+<!--            android:layout_marginTop="@dimen/dimen_10"-->
+<!--            android:layout_marginLeft="@dimen/dimen_10"-->
+<!--            android:fontFamily="sans-serif-light"-->
+<!--            android:hint="@string/hint_fab_new_jingle_free_six_lesson"-->
+<!--            android:textColorHint="@color/hint_enter_note"-->
+<!--            android:textColor="@color/note_list_text"-->
+<!--            android:textSize="@dimen/text_size_activity"-->
+<!--            android:layout_weight="1"/>-->
+
+
+<!--    </LinearLayout>-->
+
+
+
+
+</LinearLayout>

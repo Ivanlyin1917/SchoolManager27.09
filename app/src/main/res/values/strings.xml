@@ -24,12 +24,13 @@
 
     <!-- DIALOG-->
     <string name="add_lsn_title">Додати урок</string>
+    <string name="add_new_jingle_title">Новий розклад дзвінків</string>
     <string name="edit_lsn_title">Редагувати урок</string>
     <string name="cm_edit_lesson">Редагувати</string>
     <string name="cm_delete_lesson">Вилучити</string>
     <string name="add_hw_title">Додати ДЗ</string>
     <string name="edit_hw_title">Редагувати ДЗ</string>
-    <string name="edit_jingle_time_title">Редагувати ДЗ</string>
+    <string name="edit_jingle_time_title">Редагувати час дзвінка</string>
     <string name="cm_edit_homework">Редагувати</string>
     <string name="cm_delete_homework">Вилучити</string>
     <string name="cm_done_homework">Виконано</string>
@@ -46,6 +47,17 @@
     <string name="hint_jingle_pos">№ уроку</string>
     <string name="hint_jingle_bgn">Час початку</string>
     <string name="hint_jingle_end">Час закінчення</string>
+    <string name="hint_fab_new_jingle_name">Назва нового розкладу</string>
+    <string name="hint_fab_new_jingle_count_lesson">Кількість уроків</string>
+    <string name="hint_fab_new_jingle_time_first">Час початку першого уроку</string>
+    <string name="hint_fab_new_jingle_lenght_lesson">Тривалість уроку</string>
+    <string name="hint_fab_new_jingle_free_first_lesson">між 1-м і 2-м </string>
+    <string name="hint_fab_new_jingle_free_second_lesson">між 2-м і 3-м </string>
+    <string name="hint_fab_new_jingle_free_three_lesson">між 3-м і 4-м</string>
+    <string name="hint_fab_new_jingle_free_four_lesson">між 4-м і 5-м</string>
+    <string name="hint_fab_new_jingle_free_five_lesson">між 5-м і 6-м</string>
+    <string name="hint_fab_new_jingle_free_six_lesson">між 6-м і 7-м</string>
+    <string name="hint_fab_new_jingle_free_seven_lesson">між 7-м і 8-м</string>
 
     <string name="cm_add_homework">Додати ДЗ</string>
 
