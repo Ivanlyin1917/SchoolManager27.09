@@ -33,9 +33,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="dc143c" />
-                            <entry key="outputName" value="ic_dot_red_24dp" />
-                            <entry key="sourceFile" value="C:\Users\Svetlana" />
+                            <entry key="outputName" value="ic_setting" />
+                            <entry key="sourceFile" value="C:\Users\kateruna\Desktop\ман\setting.svg" />
                           </map>
                         </option>
                       </PersistentState>
