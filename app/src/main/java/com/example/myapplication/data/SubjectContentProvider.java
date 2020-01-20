@@ -156,6 +156,7 @@ public class SubjectContentProvider extends ContentProvider {
                 break;
             case JINGLE:
                 selection =JingleEntry.JINGLE_TYPE_ID + "=?";
+                sortOrder = JingleEntry.POSITION_ID;
                 newCursor = db.query(JingleEntry.TABLE_NAME,projection,selection,selectionArgs,
                         null,null,sortOrder);
                 break;
@@ -295,6 +296,10 @@ public class SubjectContentProvider extends ContentProvider {
             case JINGLE_ID:
                 selection = JingleEntry.JINGLE_ID+ "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                countDelRec = db.delete(JingleEntry.TABLE_NAME,selection,selectionArgs);
+                break;
+            case JINGLE:
+                selection = JingleEntry.JINGLE_TYPE_ID+ "=?";
                 countDelRec = db.delete(JingleEntry.TABLE_NAME,selection,selectionArgs);
                 break;
             default:
