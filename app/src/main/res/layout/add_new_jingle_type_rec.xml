@@ -25,7 +25,7 @@
         android:layout_marginTop="@dimen/dimen_10"
         android:fontFamily="sans-serif-light"
         android:inputType="text"
-        android:hint="@string/hint_fab_new_jingle_name"
+        android:hint="@string/hint_fab_new_name"
         android:textColorHint="@color/hint_enter_note"
         android:textColor="@color/note_list_text"
         android:textSize="@dimen/text_size_activity" />
