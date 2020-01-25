@@ -7,45 +7,45 @@
 
         <item
             android:id="@+id/nav_rozklad"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_rozklad_green_24dp"
             android:title="@string/item_rozklad" />
         <item
             android:id="@+id/nav_homework"
-            android:icon="@drawable/ic_homework"
+            android:icon="@drawable/ic_homework_green_24dp"
             android:title="@string/item_homework" />
         <item
             android:id="@+id/nav_jingle"
-            android:icon="@drawable/ic_ring"
+            android:icon="@drawable/ic_green_jingle_24dp"
             android:title="@string/item_jingle" />
         <item
             android:id="@+id/nav_teacher"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_teacher_green_24dp"
             android:title="@string/item_teacher" />
         <item
             android:id="@+id/nav_note"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_note_green_24dp"
             android:title="@string/item_note" />
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_setting"
             android:title="@string/item_setting" />
-        <item
-            android:id="@+id/test_bd"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/item_test_db" />
+<!--        <item-->
+<!--            android:id="@+id/test_bd"-->
+<!--            android:icon="@drawable/ic_menu_manage"-->
+<!--            android:title="@string/item_test_db" />-->
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+<!--    <item android:title="Communicate">-->
+<!--        <menu>-->
+<!--            <item-->
+<!--                android:id="@+id/nav_share"-->
+<!--                android:icon="@drawable/ic_menu_share"-->
+<!--                android:title="Share" />-->
+<!--            <item-->
+<!--                android:id="@+id/nav_send"-->
+<!--                android:icon="@drawable/ic_menu_send"-->
+<!--                android:title="Send" />-->
+<!--        </menu>-->
+<!--    </item>-->
 
 </menu>

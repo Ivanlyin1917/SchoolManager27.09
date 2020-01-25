@@ -20,6 +20,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_manager_project"
+        app:itemIconTint="@color/colorPrimaryDark"
+        app:itemTextColor="@color/note_list_text"
         app:menu="@menu/activity_manager_project_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

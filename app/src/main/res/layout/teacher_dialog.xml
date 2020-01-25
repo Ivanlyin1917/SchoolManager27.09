@@ -23,7 +23,7 @@
         android:id="@+id/teacher_surname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+
         android:gravity="top"
         android:hint="@string/hint_surname_teacher"
         android:inputType="textCapSentences|textMultiLine"
@@ -35,7 +35,7 @@
         android:id="@+id/teacher_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+
         android:gravity="top"
         android:hint="@string/hint_name_teacher"
         android:inputType="textCapSentences|textMultiLine"
@@ -47,7 +47,7 @@
         android:id="@+id/teacher_lastname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+
         android:gravity="top"
         android:hint="@string/hint_lastname_teacher"
         android:inputType="textCapSentences|textMultiLine"
@@ -59,7 +59,7 @@
         android:id="@+id/teacher_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+
         android:gravity="top"
         android:hint="@string/hint_subject"
         android:inputType="textCapSentences|textMultiLine"

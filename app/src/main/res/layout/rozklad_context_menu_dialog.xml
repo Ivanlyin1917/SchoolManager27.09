@@ -6,7 +6,7 @@
     android:padding="@dimen/general_padding">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_margin="@dimen/general_margin">
         <ImageView
@@ -55,5 +55,6 @@
             android:textSize="@dimen/dialog_text_size"
             android:layout_marginLeft="@dimen/general_margin"/>
     </LinearLayout>
+
 
 </LinearLayout>

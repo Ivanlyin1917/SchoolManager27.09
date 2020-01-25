@@ -110,17 +110,21 @@ public class JingleTypeFragment extends ListFragment implements LoaderManager.Lo
     }
 
     private void showAlertDialog(long jingleTypeId, JingleType jingleType){
-        CharSequence colors[] = new CharSequence[]{"Редагувати", "Вилучити"};
+        CharSequence colors[] = new CharSequence[]{"Редагувати", "Вилучити","Обрати день"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Оберіть дію");
         builder.setItems(colors, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
-                    showJingleTypeDialog(jingleType);
-                } else {
-                    deleteJingleType(jingleTypeId);
+                switch (which) {
+                    case 0:  showJingleTypeDialog(jingleType);
+                    break;
+                    case 1: deleteJingleType(jingleTypeId);
+                    break;
+                    case 2: break;
+                    default: break;
+
                 }
             }
         });

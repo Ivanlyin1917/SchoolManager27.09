@@ -154,12 +154,12 @@ public class Manager_project extends AppCompatActivity
                 transaction.replace(R.id.container,fragmentTeacher);
 
 
-        } else if (id == R.id.test_bd) {//только для разработки
+        } else /*if (id == R.id.test_bd) {//только для разработки
 
             Intent dbmanager = new Intent(getApplicationContext(),AndroidDatabaseManager.class);
             startActivity(dbmanager);
 
-        } else if (id == R.id.nav_jingle) {
+        } else */if (id == R.id.nav_jingle) {
             transaction.replace(R.id.container,navJingleFragment);
 
         }

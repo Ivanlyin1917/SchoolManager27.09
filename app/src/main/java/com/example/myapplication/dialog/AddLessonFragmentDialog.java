@@ -75,7 +75,7 @@ public class AddLessonFragmentDialog extends DialogFragment implements View.OnCl
         spinner = addLessonView.findViewById(R.id.spenner_number_lesson);
         isEmpty = addLessonView.findViewById(R.id.cb_is_empty);
         userInput = addLessonView.findViewById(R.id.new_lesson_name);
-        Button addBtn = addLessonView.findViewById(R.id.btn_add);
+        TextView addBtn = addLessonView.findViewById(R.id.btn_add);
         TextView titleDlg = addLessonView.findViewById(R.id.tv_title_add_lsn_dialog);
 
         //встановлюю onClick на кнопки

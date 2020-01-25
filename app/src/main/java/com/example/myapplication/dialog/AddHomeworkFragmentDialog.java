@@ -74,7 +74,7 @@ public class AddHomeworkFragmentDialog extends  DialogFragment implements View.O
         hwText = addHomeworkView.findViewById(R.id.new_hw_text);
 
         userInput = addHomeworkView.findViewById(R.id.hw_lesson_name);
-        Button addBtn = addHomeworkView.findViewById(R.id.btn_add_hw);
+        TextView addBtn = addHomeworkView.findViewById(R.id.btn_add_hw);
         TextView titleDlg = addHomeworkView.findViewById(R.id.tv_title_add_hw_dialog);
         format=new SimpleDateFormat("dd.MM.YYYY");
 
