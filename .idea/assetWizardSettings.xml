@@ -33,9 +33,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="32cd32" />
-                            <entry key="outputName" value="ic_add_hw_lsn_24dp" />
-                            <entry key="sourceFile" value="C:\Users\Svetlana\Desktop\ic_teacher.svg" />
+                            <entry key="outputName" value="ic_notation_menu" />
+                            <entry key="sourceFile" value="C:\Users\kateruna\Desktop\ман\нотатки.svg" />
                           </map>
                         </option>
                       </PersistentState>

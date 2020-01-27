@@ -11,11 +11,11 @@
             android:title="@string/item_rozklad" />
         <item
             android:id="@+id/nav_homework"
-            android:icon="@drawable/ic_homework_green_24dp"
+            android:icon="@drawable/ic_homework_menu"
             android:title="@string/item_homework" />
         <item
             android:id="@+id/nav_jingle"
-            android:icon="@drawable/ic_green_jingle_24dp"
+            android:icon="@drawable/ic_rigle_menu"
             android:title="@string/item_jingle" />
         <item
             android:id="@+id/nav_teacher"
@@ -23,7 +23,7 @@
             android:title="@string/item_teacher" />
         <item
             android:id="@+id/nav_note"
-            android:icon="@drawable/ic_note_green_24dp"
+            android:icon="@drawable/ic_notation_menu"
             android:title="@string/item_note" />
         <item
             android:id="@+id/nav_setting"
