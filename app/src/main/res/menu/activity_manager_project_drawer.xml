@@ -19,7 +19,7 @@
             android:title="@string/item_jingle" />
         <item
             android:id="@+id/nav_teacher"
-            android:icon="@drawable/ic_teacher"
+            android:icon="@drawable/ic_teacher1"
             android:title="@string/item_teacher" />
         <item
             android:id="@+id/nav_note"
